@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# set -e
+
+# set diy sources.list
+cp /usr/share/diy/preferences /etc/apt/preferences
+cp /usr/share/diy/apt.conf /etc/apt/apt.conf
+cp /usr/share/diy/sources.list /etc/apt/sources.list
+
+# remove the live tools
+dpkg --purge live-tools
+
+# remove autologin after install
+# sed -i "s/autologin-user=diylive/# autologin-user=/g" /etc/lightdm/lightdm.conf
+# sed -i "s/autologin-user-timeout=0/# autologin-user-timeout=0/g" /etc/lightdm/lightdm.conf
+
+# update grub
+sed -i "s/echo Debian/echo DIY/g" /etc/default/grub
+sed -i "s/echo Devuan/echo DIY/g" /etc/default/grub
+sed -i "s/quiet//g" /etc/default/grub
+sed -i "s/GRUB_THEME=/#GRUB_THEME=/g" /etc/default/grub
+echo "GRUB_BACKGROUND=\"/usr/share/images/desktop-base/diy-grub.png\"" >> /etc/default/grub
+update-grub
+
+# enable firewall
+ufw default reject incoming
+ufw default allow outgoing
+ufw enable

@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# set -e
+
+echo DIY-LIVE-Hook: "$0"
+echo ""
+
+echo "I: ufw enable"
+# echo "I: ufw reject incoming"
+
+# http://crunchbang.org/forums/viewtopic.php?pid=404787#p404787
+
+#~ ufw disable
+
+#~ ufw default allow outgoing
+#~ ufw default reject incoming
+#~ # ufw allow ssh /port 22
+#~ # ufw delete allow 22
+
+#~ ufw enable
+
+#~ ufw status
+
+ufw enable
+ufw default reject incoming
+# ufw default allow outgoing
+# ufw allow ssh /port 22
+# ufw delete allow 22
+ufw status verbose
+
+echo ""

@@ -1,0 +1,18 @@
+#!/bin/sh
+### remove unneeded services from startup
+
+# echo "I: disable gpm autostart"
+# update-rc.d -f gpm remove
+# echo "I: disable live-installer autostart"
+# update-rc.d -f live-installer remove
+# echo "I: disable atop autostart"
+# update-rc.d -f atop remove
+# echo "I: disable bluetooth service autostart"
+# update-rc.d -f bluetooth remove
+# echo "I: disable cups autostart"
+# update-rc.d -f cups remove
+
+# libpam-systemd is installed explicitly, just in case you have recommends turned off.
+# apt-get install systemd libpam-systemd
+# sed -i 's,^GRUB_CMDLINE_LINUX_DEFAULT=",GRUB_CMDLINE_LINUX_DEFAULT="quiet init=init=/lib/systemd/systemd,g' /etc/default/grub
+# update-grub

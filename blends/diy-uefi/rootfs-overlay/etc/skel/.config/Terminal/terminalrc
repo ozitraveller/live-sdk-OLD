@@ -1,0 +1,24 @@
+[Configuration]
+# ColorForeground=#efefefefefef
+# ColorCursor=#efefefefefef
+# FontName=Liberation Mono 10
+FontName=Monospace 10
+#ColorForeground=#4343c6c61a1a
+ColorForeground=#efefefefefef
+ColorCursor=#ffffffffffff
+MiscAlwaysShowTabs=FALSE
+MiscBell=FALSE
+MiscBordersDefault=TRUE
+MiscCursorBlinks=FALSE
+MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
+MiscDefaultGeometry=80x24
+MiscInheritGeometry=FALSE
+MiscMenubarDefault=TRUE
+MiscMouseAutohide=FALSE
+MiscToolbarDefault=FALSE
+MiscConfirmClose=TRUE
+MiscCycleTabs=TRUE
+MiscTabCloseButtons=TRUE
+MiscTabCloseMiddleClick=TRUE
+MiscTabPosition=GTK_POS_TOP
+MiscHighlightUrls=TRUE

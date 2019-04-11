@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -x
+
+dpkg-query -f '${binary:Package}	${Version}\n' -W > ./installed-packages

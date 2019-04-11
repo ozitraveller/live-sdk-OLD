@@ -1,0 +1,164 @@
+
+
+# base 	
+# 	locales-all
+# 	aptitude
+# 	console-setup ??
+# 	console-data
+# 	dselect
+#	os-prober
+#	acpi-support-base ??
+#	discover ??
+#	dnsutils
+#	ftp
+#	gnupg2
+#	reportbug
+#	usbutils
+#	whois
+#	dhcpcd5
+#	inetutils-ping
+#	libuuid-perl
+#	wireless-tools
+#	wpasupplicant
+#	ethtool
+#	build-essential ??
+#	fakeroot ??
+#	gawk
+#	firmware-linux-free
+
+
+	#~ xorg
+	#~ accountsservice
+	#~ upower
+	#~ slim
+	#~ kexec-tools
+	#~ gettext-base
+	#~ pm-utils
+	#~ xdg-user-dirs
+	#~ xdg-utils
+	#~ alsa-utils
+	#~ apulse
+	#~ rtkit
+	#~ apt-listchanges
+	#~ tasksel
+	#~ gamin
+	#~ cpufrequtils
+	#~ tzdata
+	#~ ntp
+	#~ unrar
+	#~ unace
+	#~ unalz
+	#~ unzip
+	#~ lzop
+	#~ rzip
+	#~ zip
+	#~ xz-utils
+	#~ arj
+	#~ bzip2
+	#~ gzip
+	#~ rpl
+	#~ dosfstools
+	#~ gpart
+	#~ mtools
+	#~ ntfs-3g
+	#~ xfsprogs
+	#~ xfsdump 
+	#~ reiserfsprogs 
+	#~ reiser4progs 
+	#~ jfsutils 
+	#~ libxss1
+	#~ logrotate
+	#~ mpg321
+	#~ gstreamer1.0-plugins-base
+	#~ gstreamer1.0-plugins-good 
+	#~ gstreamer1.0-plugins-bad
+	#~ gstreamer1.0-plugins-ugly
+	#~ gstreamer1.0-alsa
+	#~ gir1.2-gst-plugins-base-1.0
+	#~ gir1.2-gstreamer-1.0
+	#~ policykit-1
+	#~ policykit-1-gnome
+	#~ rfkill
+	#~ usbutils
+	#~ localepurge
+	#~ xserver-xorg-video-all
+	#~ intel-microcode
+	#~ amd64-microcode
+	#~ iucode-tool
+	#~ firmware-zd1211
+	#~ firmware-linux 
+	#~ firmware-linux-nonfree 
+	#~ firmware-netxen
+	#~ firmware-ralink 
+	#~ firmware-iwlwifi
+	#~ firmware-intelwimax 
+	#~ firmware-brcm80211
+	#~ firmware-realtek
+	#~ firmware-atheros
+	#~ firmware-libertas
+	#~ firmware-bnx2
+	#~ firmware-b43-installer 
+	#~ firmware-b43legacy-installer 
+	#~ b43-fwcutter 
+	#~ mobile-broadband-provider-info 
+	#~ iw
+	#~ wireless-tools
+	#~ lsb-release
+	#~ wmctrl
+	#~ setnet
+	#~ wpasupplicant
+	#~ net-tools
+	#~ iputils-ping
+	#~ bind9-host
+	#~ traceroute
+	#~ apt-transport-https
+	#~ desktop-base
+	#~ bash-completion
+	#~ ttf-dejavu 
+	#~ fonts-liberation 
+	#~ fontconfig-config 
+	#~ dmz-cursor-theme
+	#~ gtk2-engines-murrine 
+	#~ gtk2-engines-pixbuf
+	#~ bum 
+	#~ hdparm 
+	#~ disk-manager 
+	#~ ufw 
+	#~ gparted  
+	#~ htop
+	#~ gksu 
+	#~ gdebi 
+	#~ hardinfo 
+	#~ synaptic
+	#~ galternatives
+	#~ i3lock
+	#~ suckless-tools 
+	#~ epiphany-browser
+	#~ conky-all 
+	#~ scrot
+	#~ xpdf
+	#~ xterm
+	#~ ncdu
+	#~ pciutils
+	#~ task-english
+	#~ live-tools
+	#~ eject
+	#~ file
+	#~ uuid-runtime
+	#~ jwm
+	#~ dunst
+	#~ connman
+	#~ connman-ui
+	#~ hsetroot
+	#~ lxterminal
+	#~ arandr
+	#~ lxappearance
+	#~ leafpad
+	#~ pcmanfm
+	#~ libfm-modules
+	#~ gvfs-backends
+	#~ gvfs-fuse
+	#~ lsof
+	#~ yad
+	#~ mpv
+	#~ xarchiver

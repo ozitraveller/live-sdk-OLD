@@ -1,0 +1,130 @@
+#!/usr/bin/env zsh
+# Copyright (c) 2016-2017 Dyne.org Foundation
+# libdevuansdk is maintained by Ivan J. <parazyd@dyne.org>
+#
+# This file is part of libdevuansdk
+#
+# This source code is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This software is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this source code. If not, see <http://www.gnu.org/licenses/>.
+
+## libdevuansdk configuration
+
+vars+=(release version mirror section blend image_name vm_name)
+vars+=(arch earch)
+vars+=(aptcachedir APT_CACHE aptcachegpg)
+vars+=(usercredentials rootcredentials)
+vars+=(nocompressimage)
+
+arrs+=(core_packages base_packages purge_packages blend_packages)
+
+## enable local apt cache
+APT_CACHE=${APT_CACHE:-0}
+aptcachedir="$LIBPATH/apt-cache"
+## key used to sign the cache's Release
+aptcachegpg="0xdeadbeefdeadbeef"
+
+image_name="${os}_${release}_${version}_${arch}"
+[[ -n "$blend"  ]] && image_name="${image_name}_${blend}"
+[[ -n "$device_name" ]] && image_name="${image_name}_${device_name}"
+
+vm_name="${os}_${release}_${version}_${arch}_vagrant"
+[[ -n $blend  ]] && vm_name="${image_name}_${blend}"
+
+rootcredentials="root:toor"
+usercredentials="devuan:devuan"
+
+rm -f Packages Sources tmp.txt
+
+core_packages_option=()
+core_packages=(
+	devuan-keyring
+	debian-keyring
+	ca-certificates
+	initramfs-tools
+	e2fsprogs
+	bzip2
+	curl
+	less
+	vim
+	nano
+	sysvinit
+)
+
+base_packages_option=()
+base_packages=(
+	apt-utils
+	parted
+	openssh-server
+	openssh-client
+	sudo
+	alsa-utils
+	mawk
+	tmux
+	screen
+	ntp
+	wpasupplicant
+	wireless-tools
+	lynx
+	firmware-linux-free
+	btrfs-tools
+	zsh
+	rsync
+	git-core
+	mlocate
+	locales
+)
+
+extra_packages_option=()
+extra_packages+=(
+
+	pmount
+	alsa-oss
+	alsa-utils
+	eject
+	elogind
+	policykit-1
+	consolekit
+	debhelper
+	git-buildpackage
+	quilt
+	pristine-tar
+	build-essential
+	unrar-free
+	zip
+	unzip
+	gzip
+	bzip2
+	p7zip-full
+	rzip
+	rtkit
+	tasksel
+	gamin
+	cpufrequtils
+	tzdata
+	unace
+	unalz
+	lzop
+	xz-utils
+	upower
+	kexec-tools
+	pm-utils
+	rfkill
+	usbutils
+	
+)
+
+purge_packages_option=()
+purge_packages+=(
+	lightdm
+
+)

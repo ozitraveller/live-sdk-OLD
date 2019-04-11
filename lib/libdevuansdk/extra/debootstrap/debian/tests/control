@@ -1,0 +1,9 @@
+Tests: debian-testing
+Depends:
+ debootstrap,
+ libdistro-info-perl,
+ libdpkg-perl,
+ libipc-run-perl,
+ perl,
+ ca-certificates,
+Restrictions: allow-stderr, needs-root

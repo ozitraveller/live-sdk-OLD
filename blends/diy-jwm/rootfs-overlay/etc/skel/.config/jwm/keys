@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<JWM>
+
+
+   <!-- Key bindings -->
+   <Key key="Up">up</Key>
+   <Key key="Down">down</Key>
+   <Key key="Right">right</Key>
+   <Key key="Left">left</Key>
+   <Key key="h">left</Key>
+   <Key key="j">down</Key>
+   <Key key="k">up</Key>
+   <Key key="l">right</Key>
+   <Key key="Return">select</Key>
+   <Key key="Escape">escape</Key>
+
+   <Key mask="A" key="Tab">next</Key>
+   <Key mask="A" key="F4">close</Key>
+   <Key mask="A" key="#">desktop#</Key>
+   <Key mask="A" key="F1">root:1</Key>
+   <Key mask="A" key="F2">window</Key>
+   <Key mask="A" key="F10">maximize</Key>
+   <Key mask="A" key="Right">rdesktop</Key>
+   <Key mask="A" key="Left">ldesktop</Key>
+   <Key mask="A" key="Up">udesktop</Key>
+   <Key mask="A" key="Down">ddesktop</Key>
+   
+   <Key mask="4" key="t">exec:x-terminal-emulator</Key>
+   <Key mask="4" key="w">exec:x-www-browser</Key>
+   <Key mask="4" key="f">exec:x-file-manager</Key>
+   <Key mask="4" key="e">exec:editor</Key>
+   <Key mask="4" key="m">exec:x-media-player</Key>Key>
+   <Key mask="4" key="l">exec:/usr/bin/i3lock -n -p default --color=000000</Key>
+   <Key mask="4" key="x">exec:/usr/bin/diy-logout</Key>
+   <Key mask="4" key="d">exec:~/.config/dmenu/dmenu-bind.sh</Key>
+     
+   <Key mask="CS" key="+">exec:~/.config/dmenu/dmenu-bind.sh</Key> 
+   <Key mask="CS" key="j">exec:/usr/bin/touchtoggle.sh</Key>   
+
+</JWM>

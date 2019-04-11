@@ -1,0 +1,11 @@
+#!/bin/sh
+# set geany as default grub background.
+#########################################
+
+set -e
+
+echo DIY-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install /usr/bin/desktop-grub desktop-grub /usr/share/images/desktop-base/diy-grub.png 99
+

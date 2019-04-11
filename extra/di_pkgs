@@ -1,0 +1,12 @@
+grub-pc
+grub-pc-bin
+grub-common
+grub2-common
+ucf
+libdevmapper1.02.1
+libfreetype6
+libfuse2
+gettext-base
+libpng12-0
+dmsetup
+

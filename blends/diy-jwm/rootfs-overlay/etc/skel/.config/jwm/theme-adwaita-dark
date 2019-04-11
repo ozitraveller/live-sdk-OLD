@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<JWM>
+
+
+    <!-- Visual Style Window. -->
+    <WindowStyle decorations="flat">
+        <Font align="center">liberation.sans-11:antialias=true:encoding=utf8</Font>
+        <Width>1</Width>
+        <Height>22</Height>
+        <Corner>4</Corner>
+        <Foreground>#A4A5A9</Foreground>
+        <Background>#505050</Background>
+        <Outline>#505050</Outline>
+        <Opacity>0.8</Opacity>
+        <Active>
+            <Foreground>#FFFFFF</Foreground>
+            <Background>#33393B</Background>
+            <Outline>#33393B</Outline>
+        </Active>
+    </WindowStyle>
+
+    <!-- Visual Style Window Buttons. -->
+    <!--
+        <ButtonClose>/usr/share/themes/buttons/jwm/close.png</ButtonClose>
+        <ButtonMax>/usr/share/themes/buttons/jwm/max.png</ButtonMax>
+        <ButtonMaxActive>/usr/share/themes/buttons/jwm/maxact.png</ButtonMaxActive>
+        <ButtonMin>/usr/share/themes/buttons/jwm/min.png</ButtonMin>
+    -->
+
+    <!-- Visual Style Menu. -->
+    <MenuStyle>
+        <Font>liberation.sans-10:antialias=true:encoding=utf8</Font>
+        <Foreground>#A4A5A9</Foreground>
+        <Background>#33393B</Background>
+        <Outline>#33393B</Outline>
+        <Active>
+            <Foreground>#FFFFFF</Foreground>
+<!--
+            <Background>#4084D6</Background>
+-->
+            <Background>#33393A</Background>
+        </Active>
+    </MenuStyle>
+
+    <!-- Visual Style Tray. -->
+    <TrayStyle decorations="flat">
+        <Font>liberation.sans-10:antialias=true:encoding=utf8</Font>
+        <Foreground>#F9F9F9</Foreground>
+        <Background>#262626</Background>
+        <Outline>#262626</Outline>
+        <Active>
+            <Foreground>#FFFFFF</Foreground>
+            <Background>#215d9c</Background>
+        </Active>
+    </TrayStyle>
+
+    <!-- Visual Style Pager. -->
+    <PagerStyle>
+        <Outline>#FFFFFF</Outline>
+        <Font>liberation.sans-8:antialias=true:encoding=utf8</Font>
+        <Text>#F9F9F9</Text>
+        <Foreground>#5294E2</Foreground>
+        <Background>#000000</Background>
+        <Active>
+            <Foreground>#4D679A</Foreground>
+            <Background>#5294E2</Background>
+        </Active>
+    </PagerStyle>
+
+    <!-- Visual Style Pop. -->
+    <PopupStyle>
+        <Font>liberation.sans-10:antialias=true:encoding=utf8</Font>
+        <Outline>#414244</Outline>
+        <Foreground>#F9F9F9</Foreground>
+        <Background>#414244</Background>
+    </PopupStyle>
+
+    <!-- Visual Style Clock. -->
+    <ClockStyle>
+        <Font>liberation.sans-10:weight=demibold:antialias=true:encoding=utf8</Font>
+    </ClockStyle>
+
+</JWM>

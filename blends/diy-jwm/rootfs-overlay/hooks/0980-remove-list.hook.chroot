@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+# apt-get -y xfce4-appfinder
+# apt-get -y xfburn
+# apt-get -y xfce4-screenshooter

@@ -1,0 +1,84 @@
+devuan-keyring (2017.10.03) unstable; urgency=medium
+
+  * Imported new amprolla3 key into devuan-keyring.gpg
+  * Added devuan-keyring-2017-archive.gpg
+  * Resigned SHA512SUMS and md5sums
+
+ -- Denis Roio <jaromil@dyne.org>  Tue, 03 Oct 2017 14:10:50 +0200
+
+devuan-keyring (2017.09.04) unstable; urgency=medium
+
+  * Team upload for new repository infra
+  * Added new amprolla3 key hosted on nemesis (signed with main repo)
+  * update control file to VUA team maintainership
+
+ -- Denis Roio <jaromil@dyne.org>  Mon, 04 Sep 2017 12:36:32 +0200
+
+devuan-keyring (2016.11.22) unstable; urgency=medium
+
+  * Proper fix for devuan installer and debootstrap udeb
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Tue, 22 Nov 2016 22:39:12 +0200
+
+devuan-keyring (2016.10.29) unstable; urgency=medium
+
+  * Add devuan-archive-keyring.gpg to /usr/share/keyrings
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Sat, 29 Oct 2016 23:19:20 +0200
+
+devuan-keyring (2016.10.11) unstable; urgency=medium
+
+  * split keys, put archive keys in /etc/apt/trusted.gpg.d
+  * update Franco (nextime) Lanza keys
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Tue, 11 Oct 2016 15:21:38 +0200
+
+devuan-keyring (2016.10.10) unstable; urgency=medium
+
+  * Removed apt-key dependency
+  * Remastered rules and package (copied from the ubuntu one)
+  * Refreshed keyring
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Mon, 10 Oct 2016 12:43:40 +0200
+
+devuan-keyring (2016.10.07) unstable; urgency=medium
+
+  * Added devuan toaster pub key
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Fri, 07 Oct 2016 01:51:53 +0200
+
+devuan-keyring (2015.05.05) unstable; urgency=medium
+
+  * fix build for udeb
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Mon, 04 May 2015 22:03:58 +0200
+
+devuan-keyring (2015.05.04) unstable; urgency=medium
+
+  * Add udeb install file as for issue #5.
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Mon, 04 May 2015 01:36:14 +0200
+
+devuan-keyring (2015.05.02) unstable; urgency=medium
+
+  * Build also udeb package and change priority.
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Sat, 02 May 2015 09:33:23 +0200
+
+devuan-keyring (2015.04.11) unstable; urgency=medium
+
+  * Build also udeb package and change priority.
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Sat, 11 Apr 2015 09:55:58 +0200
+
+devuan-keyring (2014.12.07) unstable; urgency=medium
+
+  * Added repository key.
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Sat, 6 Dec 2014 10:05:27 +0100
+
+devuan-keyring (2014.12.06) unstable; urgency=low
+
+  * First packaging.
+
+ -- Franco (nextime) Lanza <nextime@devuan.org>  Sat, 6 Dec 2014 17:20:39 +0100

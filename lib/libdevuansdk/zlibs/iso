@@ -1,0 +1,261 @@
+#!/usr/bin/env zsh
+# Copyright (c) 2016-2017 Dyne.org Foundation
+# libdevuansdk is maintained by Ivan J. <parazyd@dyne.org>
+#
+# This file is part of libdevuansdk
+#
+# This source code is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This software is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this source code. If not, see <http://www.gnu.org/licenses/>.
+
+## burn baby
+
+#[[ $INSTALLER = 1 ]] && base_packages+=(grub-pc)
+
+iso_prepare_strap() {
+	fn iso_prepare_strap
+	req=(strapdir)
+	ckreq || return 1
+
+	notice "preparing strapdir for livecd"
+
+	cat <<EOF | sudo tee ${strapdir}/isoprep >/dev/null
+#!/bin/sh
+apt-get update
+apt-get --yes --force-yes install dialog live-boot live-boot-initramfs-tools
+apt-get --yes --force-yes autoremove
+EOF
+
+	chroot-script -d isoprep    || zerr
+}
+
+iso_setup_isolinux() {
+	fn iso_setup_isolinux
+	req=(workdir strapdir release arch url_pkg)
+	ckreq || return 1
+
+	notice "setting up isolinux"
+
+	mkdir -p $workdir/binary/{live,isolinux}
+	act "copying kernel and initrd"
+	cp $strapdir/boot/vmlinuz* $workdir/binary/live/vmlinuz
+	cp $strapdir/boot/initrd*  $workdir/binary/live/initrd.img
+	#cp $strapdir/boot/memtest86+.bin $workdir/binary/live/memtest	
+	
+	rm -rf $workdir/syslinux
+	mkdir -p $workdir/syslinux
+	pushd $workdir/syslinux
+	wget $url_pkg/dists/$release/main/binary-$arch/Packages.gz
+	rm -f Packages
+	gzip -d Packages.gz
+	
+	line=`grep "^Filename:" Packages | grep "syslinux_"`
+	
+	line=${line##*/}
+	line=${line%%-*}
+	
+	wget $url_pkg/dists/$release/main/source/Sources.gz
+	rm -f Sources
+	gzip -d Sources.gz
+	
+	if grep "syslinux_" Sources | grep ".orig.tar.gz"
+	then
+	    line=`grep "syslinux_" Sources | grep ".orig.tar.g z"`
+	elif  grep "syslinux_" Sources | grep ".orig.tar.xz"
+	then
+	    line=`grep "syslinux_" Sources | grep ".orig.tar.xz"`
+	fi
+		
+	wget http://deb.debian.org/debian/pool/main/s/syslinux/syslinux_${line##*_}	
+	if [ ${line##*.} = "xz" ]; then
+		tar -Jxvf "syslinux_${line##*_}"
+	elif [ ${line##*.} = "gz" ]; then
+		tar -xzvf "syslinux_${line##*_}"
+	fi
+
+	notice "building syslinux"
+	pushd syslinux-*
+	make
+	popd && popd
+	
+	case $arch in
+		i386)   bits="32"      ;;
+		amd64)  bits="64"      ;;
+	esac
+	
+	case $bits in
+		"32")  efiboot="bootia32.efi"     ;;
+		"64")  efiboot="bootix32.efi"     ;;
+	esac
+	
+	#mkdir -p $workdir/binary/efi
+	#mkdir -p $workdir/binary/efi/boot
+	#cp -rav $workdir/syslinux/syslinux-*/efi${bits}/efi/syslinux.efi   $workdir/binary/boot/$efiboot
+		
+	cp -rav $workdir/syslinux/syslinux-*/bios/core/isolinux.bin                  $workdir/binary/isolinux/
+	cp -rav $workdir/syslinux/syslinux-*/bios/com32/chain/chain.c32              $workdir/binary/isolinux/
+	cp -rav $workdir/syslinux/syslinux-*/bios/com32/elflink/ldlinux/ldlinux.c32  $workdir/binary/isolinux/
+	cp -rav $workdir/syslinux/syslinux-*/bios/com32/lib/libcom32.c32             $workdir/binary/isolinux/	
+	cp -rav $workdir/syslinux/syslinux-*/bios/com32/libutil/libutil.c32          $workdir/binary/isolinux/
+	cp -rav $workdir/syslinux/syslinux-*/bios/com32/menu/vesamenu.c32            $workdir/binary/isolinux/
+}
+
+iso_write_isolinux_cfg() {
+	fn iso_write_isolinux_cfg "(override)"
+	req=(workdir)
+	ckreq || return 1
+	
+	notice "copying isolinux overlay"
+	cp -rav $R/extra/isolinux-overlay/*.cfg $workdir/binary/isolinux/
+	# ozi
+	cp -rav $R/extra/isolinux-overlay/*.txt $workdir/binary/isolinux/
+	cp -rav $R/extra/isolinux-overlay/splash.png $workdir/binary/isolinux/	
+	
+	#distrib=`echo "${blend_distribution}" | sed 's/^./\u&/'`		
+	#sed -i "s/${distrib} Live/${blend_distribution} ${version%%.*} ${label} ${kernel_flavor}/g" $workdir/binary/isolinux/menu.cfg
+}
+
+iso_squash_strap() {
+	fn iso_squash_strap
+	req=(workdir strapdir)
+	ckreq || return 1
+
+	notice "creating squashfs out of strapdir"
+
+	case "$arch" in
+		amd64|i386)
+			_compfilt="-Xbcj x86"
+			;;
+		arm*)
+			_compfilt="-Xbcj arm"
+			;;
+		*)
+			_compfilt=""
+			;;
+	esac
+	pushd $workdir
+	[[ -f binary/live/filesystem.squashfs ]] && rm -f binary/live/filesystem.squashfs
+	sudo mksquashfs $strapdir binary/live/filesystem.squashfs \
+		-no-recovery -always-use-fragments -b 1048576 -comp xz ${=_compfilt} -Xdict-size 75% || zerr
+
+	#~ sudo mksquashfs $strapdir binary/live/filesystem.squashfs \
+		#~ -comp xz ${=_compfilt} -noappend || zerr
+		
+
+	popd
+}
+
+iso_xorriso_build() {
+	fn iso_xorriso_build
+	req=(workdir image_name)
+	ckreq || return 1
+
+	notice "building iso..."
+
+	#date_stamp=$(date "+%Y.%m.%d")
+	date_stamp=$(date "+%Y.%m")
+	#blend_distribution=${blend%%-*}
+	blend=${blendlib##*/}
+	blend_distribution=${blend%%-*}
+	#label=`echo "${blend_distribution}" | sed 's/^./\u&/'`
+	#release_label=`echo "${release}" | sed 's/^./\u&/'`
+	label=${blend##*-}
+	label=${label%%.*}
+	release_label=$release
+	image_name="${blend_distribution}-${version}-${release_label}_${date_stamp}-${label}_${earch}"
+	echo "image_name: "${image_name}
+
+	[[ -n "$mkefi" ]] && {
+	uefi_opt="-eltorito-alt-boot -e boot/grub/efiboot.img -isohybrid-gpt-basdat -no-emul-boot"
+	}
+
+	## this is a hack
+	isohybrid=/usr/lib/ISOLINUX/isohdpfx.bin #"$R"/extra/syslinux/isohdpfx.bin
+
+	mkdir -p $R/dist
+	pushd $workdir
+	
+	sudo xorriso -as mkisofs -r -J -joliet-long -l \
+		-isohybrid-mbr $isohybrid \
+		-partition_offset 16 \
+		-A "${os} Live - ${arch}" \
+		-b isolinux/isolinux.bin \
+		-c isolinux/boot.cat \
+		-no-emul-boot \
+		-boot-load-size 4 \
+		-boot-info-table \
+		${=uefi_opt} \
+		-o customiso.iso \
+		binary || zerr
+
+		mv ./customiso.iso $R/dist/$image_name.iso 
+	
+	popd
+	unset uefi_opt
+
+	[[ "$DEBUG" = 1 ]] || {
+		[[ -n "$workdir" ]] && sudo rm -rf "$workdir"
+	}
+}
+
+iso_genisoimage_build() {
+	fn iso_xorriso_build
+	req=(workdir earch blendlib version release)
+	ckreq || return 1
+
+	notice "building iso..."
+	
+	#date_stamp=$(date "+%Y.%m.%d")
+	date_stamp=$(date "+%Y.%m")
+	#blend_distribution=${blend%%-*}
+	blend=${blendlib##*/}
+	blend_distribution=${blend%%-*}
+	#label=`echo "${blend_distribution}" | sed 's/^./\u&/'`
+	#release_label=`echo "${release}" | sed 's/^./\u&/'`
+	label=${blend##*-}
+	label=${label%%.*}
+	release_label=$release
+	image_name="${blend_distribution}-${version}-${release_label}_${date_stamp}-${label}_${earch}"
+	
+	isohybrid="$R"/extra/syslinux/isohdpfx.bin
+
+	mkdir -p $R/dist
+	pushd $workdir
+	
+	[[ -f $workdir/binary/md5sums ]] && rm -f $workdir/binary/md5sums
+	
+	chmod -R 777 $workdir/binary
+	pushd $workdir/binary	
+	find . -xdev -type f -print0 | xargs -0 md5sum > md5sums
+	popd
+	genisoimage    \
+		-quiet \
+		-r    \
+		-V customiso    \
+		-cache-inodes    \
+		-J    \
+		-l    \
+		-b isolinux/isolinux.bin    \
+		-c isolinux/boot.cat    \
+		-no-emul-boot    \
+		-boot-load-size 4    \
+		-boot-info-table    \
+		-o $R/dist/customiso.iso "$workdir/binary" || zerr
+
+	mv $R/dist/customiso.iso $R/dist/$image_name.iso 
+	isohybrid $R/dist/$image_name.iso
+	md5sum $R/dist/$image_name.iso > $R/dist/$image_name.iso.md5
+
+	[[ "$DEBUG" = 1 ]] || {
+		[[ -n "$workdir" ]] && rm -rf "$workdir"
+	}
+}

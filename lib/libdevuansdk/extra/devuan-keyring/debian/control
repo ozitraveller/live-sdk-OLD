@@ -1,0 +1,33 @@
+Source: devuan-keyring
+Section: misc
+Priority: optional
+Maintainer: Veteran UNIX Admins <vua@devuan.org>
+Uploaders: Franco (nextime) Lanza <nextime@devuan.org>, Denis (jaromil) Roio <jaromil@dyne.org>
+Bugs: mailto:bugs@devuan.org
+Homepage: http://www.devuan.org
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9), gnupg, debian-keyring
+
+Package: devuan-keyring
+Priority: important
+Architecture: all
+Multi-Arch: foreign
+Depends: gpgv
+Recommends: gnupg | gnupg1
+Breaks: apt (<< 0.7.25.1)
+Description: GnuPG archive key of the devuan repository
+ The devuan repository digitally signs its Release files.
+ This package contains the repository keys from devuan
+ developers used for that.
+
+Package: devuan-keyring-udeb
+XC-Package-Type: udeb
+Priority: optional
+Architecture: all
+Section: debian-installer
+Recommends: gpgv-udeb
+Description: GnuPG keys of the Devuan archive
+ The Devuan project digitally signs its Release files. This package
+ contains the archive keys used for that, in a minimal form for use
+ in the installer.
+

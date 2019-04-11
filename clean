@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# set -e
+
+# sudo rm ~/tmp/bootstrap-simple-ice-amd64.tgz
+# sudo rm -rf ~/tmp/devuan-amd64-build
+sudo rm -rf ~/*.log
+# sudo rm -rf ~/*.logexit
+sudo rm -rf ~/tmp/*
+sudo rm -rf ~/dist/*
+# sudo rm -rf ~/dist/star-jwm*
+sudo rm -rf ~/log/*
+# sudo rm -rf ~/Packages*

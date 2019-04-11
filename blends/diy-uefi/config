@@ -1,0 +1,230 @@
+#!/usr/bin/env zsh
+# config for diy-jwm.blend
+
+# comment to disable:
+hookscripts="yes"
+
+# uncomment to create uefi-bootable iso
+#~ mkefi="yes"
+#~ efi_work="$BLENDPATH/efi-files"
+
+#grubversion="grub-pc"
+grubversion="grub-efi-amd64"
+
+core_packages+=(
+	
+	grub-pc
+	grub-efi-amd64
+	devuan-keyring
+	debian-keyring
+	ca-certificates
+	libc6
+	libc-bin
+	initramfs-tools
+	e2fsprogs
+	btrfs-tools
+	nfs-common
+	dosfstools
+	gpart
+	mtools
+	ntfs-3g
+	xfsprogs
+	xfsdump 
+	reiserfsprogs 
+	reiser4progs 
+	jfsutils 	
+	less
+	nano
+	vim
+	curl
+	lvm2
+	sysvinit
+	sysvinit-core
+	sysvinit-utils
+	live-tools
+	eject
+	file
+)
+	
+base_packages+=(
+
+	base-files
+	lsb-release
+	lsb-base
+	adduser
+	sudo
+	rpl
+	apt-utils
+	aptitude
+	nss-updatedb
+	sudo
+	parted
+	console-setup
+	console-data
+	locales
+	dselect
+	mawk
+	ntp
+	openssh-server
+	openssh-client	
+	firmware-linux-free
+	os-prober
+	debconf
+	lsof
+	bash-completion
+	acpi-support-base
+	apt-listchanges
+	dnsutils
+	ftp
+	gnupg2
+	iw
+	laptop-detect
+	reportbug
+	usbutils
+	whois
+	gettext-base
+	dhcpcd5
+	net-tools
+	psmisc
+	inetutils-ping
+	libnl-3-200
+	libnl-genl-3-200
+	libpcsclite1
+	libuuid-perl
+	linux-base
+	wireless-tools
+	wpasupplicant
+	ethtool
+	build-essential
+	fakeroot
+	gawk
+	hwinfo
+)
+
+extra_packages+=(	
+
+	xorg
+	accountsservice
+	upower
+	slim
+	kexec-tools
+	pm-utils
+	xdg-user-dirs
+	xdg-utils
+	alsa-utils
+	apulse
+	rtkit
+	tasksel
+	gamin
+	cpufrequtils
+	tzdata
+	unrar
+	unace
+	unalz
+	unzip
+	lzop
+	rzip
+	zip
+	xz-utils
+	arj
+	bzip2
+	gzip
+	rpl
+	libxss1
+	logrotate
+	mpg321
+	gstreamer1.0-plugins-base
+	gstreamer1.0-plugins-good 
+	gstreamer1.0-plugins-bad
+	gstreamer1.0-plugins-ugly
+	gstreamer1.0-alsa
+	gir1.2-gst-plugins-base-1.0
+	gir1.2-gstreamer-1.0
+	policykit-1
+	policykit-1-gnome
+	rfkill
+	usbutils
+	localepurge
+	xserver-xorg-video-all
+	intel-microcode
+	amd64-microcode
+	iucode-tool
+	firmware-zd1211
+	firmware-linux 
+	firmware-netxen
+	firmware-ralink 
+	firmware-iwlwifi
+	firmware-intelwimax 
+	firmware-brcm80211
+	firmware-realtek
+	firmware-atheros
+	firmware-libertas
+	firmware-bnx2
+	firmware-bnx2x
+	firmware-myricom
+	firmware-qlogic
+	mobile-broadband-provider-info 
+	iw
+	wireless-tools
+	wpasupplicant
+	lsb-release
+	wmctrl
+	setnet
+	iputils-ping
+	bind9-host
+	traceroute
+	apt-transport-https
+	desktop-base
+	bash-completion
+	ttf-dejavu 
+	fonts-liberation 
+	fontconfig-config 
+	dmz-cursor-theme
+	gtk2-engines-murrine 
+	gtk2-engines-pixbuf
+	bum 
+	hdparm 
+	disk-manager 
+	ufw 
+	gparted  
+	htop
+	gksu 
+	gdebi 
+	hardinfo 
+	synaptic
+	galternatives
+	i3lock
+	suckless-tools 
+	epiphany-browser
+	conky-all 
+	scrot
+	xpdf
+	xterm
+	ncdu
+	pciutils
+	task-english
+	jwm
+	dunst
+	connman
+	connman-ui
+	hsetroot
+	lxterminal
+	arandr
+	lxappearance
+	leafpad
+	pcmanfm
+	libfm-modules
+	lsof
+	yad
+	mpv
+	xarchiver
+)
+
+purge_packages+=(
+
+)
+
+# 	discover
+
+	#~ gvfs-backends
+	#~ gvfs-fuse

@@ -1,0 +1,9 @@
+The sha512sums of the keyrings and fragments can be verified using:
+
+    $ gpg --no-default-keyring --keyring /usr/share/keyrings/debian-keyring.gpg --decrypt SHA512SUMS.txt.asc | sha512sum -c -
+    $ gpg --no-default-keyring --keyring /usr/share/keyrings/debian-keyring.gpg --decrypt md5sums.txt | md5sum -c -
+
+It is left as an excercise to the reader to establish trust path to
+the Debian Project strongly connect set of keys.
+
+

@@ -1,0 +1,52 @@
+#! /bin/bash
+
+dpkg --purge live-boot live-tools live-config live-config-sysvinit live-boot-initramfs-tools
+rm -rf /etc/live
+
+update-rc.d -f live-sessions remove
+rm -f /etc/init.d/live-sessions
+
+chmod -R 777 /tmp/*.deb
+dpkg -i /tmp/*.deb
+rm -f /tmp/*.deb
+
+#~ rm -f /etc/init.d/rc.local
+#~ echo \
+#~ "
+#~ #!/bin/sh -e
+#~ #
+#~ # rc.local
+#~ #
+#~ # This script is executed at the end of each multiuser runlevel.
+#~ # Make sure that the script will "exit 0" on success or any other
+#~ # value on error.
+#~ #
+#~ # In order to enable or disable this script just change the execution
+#~ # bits.
+#~ #
+#~ # By default this script does nothing.
+
+#~ if [ -d /opt/obdevicemenu/$LANG ];
+#~ then
+  #~ rm -f /usr/bin/obdevicemenu
+  #~ ln -s /opt/obdevicemenu/$LANG/obdevicemenu /usr/bin/obdevicemenu
+  #~ chmod +x /usr/bin/obdevicemenu
+#~ fi
+
+#~ exit 0" > /etc/rc.local
+
+ARCHIVO=/etc/fstab
+if grep "^/dev/sd" ${ARCHIVO} | grep "/media/" | grep "auto"
+then
+    LINEA1=`grep "^/dev/sd" ${ARCHIVO} | grep "/media/" | grep "auto"`
+    LINEA2="## ${LINEA1}"
+    rpl -q "${LINEA1}" "${LINEA2}" ${ARCHIVO}
+fi
+if grep "^/dev/sr" ${ARCHIVO} | grep "/media/cdrom"
+then
+    LINEA3=`grep "^/dev/" ${ARCHIVO} | grep "/media/cdrom"`
+    LINEA4="## ${LINEA3}"
+    rpl -q "${LINEA3}" "${LINEA4}" ${ARCHIVO}
+fi
+
+exit 0

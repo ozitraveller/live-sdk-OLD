@@ -1,0 +1,10 @@
+#!/bin/sh
+# set iceweasel as default X web browser.
+#############################################
+
+set -e
+
+echo DIY-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/diy-web-apulse 99

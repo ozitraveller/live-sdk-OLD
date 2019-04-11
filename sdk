@@ -1,0 +1,248 @@
+#!/usr/bin/env zsh
+# Copyright (c) 2016-2017 Dyne.org Foundation
+# live-sdk is written and maintained by Ivan J. <parazyd@dyne.org>
+#
+# This file is part of live-sdk
+#
+# This source code is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This software is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this source code. If not, see <http://www.gnu.org/licenses/>.
+
+livesdk_version="0.2"
+
+R=${LIVE_SDK-$PWD}
+
+DEBUG=1
+QUIET=0
+
+source $R/lib/zuper/zuper
+
+## global vars
+vars+=(livesdk_version)
+vars+=(R workdir strapdir)
+vars+=(os oslib blendlib)
+vars+=(MAKEOPTS)
+
+## global arrs
+arrs+=(extra_packages)
+
+## global maps
+maps+=(os_map blend_map)
+
+source $R/config
+#source $R/lib/helpers
+
+## conclude zuper initialization
+source $R/lib/zuper/zuper.init
+
+load() {
+	fn load "$@"
+	req=()
+	ckreq || return 1
+	
+	if [ -x /usr/bin/dialog ] ; then
+		dialog \
+			--backtitle "Operating System Selection" \
+			--radiolist "Choose the operating system:" 10 40 4 \
+				1 Devuan on \
+				2 Gnuinos off \
+				3 Debian off 2>/tmp/live-sdk_$$
+		choice=$(cat /tmp/live-sdk_$$)
+	
+		root="/merged"	
+		case $choice in
+			1)  os="devuan"
+				url="deb.devuan.org"
+				url_pkg=$url$root
+				url_di=$url_pkg
+				mirror="http://$url_pkg"	
+				;;
+			2) 	os="gnuinos"
+				url="packages.gnuinos.org"
+				url_pkg=$url$root
+				url_di=$url_pkg
+				mirror="http://$url_pkg"
+				;;
+			3) 	os="debian"
+				mirror="http://deb.debian.org/debian"
+				;;
+			*) error "invalid os specified"; zerr;;
+		esac
+		rm -f /tmp/live-sdk_$$
+	
+	else
+		echo "'dialog' needs package dialog, which is not installed." >&2
+		exit 1
+	fi
+
+	var=`find $R/blends -name "*.blend"`
+	echo "${var}" > /tmp/list_$$
+
+	if [ -v $blendlib ]; then
+		count=1
+		selected="on"
+		for item in $(cat /tmp/list_$$); do
+				blendmap+=( $count "${item:$(( 8+${#R} )):$(( ${#item} - $((8+${#R})) ))}" $selected )
+				let count+=1
+				selected="off"
+		done
+	fi
+	
+	blend=""
+	blend=$( dialog --backtitle "List of blends" \
+                 --radiolist "Select the blend:" 20 100 10 \
+                 "${blendmap[@]}" 3>&1 1>&2 2>&3 )
+                 
+	blendlib=`sed "${blend}q;d" /tmp/list_$$`
+	echo "${blend}q;d"
+	DirPath="$(dirname $blendlib)"
+	blendname="$(basename $DirPath)"
+		
+	dialog \
+		--backtitle "Release Selection" \
+		--radiolist "Choose the release:" 10 40 4 \
+			1 stable on \
+			2 oldstable off \
+			3 testing off 2>/tmp/live-sdk_$$
+	choice=$(cat /tmp/live-sdk_$$)
+	
+	case $choice in
+		1) release="ascii"
+		   version="2.0.0"	
+		   ;;
+		2) release="jessie"
+		   version="1.0.0"	
+		   ;;
+		3) release="beowulf"
+		   version="3.0.0"	
+		   ;;
+		*) error "invalid release specified"; zerr;;
+	esac
+	rm -f /tmp/live-sdk_$$	
+	
+	case $release in
+		jessie)   suite="oldstable"    ;;
+		ascii)    suite="stable"       ;;
+		beowulf)  suite="testing"      ;;
+		*) error "invalid suite specified"; zerr;;
+	esac
+	
+	dialog \
+		--backtitle "Sections Selection" \
+		--checklist "Choose the sections:" 10 40 4 \
+			1 main on \
+			2 contrib off \
+			3 non-free off  2>/tmp/live-sdk_$$
+	choice=$(cat /tmp/live-sdk_$$)
+	
+	case $choice in
+		"1")     section="main"	  ;;
+		"1 2")   section="main contrib"	  ;;
+		"1 2 3") section="main contrib non-free"    ;;
+		*) error "invalid section specified"; zerr;;
+	esac
+	rm -f /tmp/live-sdk_$$
+
+	case $(dpkg-architecture -qDEB_HOST_MULTIARCH) in
+		i386-linux-gnu )	arch="i386"
+							;;
+		x86_64-linux-gnu )  arch="amd64"
+							;;
+		*) error "invalid arch specified"; zerr;;
+	esac
+
+	wget $url_pkg/dists/$release/main/debian-installer/binary-$arch/Packages.gz
+	rm -f Packages
+	gzip -d Packages.gz
+	
+	case $arch in
+
+		amd64) 	line=`grep "^Filename: pool/" Packages | grep "main/l/linux" \
+					| grep "/kernel-image" | grep "amd64-di_" | grep "_amd64.udeb"`
+				flavor="amd64"
+				earch=$flavor
+				;;
+	       
+		i386)  	line1=`grep "^Filename: pool/" Packages | grep "main/l/linux" \
+					| grep "/kernel-image" | grep "86-di_" | grep "_i386.udeb"`
+				echo ${line1##*/} > /tmp/live-sdk1_$$
+				x86=`echo "$(ps -e | cut -d "-" -f 5 /tmp/live-sdk1_$$ 2>&1)"`
+	       
+				line2=`grep "^Filename: pool/" Packages | grep "main/l/linux" \
+					| grep "/kernel-image" | grep "86-pae-di_" | grep "_i386.udeb"`
+				echo ${line2##*/} > /tmp/live-sdk2_$$ 
+				x86pae=`echo "$(ps -e | cut -d "-" -f 5 /tmp/live-sdk2_$$ 2>&1)"`-pae
+	       
+				clear
+				dialog \
+					--backtitle "Flavor Selection" \
+					--radiolist "Choose the flavor:" 10 40 4 \
+						1 "${x86}" on \
+						2 "${x86pae}" off 2>/tmp/choice_$$
+				choice=$(cat /tmp/choice_$$)
+
+				case $choice in
+					"1") flavor=$x86
+						 line=$line1
+				  	     ;;
+					"2") flavor=$x86pae
+					     line=$line2
+					     ;;
+					*) error "invalid flavor specified"; zerr;;
+				esac
+			
+				earch=i$flavor
+				rm -f /tmp/live-sdk1_$$ /tmp/live-sdk2_$$ /tmp/choice_$$
+				clear
+				;;
+		*) error "invalid arch specified"; zerr;;
+	esac
+	
+	filename=${line%/*}
+	linux_path=${filename#*:}
+	len=$((${#linux_path} - 1))
+	linux_path=${linux_path:1:${len}}
+	line=${line##*/}
+	echo $line > /tmp/live-sdk_$$
+	var1=`echo "$(ps -e | cut -d "-" -f 3 /tmp/live-sdk_$$ 2>&1)"`
+	var2=`echo "$(ps -e | cut -d "-" -f 4 /tmp/live-sdk_$$ 2>&1)"`
+	rm -f /tmp/live-sdk_$$
+	abiname=$var1-$var2
+
+	chmod +x $R/lib/libdevuansdk/extra/debootstrap/debootstrap
+
+	os_map=(
+		"devuan"    "$R/lib/libdevuansdk/libdevuansdk"
+		"gnuinos"   "$R/lib/libdevuansdk/libdevuansdk"
+	)
+	oslib="${os_map[$os]}"
+	
+	source $oslib
+	[[ -f $blendlib ]] && {
+		source $blendlib || zerr
+		act "$os blend leaded"
+		export BLEND=1
+	}
+
+	workdir="$R/tmp/${os}-${arch}-build"
+	strapdir="$workdir/bootstrap"
+	
+	custom_deb_packages=$blendlib/custom-pkgs/$release
+	squashfs_backups=$R/backups
+
+	source $R/lib/zuper/zuper.init
+}
+
+TRAPZERR() { zerr; return $? }
+
+notice "live-sdk loaded"
+export PROMPT="%F{yellow}%(?..%? )%{$reset_color%}livesdk@%{$fg[red]%}%m %{$reset_color%} %{$fg[blue]%}%#%{$fg_bold[blue]%}%{$reset_color%} "

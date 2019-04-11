@@ -1,0 +1,25 @@
+[Added Associations]
+x-scheme-handler/file=exo-file-manager.desktop
+x-scheme-handler/trash=exo-file-manager.desktop
+application/x-shellscript=leafpad.desktop;
+x-scheme-handler/http=exo-web-browser.desktop
+x-scheme-handler/https=exo-web-browser.desktop
+text/plain=leafpad.desktop;
+image/jpeg=mirage.desktop
+image/bmp=mirage.desktop
+image/gif=mirage.desktop
+image/png=mirage.desktop
+image/tiff=mirage.desktop
+image/svg+xml=mirage.desktop
+
+[Default Applications]
+application/x-shellscript=leafpad.desktop
+text/plain=leafpad.desktop
+x-scheme-handler/http=exo-web-browser.desktop
+x-scheme-handler/https=exo-web-browser.desktop
+image/jpeg=mirage.desktop
+image/bmp=mirage.desktop
+image/gif=mirage.desktop
+image/png=mirage.desktop
+image/tiff=mirage.desktop
+image/svg+xml=mirage.desktop
