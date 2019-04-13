@@ -516,7 +516,7 @@ EOF
 	# Do the main grub.cfg (which gets loaded last):
 	cp -rfav /$R/blends/$blendname/binary-overlay/boot/grub ${workdir}/binary/boot/
 	# cp -rfav /$R/blends/$blendname/efi-files/efi ${workdir}/binary/boot/
-	sed -i "s/REPLACEME/devuan/g" ${workdir}/binary/boot/grub/grub.cfg
+	# sed -i "s/REPLACEME/devuan/g" ${workdir}/binary/boot/grub/grub.cfg
 	
 	#~ cat <<EOF | sudo tee ${workdir}/binary/boot/grub/grub.cfg
 #~ if loadfont $prefix/font.pf2 ; then

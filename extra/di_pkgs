@@ -9,4 +9,5 @@ libfuse2
 gettext-base
 libpng12-0
 dmsetup
+loadlin
 

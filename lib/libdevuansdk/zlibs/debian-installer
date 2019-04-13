@@ -255,35 +255,37 @@ di_debian_installer() {
 
 # LOADLIN ++++++++++++++++++++++++++++++++++++++++++++
 
-	#~ sudo mv ${workdir}/binary ${strapdir}
+	sudo mv ${workdir}/binary ${strapdir}
 		
-	#~ notice "Setup loadlin and install.bat files"
-#~ cat <<EOF | sudo tee ${strapdir}/unpack-loadlin >/dev/null
-#~ #!/bin/sh
-#~ cd binary/tools 
-#~ gunzip -c "/usr/lib/loadlin/loadlin.exe.gz" > loadlin.exe
-#~ gunzip -c "/usr/share/doc/loadlin/manual.txt.gz" > loadlin.txt
+	notice "Setup loadlin and install.bat files"
+cat <<EOF | sudo tee ${strapdir}/unpack-loadlin >/dev/null
+#!/bin/sh
+mkdir binary/tools
+cd binary/tools 
+gunzip -c "/usr/lib/loadlin/loadlin.exe.gz" > loadlin.exe
+gunzip -c "/usr/share/doc/loadlin/manual.txt.gz" > loadlin.txt
 
-#~ EOF
+EOF
 
-	#~ sudo chmod 777 ${strapdir}/unpack-loadlin
-	#~ chroot-script -d unpack-loadlin || zerr
-	#~ sudo rm -f ${strapdir}/unpack-loadlin
+	sudo chmod 777 ${strapdir}/unpack-loadlin
+	chroot-script -d unpack-loadlin || zerr
+	sudo rm -f ${strapdir}/unpack-loadlin
 
-	#~ sudo mv ${strapdir}/binary ${workdir}	
 
-#~ cat <<EOF | sudo tee ${workdir}/binary/install/install.bat >/dev/null
-#~ \tools\loadlin.exe vmlinuz initrd=initrd.gz
-#~ EOF
+	sudo mv ${strapdir}/binary ${workdir}	
 
-	#~ if [ -e ${workdir}/binary/install/gtk ]
-	#~ then
+cat <<EOF | sudo tee ${workdir}/binary/install/install.bat >/dev/null
+\tools\loadlin.exe vmlinuz initrd=initrd.gz
+EOF
 
-#~ cat <<EOF | sudo tee ${workdir}/binary/install/gtk/install.bat >/dev/null
-#~ \tools\loadlin.exe \install\vmlinuz initrd=initrd.gz vga=788
-#~ EOF
+	if [ -e ${workdir}/binary/install/gtk ]
+	then
 
-	#~ fi
+cat <<EOF | sudo tee ${workdir}/binary/install/gtk/install.bat >/dev/null
+\tools\loadlin.exe \install\vmlinuz initrd=initrd.gz vga=788
+EOF
+
+	fi
 
 
 ## the preseed.cfg file:

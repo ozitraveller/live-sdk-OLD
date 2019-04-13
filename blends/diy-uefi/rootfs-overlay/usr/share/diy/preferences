@@ -1,7 +1,0 @@
-Package: *
-Pin: release a=ascii
-Pin-Priority: 1000
-
-Package: *
-Pin: release a=ascii-backports
-Pin-Priority: 100
