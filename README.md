@@ -112,3 +112,46 @@ more details.
 
 You should have received a copy of the GNU General Public License along
 with this source code. If not, see <http://www.gnu.org/licenses/>.
+
+
+## How to build a blend
+
+In a terminal: 
+
+$ cd ~/live-sdk
+
+$ sudo su
+
+# zsh -f
+
+# source sdk
+
+# load
+
+There are dialogs here: (use the spacebar to select an item, and arrow keys to move up/down)
+
+1: Devuan
+2. Ascii
+3. Stable
+4. diy-jwm
+5. main, contrib, non-free
+
+Then at the # prompt do either:
+# build_iso_dist
+or
+# build_iso_dist 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
+
+This part creates a log file in the live-sdk folder (just dumps everything from the terminal)
+2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
+
+
+# Cleaning the build folders (dist, log, tmp)
+
+In a terminal: 
+
+$ cd ~/live-sdk
+
+$ clean
+
+
+
