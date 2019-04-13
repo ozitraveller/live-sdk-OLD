@@ -122,7 +122,7 @@ $ cd ~/live-sdk
 
 $ sudo su
 
-# zsh -f
+root># zsh -f
 
 # source sdk
 
