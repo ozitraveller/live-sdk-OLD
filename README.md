@@ -124,9 +124,9 @@ $ sudo su
 
 root># zsh -f
 
-# source sdk
+root># source sdk
 
-# load
+root># load
 
 There are dialogs here: (use the spacebar to select an item, and arrow keys to move up/down)
 
@@ -137,9 +137,9 @@ There are dialogs here: (use the spacebar to select an item, and arrow keys to m
 5. main, contrib, non-free
 
 Then at the # prompt do either:
-# build_iso_dist
+root># build_iso_dist
 or
-# build_iso_dist 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
+root># build_iso_dist 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
 
 This part creates a log file in the live-sdk folder (just dumps everything from the terminal)
 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
