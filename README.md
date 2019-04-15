@@ -130,18 +130,22 @@ root># load
 
 There are dialogs here: (use the spacebar to select an item, and arrow keys to move up/down)
 
-1: Devuan
+1. Devuan
 2. Ascii
 3. Stable
 4. diy-jwm
 5. main, contrib, non-free
 
 Then at the # prompt do either:
+
 root># build_iso_dist
+
 or
+
 root># build_iso_dist 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
 
 This part creates a log file in the live-sdk folder (just dumps everything from the terminal)
+
 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
 
 
