@@ -24,9 +24,6 @@ if [ ! -f "/home/$USER/.config/diy/diy-setup" ]; then
     if [ -f "/home/${USER}/.config/epiphany/session_state.xml" ]; then
 		sed -i "s/REPLACEME/${USER}/g" /home/"${USER}"/.config/epiphany/session_state.xml > /dev/null 2>&1
     fi
-    if [ -f "/home/${USER}/.config/spacefm/session" ]; then
-		sed -i "s/REPLACEME/${USER}/g" /home/"${USER}"/.config/spacefm/session > /dev/null 2>&1
-    fi
 
     ln -s /usr/share/backgrounds /home/"${USER}"/images/wallpapers/shared
 

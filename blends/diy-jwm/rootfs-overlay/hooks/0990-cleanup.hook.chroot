@@ -8,7 +8,7 @@
 ## under certain conditions; see COPYING for details.
 
 
-# set -e
+set -x
 
 echo DIY-LIVE-Hook: "$0"
 echo ""
@@ -41,8 +41,8 @@ dpkg --purge debconf-i18n
 # dpkg --purge gcc-4.8-base
 dpkg --purge ttf-dejavu
 
-echo DIY-LIVE-Hook: "autoremove --purge"
-echo ""
+# echo DIY-LIVE-Hook: "autoremove --purge"
+# echo ""
 # apt-get autoremove --purge --yes || true
 
 echo DIY-LIVE-Hook: "Removing unused files - find"
@@ -101,6 +101,7 @@ echo ""
 
 # chown -R man:root /live/image/02/usr/share/man
 
+echo ""
 echo DIY-LIVE-Hook: "Truncating logs"
 echo ""
 # Truncating logs
@@ -109,4 +110,6 @@ do
 	: > ${FILE}
 done
 
+rm -rf /usr/share/midi
+rm -rf /usr/share/fonts/{droid, noto}
 rm -rf /usr/share/slim/themes/{default,default-OLD,desktop-slim-theme,devuan-curve,devuan-curve-purpy}

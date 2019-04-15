@@ -99,6 +99,7 @@ base_packages+=(
 	fakeroot
 	gawk
 	hwinfo
+	loadlin
 )
 
 extra_packages+=(	
@@ -208,6 +209,7 @@ extra_packages+=(
 	connman
 	connman-ui
 	hsetroot
+	rxvt-unicode
 	lxterminal
 	arandr
 	lxappearance

@@ -125,7 +125,13 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 	wget $url_pkg/dists/$release/main/binary-all/Packages.gz
 	gzip -d Packages.gz
 	mv Packages Packages2
-	cat Packages1 Packages2 > Packages
+	wget $url_pkg/dists/$release/contrib/binary-$arch/Packages.gz
+	gzip -d Packages.gz
+	mv Packages Packages3
+	wget $url_pkg/dists/$release/non-free/binary-$arch/Packages.gz
+	gzip -d Packages.gz
+	mv Packages Packages4
+	cat Packages1 Packages2 Packages3 Packages4 > Packages
 
 	list=$R/extra/di_pkgs
 	for line in $(cat $list); do
@@ -251,9 +257,35 @@ di_debian_installer() {
 	# ozi
 	cp -av $d/dest/cdrom/initrd.gz $workdir/binary/install/
 	cp -av $d/dest/cdrom/gtk/vmlinuz $workdir/binary/install/gtk/	
-	
+
+	# ozi
+	notice "Symlink firmware packages to /firmware"
+	if ls $workdir/binary/pool/main/f/firmware-nonfree/firmware-linux*.deb > /dev/null 2>&1
+	then
+		DI_FIRMWARE_PACKAGES="firmware-linux"
+		if [ -n "${DI_FIRMWARE_PACKAGES}" ]
+		then
+			echo "syslink - firmware"
+			mkdir -p $workdir/binary/firmware
+			pushd $workdir/binary/firmware
+
+			for _PACKAGE in ${DI_FIRMWARE_PACKAGES}
+			do
+				echo "--1--"${DI_FIRMWARE_PACKAGES}
+				for _FILE in $(find ../pool -name "${_PACKAGE}*.deb")
+				do
+					echo "--2--"${_FILE}
+					ln -sf ${_FILE} ./
+				done
+			done
+
+			popd
+		fi
+	fi		
 
 # LOADLIN ++++++++++++++++++++++++++++++++++++++++++++
+
+	notice "Loadlin"
 
 	sudo mv ${workdir}/binary ${strapdir}
 		

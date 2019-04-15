@@ -200,6 +200,8 @@ notice "Running blend_clean_hooks"
 rm -f exec_hooks
 rm -f exec_hooks.log
 rm -rf /hooks
+
+
 apt-get --yes --force-yes  remove --purge \
 	bluez \
 	ethtool \
@@ -208,29 +210,19 @@ apt-get --yes --force-yes  remove --purge \
 	reportbug \
 	cowbuilder \
 	cowdancer \
-	eatmydata
+	eatmydata \
+	git-core \
+	laptop-detect \
+	p7zip-full \
+	git-buildpackage \
+	quilt \
+	pristine-tar \
+	mlocate \
+	screen \
+	tmux \
+	lynx \
+	loadlin
 	
-#~ apt-get --yes --force-yes  remove --purge \
- 	#~ aptitude \
- 	#~ console-setup \
- 	#~ console-data \
- 	#~ dselect \
-	#~ os-prober \
-	#~ acpi-support-base \
-	#~ discover \
-	#~ dnsutils \
-	#~ ftp \
-	#~ gnupg2 \
-	#~ reportbug \
-	#~ whois \
-	#~ dhcpcd5 \
-	#~ inetutils-ping \
-	#~ libuuid-perl \
-	#~ ethtool \
-	#~ build-essential \
-	#~ fakeroot \
-	#~ gawk
-
 EOF
 
 	chroot-script -d scrubclean || zerr
@@ -242,13 +234,6 @@ dpkg-query -f '\"${binary:Package}\"\n' -W > ./installed-packages
 
 
 EOF
-
-# sudo chroot $HOME/live-sdk/tmp/devuan-amd64-build/bootstrap
-
-# sudo cp /home/ozi/live-sdk/blends/list_installed-packages /home/ozi/live-sdk/tmp/devuan-amd64-build/bootstrap
-# sudo cp /home/ozi/live-sdk/tmp/devuan-amd64-build/bootstrap/installed-packages /home/ozi/live-sdk/blends
-# sudo rm -f /home/ozi/live-sdk/blends/list_installed-packages
-# sudo rm -f /home/ozi/live-sdk/blends/installed-packages
 	
 	cp -rfav $R/blends/list_installed-packages $strapdir
 	chroot-script list_installed-packages || zerr
@@ -344,65 +329,6 @@ notice "=------2------="
 
 }
 
-#~ iso_write_isolinux_cfg() {
-	#~ fn iso_write_isolinux_cfg "(override)"
-	#~ req=(workdir arch username)
-	#~ ckreq || return 1
-
-	#~ notice "writing isolinux configuration"
-
-	#~ cat <<EOF | sudo tee ${workdir}/binary/isolinux/isolinux.cfg >/dev/null
-#~ ui vesamenu.c32
-#~ prompt 0
-#~ menu title devuan-live boot menu
-#~ timeout 70
-#~ menu background /isolinux/splash.png
-#~ menu color title	* #FFFFFFFF *
-#~ menu color border	* #00000000 #00000000 none
-#~ menu color sel		* #ffffffff #A1B067 *
-#~ menu color hotsel	1;7;37;40 #ffffffff #A1B067 *
-#~ menu color tabmsg	* #E5FD91 #00000000 *
-#~ menu color cmdline 0 #E5FD91 #00000000
-#~ menu tabmsg Press ENTER to boot or TAB to edit a menu entry
-#~ menu vshift 12
-#~ menu rows 12
-
-#~ label live
-	#~ menu label ${os}-live (${arch})
-	#~ menu default
-	#~ linux /live/vmlinuz
-	#~ append initrd=/live/initrd.img boot=live username=${username}
-
-#~ label lang
-	#~ menu label Other language (TAB to edit)
-	#~ linux /live/vmlinuz
-	#~ append initrd=/live/initrd.img boot=live username=${username} hooks=file:///lib/live/mount/medium/live/hooks/fix-lang.sh locales=it_IT.UTF-8
-
-#~ label toram
-	#~ menu label ${os}-live (${arch}) (load to RAM)
-	#~ linux /live/vmlinuz
-	#~ append initrd=/live/initrd.img boot=live username=${username} toram
-
-#~ label failsafe
-	#~ menu label ${os}-live (${arch}) (failsafe)
-	#~ kernel /live/vmlinuz noapic noapm nodma nomce nolapic nosmp nomodeset vga=normal
-	#~ append initrd=/live/initrd.img boot=live
-
-#~ label memtest
-	#~ menu label Memory test
-	#~ kernel /live/memtest
-
-#~ endtext
-#~ EOF
-
-	#~ notice "copying isolinux overlay"
-	#~ sudo mkdir -p "$workdir"/binary/{live,isolinux}
-	#~ sudo cp -rav "$BLENDPATH"/isolinux-overlay/* "$workdir"/binary/isolinux/
-	#~ [[ -n "$hookscripts" ]] && {
-		#~ sudo cp -av "$BLENDPATH"/hooks "$workdir"/binary/live/
-	#~ }
-#~ }
-
 # create /boot and /efi for uefi.
 # uefi code borrowed and adapted from David Hare, who borrowed and adapted it 
 # from similar scripts by Colin Watson and Patrick J. Volkerding.
@@ -430,7 +356,6 @@ EOF
 
 	if ! [ -d "$efi_work" ] ; then
 		mkdir "$efi_work"
-		
 	fi
 
 	pushd "$efi_work"
@@ -515,32 +440,5 @@ EOF
 	
 	# Do the main grub.cfg (which gets loaded last):
 	cp -rfav /$R/blends/$blendname/binary-overlay/boot/grub ${workdir}/binary/boot/
-	# cp -rfav /$R/blends/$blendname/efi-files/efi ${workdir}/binary/boot/
-	# sed -i "s/REPLACEME/devuan/g" ${workdir}/binary/boot/grub/grub.cfg
 	
-	#~ cat <<EOF | sudo tee ${workdir}/binary/boot/grub/grub.cfg
-#~ if loadfont $prefix/font.pf2 ; then
-  #~ set gfxmode=640x480
-  #~ insmod efi_gop
-  #~ insmod efi_uga
-  #~ insmod video_bochs
-  #~ insmod video_cirrus
-  #~ insmod gfxterm
-  #~ insmod jpeg
-  #~ insmod png
-  #~ terminal_output gfxterm
-#~ fi
-
-#~ background_image /boot/grub/splash.png
-#~ set menu_color_normal=white/black
-#~ set menu_color_highlight=dark-gray/white
-#~ set timeout=6
-
-#~ menuentry "${os} (defaults)" {
-    #~ set gfxpayload=keep
-    #~ linux   /live/vmlinuz boot=live username=$username    
-    #~ initrd  /live/initrd
-#~ }
-#~ EOF
-#~ set +x
 }
