@@ -223,6 +223,9 @@ apt-get --yes --force-yes  remove --purge \
 	lynx \
 	loadlin
 	
+
+apt-get clean
+	
 EOF
 
 	chroot-script -d scrubclean || zerr
@@ -241,6 +244,10 @@ EOF
 	mv -f $strapdir/installed-packages $R/log/
 	
 	cp -rfav $R/blends/$blendname/extra/config-files/slim.conf $strapdir/etc/	
+	
+	# Copy in custome apt config here! MUST BE just before the iso is created
+	rm -rf $strapdir/etc/apt/sources.list preferences
+	cp -rfav $R/blends/$blendname/extra/apt-files/apt/sources.list preferences $strapdir/etc/
 }
 
 blend_installer_update () {

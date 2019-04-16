@@ -1,0 +1,8 @@
+deb http://deb.devuan.org/merged ascii main contrib non-free
+deb-src http://deb.devuan.org/merged ascii main contrib non-free
+
+deb http://deb.devuan.org/merged ascii-updates main contrib non-free
+deb-src http://deb.devuan.org/merged ascii-updates main contrib non-free
+
+deb http://deb.devuan.org/merged ascii-security main contrib non-free
+deb-src http://deb.devuan.org/merged ascii-security main contrib non-free
