@@ -120,7 +120,7 @@ In a terminal:
 
 $ cd ~/live-sdk
 
-Clean the build environment: log files in lve-sdk folder, and any files in log, tmp, dist folders
+Note: see Cleaning the build folders below
 $ clean
 
 $ sudo su
@@ -152,7 +152,8 @@ This part creates a log file in the live-sdk folder (just dumps everything from 
 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
 
 
-# Cleaning the build folders (dist, log, tmp)
+## Cleaning the build folders (dist, log, tmp)
+Clean the build environment: log files in lve-sdk folder, and any files in log, tmp, dist folders
 
 In a terminal: 
 
