@@ -137,7 +137,7 @@ There are dialogs here: (use the spacebar to select an item, and arrow keys to m
 2. Ascii
 3. Stable
 4. diy-jwm
-5. main, contrib, non-free
+5. Select repositories: main, contrib, non-free
 
 Then at the # prompt do either:
 
