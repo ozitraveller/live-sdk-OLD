@@ -120,6 +120,9 @@ In a terminal:
 
 $ cd ~/live-sdk
 
+Clean the build environment: log files in lve-sdk folder, and any files in log, tmp, dist folders
+$ clean
+
 $ sudo su
 
 root># zsh -f
