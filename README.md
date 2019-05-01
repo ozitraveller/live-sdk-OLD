@@ -120,6 +120,9 @@ In a terminal:
 
 $ cd ~/live-sdk
 
+Note: see Cleaning the build folders below
+$ clean
+
 $ sudo su
 
 root># zsh -f
@@ -134,7 +137,7 @@ There are dialogs here: (use the spacebar to select an item, and arrow keys to m
 2. Ascii
 3. Stable
 4. diy-jwm
-5. main, contrib, non-free
+5. Select repositories: main, contrib, non-free
 
 Then at the # prompt do either:
 
@@ -149,7 +152,8 @@ This part creates a log file in the live-sdk folder (just dumps everything from 
 2>&1 | tee "Build - $(date "+%d.%m.%Y - %H:%M").log"
 
 
-# Cleaning the build folders (dist, log, tmp)
+## Cleaning the build folders (dist, log, tmp)
+Clean the build environment: log files in lve-sdk folder, and any files in log, tmp, dist folders
 
 In a terminal: 
 
