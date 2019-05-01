@@ -1,0 +1,20 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL SSH
+  ------------------
+  OpenSSH is a FREE version of the SSH connectivity tools that technical users
+  of the Internet rely on. Would like to install OpenSSH server? If you choose
+  to do this, the following package will be installed:
+
+      openssh-server openssh-client
+
+  Note: additional packages listed as dependencies will also be installed.
+
+  For more information see: http://www.openssh.com/"
+
+if prompt "  Would you like to install openssh?"; then
+    sudo apt-get install -y openssh-server openssh-client
+fi

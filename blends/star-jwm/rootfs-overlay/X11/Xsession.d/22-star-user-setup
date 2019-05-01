@@ -1,0 +1,9 @@
+# run BunsenLabs user setup script 2018
+# https://forums.bunsenlabs.org/viewtopic.php?id=4672
+# This file is sourced by Xsession(5), not executed.
+
+# if [ -x /usr/lib/star/configs/star-user-setup ]
+#  then 
+# 	 echo 'Running star-user-setup to import configuration files.' > "$HOME/.xsession-errors"
+# 	 /usr/lib/star/configs/star-user-setup
+# fi

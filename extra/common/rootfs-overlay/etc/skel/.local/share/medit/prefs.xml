@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- -*- xml -*- -->
+<moo-prefs version="1.0">
+  <Prefs>
+    <item name="Editor/font" type="string">Liberation Sans 10</item>
+  </Prefs>
+</moo-prefs>

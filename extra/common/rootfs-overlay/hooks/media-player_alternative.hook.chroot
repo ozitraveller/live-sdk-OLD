@@ -1,0 +1,11 @@
+#!/bin/sh
+# set mpv as default X media player.
+#############################################
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install /usr/bin/x-media-player x-media-player /usr/bin/star-media-player 10
+

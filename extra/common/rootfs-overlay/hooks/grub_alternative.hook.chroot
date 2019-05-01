@@ -1,0 +1,15 @@
+#!/bin/sh
+# set default grub background.
+#########################################
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install /usr/bin/desktop-grub desktop-grub /usr/share/images/desktop-base/star-grub-plain.png 99
+update-alternatives --install /usr/bin/desktop-slim-theme desktop-slim-theme /usr/share/slim/themes/star 99
+
+# desktop-splash /usr/share/images/desktop-base/your-way_neutral-narrow-large.svg 25
+# desktop-background /usr/share/images/desktop-base/your-way_neutral-narrow-large.svg 25
+# desktop-background.xml /usr/share/images/desktop-base/purpy.xml 25

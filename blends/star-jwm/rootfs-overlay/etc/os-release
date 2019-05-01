@@ -1,0 +1,8 @@
+PRETTY_NAME="Star GNU/Linux REPLACEME (kirk)"
+NAME="Star GNU/Linux"
+VERSION_ID="REPLACEME"
+VERSION="REPLACEME (kirk)"
+ID=star
+ID_LIKE=devuan
+ANSI_COLOR="1;34"
+HOME_URL="https://sourceforge.net/projects/linnix/"

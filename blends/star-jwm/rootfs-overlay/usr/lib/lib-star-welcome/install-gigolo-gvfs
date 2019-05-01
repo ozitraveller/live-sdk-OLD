@@ -1,0 +1,18 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL WINDOWS SHARES SUPPORT
+  -------------------------------
+  By default, Star does not come with WINDOWS SHARES SUPPORT 
+  Would you like to install Windows Shares support now? If you choose to do 
+  this, the following packages will be installed:
+
+      gigolo fusesmb gvfs gvfs-fuse gvfs-bin gvfs-backends
+
+  Note: additional packages listed as dependencies will also be installed."
+
+if prompt "  Would you like to install Windows Shares support?"; then
+	sudo apt-get install -y gigolo fusesmb gvfs gvfs-fuse gvfs-bin gvfs-backends
+fi

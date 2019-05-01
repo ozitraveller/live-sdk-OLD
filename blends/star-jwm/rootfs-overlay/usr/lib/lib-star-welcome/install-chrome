@@ -1,0 +1,30 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL BROWSER SUPPORT
+  -------------------------------
+  By default, Star offers epiphany-browser, a simple lightweight
+  web browser. Would you like to install a more advanced web browser now?
+  If you choose to do this, the following packages will be installed: 
+  
+  Google Chrome
+  
+  Note: additional packages listed as dependencies will also be installed."
+
+if prompt "  Would you like to also install Google Chrome?"; then
+	
+	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+
+    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+
+    sudo apt-get update 
+
+    sudo apt-get install google-chrome-stable
+    update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/google-chrome-stable 10
+	
+fi
+
+	
+	

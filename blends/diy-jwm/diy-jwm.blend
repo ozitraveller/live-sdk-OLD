@@ -3,6 +3,8 @@
 
 vars+=(mkefi efi_work)
 
+arrs+=(purge_packages_final)
+
 #~ # uncomment to create uefi-bootable iso
 mkefi="yes"
 efi_work="$BLENDPATH/efi-files"
@@ -68,7 +70,7 @@ fe02::1          ip6-allnodes
 fe02::1          ip6-allrouters" > $strapdir/etc/hosts
 
 	_VERSION='2.0.2'
-	_SOURCE='star-kirk'	
+	_SOURCE='DIY'	
 
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/hostname
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue
@@ -189,43 +191,62 @@ EOF
 
 blend_cleanup() {
 	fn blend_cleanup
-	req=(strapdir blend blendname os arch release extra_packages )
+	req=(strapdir blend blendname os arch release purge_packages_final )
 	ckreq || return 1
 notice "Running blend_clean_hooks"
 
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 
-
 rm -f exec_hooks
 rm -f exec_hooks.log
 rm -rf /hooks
 
+# Option 1
+# ignore comments & blank lines
+#~ grep -Ev '^*#|^$|^lib*' ./to-be-removed-packages.txt > ./remove-packages.txt
 
-apt-get --yes --force-yes  remove --purge \
-	bluez \
-	ethtool \
-	build-essential \
-	fakeroot \
-	reportbug \
-	cowbuilder \
-	cowdancer \
-	eatmydata \
-	git-core \
-	laptop-detect \
-	p7zip-full \
-	git-buildpackage \
-	quilt \
-	pristine-tar \
-	mlocate \
-	screen \
-	tmux \
-	lynx \
-	loadlin
-	
+#~ while read line; do
+	#~ apt-get --yes --force-yes purge \${line}
+	#~ echo "\${line}" >> ./removed-packages.txt
+#~ done < ./remove-packages.txt
+
+# Option 2
+#~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
+
+# Option 3
+# apt-get --yes --force-yes purge ${purge_packages_final}
+
+# Option 4
+for _PACKAGE in ${purge_packages_final}
+do
+	apt-get --yes --force-yes purge "\${_PACKAGE}"
+done
+
+# Option 5
+#~ apt-get --yes --force-yes purge \
+	#~ bluez \
+	#~ ethtool \
+	#~ build-essential \
+	#~ fakeroot \
+	#~ reportbug \
+	#~ cowbuilder \
+	#~ cowdancer \
+	#~ eatmydata \
+	#~ git-core \
+	#~ laptop-detect \
+	#~ p7zip-full \
+	#~ git-buildpackage \
+	#~ quilt \
+	#~ pristine-tar \
+	#~ mlocate \
+	#~ screen \
+	#~ tmux \
+	#~ lynx \
+	#~ loadlin
 
 apt-get clean
-	
+
 EOF
 
 	chroot-script -d scrubclean || zerr
@@ -233,21 +254,20 @@ EOF
 	cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
 #!/bin/sh
 
-dpkg-query -f '\"${binary:Package}\"\n' -W > ./installed-packages
-
+dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
 
 EOF
 	
-	cp -rfav $R/blends/list_installed-packages $strapdir
-	chroot-script list_installed-packages || zerr
-	rm -f $strapdir/list_installed-packages
-	mv -f $strapdir/installed-packages $R/log/
+	chroot-script -d list_installed-packages || zerr
+	mv -f $strapdir/list_installed-packages $R/log/
+	mv -f $strapdir/*.txt $R/log/
 	
 	cp -rfav $R/blends/$blendname/extra/config-files/slim.conf $strapdir/etc/	
 	
-	# Copy in custome apt config here! MUST BE just before the iso is created
-	rm -rf $strapdir/etc/apt/sources.list preferences
-	cp -rfav $R/blends/$blendname/extra/apt-files/apt/sources.list preferences $strapdir/etc/
+	# Copy in custom apt config here! MUST BE just before the iso is created
+	# \cp causes OVERWRITE
+	\cp -rfav $R/blends/$blendname/extra/apt-files/apt/* $strapdir/etc/apt/
+
 }
 
 blend_installer_update () {

@@ -1,0 +1,114 @@
+# .conkyrc - Edited from various examples across the 'net
+# Used by VastOne on VSIDO
+ 
+# Create own window instead of using desktop (required in nautilus)
+#own_window yes
+#own_window_type normal
+#own_window_transparent no
+#own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+ 
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+ 
+# fiddle with window
+# use_spacer right
+
+# Use Xft?
+use_xft yes
+xftfont Liberation Sans:size=11
+xftalpha 0.9
+# xftalpha 0.5
+text_buffer_size 2048, file-manager
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+
+# Minimum size of text area
+#minimum_size 1024 0
+#maximum_width 1024
+
+# Draw shades?
+draw_shades no
+
+# Draw outlines?
+draw_outline no
+
+# Draw borders around text
+draw_borders no
+own_window_argb_visual yes
+own_window_type desktop
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window yes
+own_window_transparent yes
+own_window_class conky-semi
+
+# Stippled borders?
+stippled_borders 0
+
+# border margins
+# border_margin 0
+
+# border width
+border_width 1
+
+# Default colors and also border colors
+#default_color grey
+#color2=white
+#color3=grey
+#default_shade_color black
+#default_outline_color grey
+own_window_colour 000000
+
+# Text alignment, other possible values are commented
+#alignment top_middle
+# alignment top_left
+# alignment top_right
+alignment bottom_left
+# alignment bottom_right
+
+# Gap between borders of screen and text
+# same thing as passing -x at command line
+gap_x 12
+gap_y 0
+minimum_size 740 29
+maximum_width 740
+# Subtract file system buffers from used memory?
+no_buffers yes
+
+# set to yes if you want all text to be in uppercase
+uppercase no
+
+# number of cpu samples to average set to 1 to disable averaging
+cpu_avg_samples 2
+
+# number of net samples to average
+# set to 1 to disable averaging
+net_avg_samples 2
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale yes
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+use_spacer none
+
+short_units yes
+
+# lua_load ~/Conky/LUA/draw-bg.lua
+# lua_draw_hook_pre draw_bg 10 0 0 0 0 0x000000 0.3
+# ${color 7D8C93}Wyatt ${color 55688A} ${execi 600 inxi -W63882 | cut -c31-34}°
+# ${color 32CD32}${time %I:%M%P}
+
+# lua_load ~/conky/scripts/conky_lua_scripts.lua
+
+# ${voffset 0}${color 73AEB4}K ${color 7D8C93}$kernel${color 73AEB4}${goto 140}C ${color 7D8C93}${cpu cpu0}%${color 73AEB4}${goto 198}M ${color 7D8C93}${memperc}%  ${mem} / ${memmax}${color 73AEB4}${goto 350}H${color 7D8C93} /h ${fs_used_perc /home}%${color 73AEB4}${goto 430}N${color 7D8C93}  ${if_up eth0}eth0  d ${downspeedgraph eth0 12,65 000000 ff0000} u ${upspeedgraph 12,65 000000 00ff00}${else}${if_up wlan0}wlan0 d ${downspeedgraph wlan0 12,65 000000 ff0000} u ${upspeedgraph wlan0 12,65 000000 00ff00}${endif}${endif}${goto 625}${if_existing /sys/class/power_supply/BAT0/}${color 73AEB4}  B ${color 7D8C93}${execi 1 ~/bin/conky/battery.sh}${endif}
+# ${voffset 0}${color 73AEB4}K ${color 7D8C93}$kernel${color 73AEB4}${goto 140}C ${color 7D8C93}${cpu cpu0}%${color 73AEB4}${goto 198}M ${color 7D8C93}${memperc}%  ${mem} / ${memmax}${color 73AEB4}${goto 350}H${color 7D8C93} /h ${fs_used_perc /home}%${color 73AEB4}${goto 430}N${color 7D8C93}  ${if_up eth0}eth0  d ${downspeedgraph eth0 12,65 000000 ff0000} u ${upspeedgraph 12,65 000000 00ff00}${else}${if_up wlan0}wlan0 d ${downspeedgraph wlan0 12,65 000000 ff0000} u ${upspeedgraph wlan0 12,65 000000 00ff00}${endif}${endif}${goto 655}${if_existing /sys/class/power_supply/BAT0/}${color 73AEB4}  B ${color 7D8C93}${execi 1 ~/bin/conky/battery.sh}${endif}
+
+TEXT
+${voffset 0}${color 73AEB4}K ${color 7D8C93}$kernel${color 73AEB4}${goto 140}C ${color 7D8C93}${cpu cpu0}%${color 73AEB4}${goto 198}M ${color 7D8C93}${memperc}%  ${mem} / ${memmax}${color 73AEB4}${goto 350}H${color 7D8C93} /h ${fs_used_perc /home}%${color 73AEB4}${goto 430}N${color 7D8C93}  ${if_up eth0}eth0  d ${downspeedgraph eth0 12,65 000000 ff0000} u ${upspeedgraph 12,65 000000 00ff00}${else}${if_up wlan0}wlan0 d ${downspeedgraph wlan0 12,65 000000 ff0000} u ${upspeedgraph wlan0 12,65 000000 00ff00}${endif}${endif}${goto 655}${if_existing /sys/class/power_supply/BAT0/}${color 73AEB4}  B ${color 7D8C93}${execpi 60 acpi -b | awk '{print $3}' | cut -c1-4} ${battery_percent BAT0}%${endif}

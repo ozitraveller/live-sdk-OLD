@@ -1,0 +1,35 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          live-sessions
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Configure live sessions
+# Description: Configure live sessions
+#
+### END INIT INFO
+
+  #xhost+
+  #hwclock --hctosys
+  #userdel -r devuan
+  #groupdel devuan
+  groupadd devuan
+  /usr/sbin/useradd --home /home/devuan --create-home --gid devuan devuan
+  FILE1=/etc/passwd
+  if grep "^devuan:x:" ${FILE1}
+  then
+    LINE1=`grep "^devuan:x:" ${FILE1}`
+    LINE2="devuan::1000:1000:devuan,,,:/home/devuan:/bin/sh"
+    rpl -q "${LINE1}" "${LINE2}" ${FILE1}
+  fi
+  FILE2=/etc/shadow
+  if grep "^devuan:" ${FILE2}
+  then
+    LINE3=`grep "^devuan:" ${FILE2}`
+    LINE4="devuan::::::::"
+    rpl -q "${LINE3}" "${LINE4}" ${FILE2}
+  fi
+  sed -i '25i devuan ALL=(ALL:ALL) ALL' /etc/sudoers
+
+exit 0

@@ -29,21 +29,21 @@ echo STAR-LIVE-Hook: "Removing unused packages - for"
 echo ""
 ## Removing unused packages
 # for PACKAGE in apt-utils aptitude man-db manpages info dselect
-for PACKAGE in exim4 aptitude
-do
-	if ! apt-get remove --purge --yes "${PACKAGE}"
-	then
-		echo "WARNING: ${PACKAGE} isn't installed"
-	fi
-done
+#~ for PACKAGE in exim4 aptitude
+#~ do
+	#~ if ! apt-get purge --yes "${PACKAGE}"
+	#~ then
+		#~ echo "WARNING: ${PACKAGE} isn't installed"
+	#~ fi
+#~ done
 
 dpkg --purge debconf-i18n
 # dpkg --purge gcc-4.8-base
 dpkg --purge ttf-dejavu
 
-# echo DIY-LIVE-Hook: "autoremove --purge"
-# echo ""
-# apt-get autoremove --purge --yes || true
+#~ echo DIY-LIVE-Hook: "autoremove --purge"
+#~ echo ""
+#~ apt-get autoremove --purge --yes || true
 
 echo DIY-LIVE-Hook: "Removing unused files - find"
 echo ""
@@ -110,6 +110,7 @@ do
 	: > ${FILE}
 done
 
+rm -rf /usr/share/ghostscript
 rm -rf /usr/share/midi
 rm -rf /usr/share/fonts/{droid, noto}
 rm -rf /usr/share/slim/themes/{default,default-OLD,desktop-slim-theme,devuan-curve,devuan-curve-purpy}

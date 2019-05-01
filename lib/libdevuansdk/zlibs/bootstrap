@@ -90,6 +90,30 @@ sed -i -e 's/KERNEL\!=\"eth\*|/KERNEL\!=\"/' \
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 export DEBIAN_FRONTEND=noninteractive
 
+# -----------
+#~ for _PACKAGE in ${core_packages}
+#~ do
+	#~ apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
+#~ done
+
+#~ # -----------
+#~ for _PACKAGE in ${base_packages}
+#~ do
+	#~ apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
+#~ done
+
+#~ # -----------
+#~ for _PACKAGE in ${extra_packages}
+#~ do
+	#~ apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
+#~ done
+
+#~ # -----------
+#~ for _PACKAGE in ${purge_packages}
+#~ do
+	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
+#~ done
+
 apt-get --yes --force-yes --fix-missing install ${core_packages}
 apt-get --yes --force-yes --fix-missing install ${base_packages}
 apt-get --yes --force-yes --fix-missing install ${extra_packages}

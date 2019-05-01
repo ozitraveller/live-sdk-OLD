@@ -1,0 +1,18 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL VERSION CONTROL TOOLS
+  -----------------------------
+  Would you like to install some commonly used version control tools?
+  If you choose to do this, the following packages will be installed:
+
+      git git-gui git-cvs git-svn git-email mercurial
+      subversion subversion-tools bzr bzrtools cvs
+      
+  Note: additional packages listed as dependencies will also be installed."
+
+if prompt "  Would you like to install version control tools?"; then
+    sudo apt-get install -y git git-gui git-cvs git-svn git-email mercurial subversion subversion-tools bzr bzrtools cvs
+fi

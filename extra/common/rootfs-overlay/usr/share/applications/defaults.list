@@ -1,0 +1,8 @@
+[Default Applications]
+x-scheme-handler/http=iceweasel.desktop
+x-scheme-handler/https=iceweasel.desktop
+x-scheme-handler/ftp=iceweasel.desktop
+text/html=iceweasel.desktop
+text/xml=iceweasel.desktop
+application/xhtml_xml=iceweasel.desktop
+image/webp=iceweasel.desktop

@@ -1,0 +1,31 @@
+#!/bin/sh
+hostname=`grep -v "^\s*#"  /etc/hostname | head -n1`
+ip link set dev lo up
+ip link set dev eno1 down
+ip addr add 192.168.100.6/24 dev eno1
+ip addr add 192.168.100.106/24 dev eno1
+ip link set dev eno1 up
+ip route add default via 192.168.100.96
+
+================================================================
+
+# Meanwhile, if whatever distro you're working with does weird stuff when
+# all you want is a hard coded IPV4 address, consider the following
+# distro-independent shellscript, which can be run at boot and also any
+# time some foolish daemon thinks it knows more about your desired IP
+# address than you do this.
+
+# The preceding sets the box's IP at 192.168.100.6 with an alias at 106,
+# and sets the default gateway to 192.168.100.96. The assumed device name
+# here is eno1. Obviously, you need to modify it to fit your needs, but
+# after that, you can override the inconveniences almost every distro
+# throws at you if all you want is a fixed IP address. I've used this
+# shellscript in several distros.
+
+# SteveT
+
+# Steve Litt 
+# June 2018 featured book: Twenty Eight Tales of Troubleshooting
+# http://www.troubleshooters.com/28
+
+================================================================
