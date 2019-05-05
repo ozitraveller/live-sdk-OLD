@@ -1,0 +1,10 @@
+#!/bin/sh
+# set xfce4-terminal as default X terminal emulator.
+#############################################
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/bin/xfce4-terminal 99

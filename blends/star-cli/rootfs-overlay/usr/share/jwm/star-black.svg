@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0 0 96 48"
+   id="svg3032"
+   inkscape:version="0.48.5 r10040"
+   width="100%"
+   height="100%"
+   sodipodi:docname="star-white.svg">
+  <metadata
+     id="metadata3042">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3040" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1427"
+     inkscape:window-height="762"
+     id="namedview3038"
+     showgrid="false"
+     inkscape:zoom="8.34375"
+     inkscape:cx="45.779078"
+     inkscape:cy="18.205993"
+     inkscape:window-x="0"
+     inkscape:window-y="31"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg3032" />
+  <path
+     sodipodi:type="star"
+     style="fill:#ffffff;fill-opacity:0;stroke:#000000;stroke-width:31.95890427000000145;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+     id="path2987"
+     sodipodi:sides="7"
+     sodipodi:cx="131.42857"
+     sodipodi:cy="117.14286"
+     sodipodi:r1="240.49269"
+     sodipodi:r2="118.62304"
+     sodipodi:arg1="0.22768932"
+     sodipodi:arg2="0.67648828"
+     inkscape:flatsided="false"
+     inkscape:rounded="0"
+     inkscape:randomized="0"
+     d="M 365.71429,171.42857 223.92798,191.40783 235.06105,334.1614 131.03832,235.76526 26.37044,333.47483 38.442531,190.7976 -103.20925,169.88588 15.867127,90.366426 -56.101872,-33.41964 80.311849,10.098449 132.21976,-123.34853 183.24851,10.437097 319.94561,-32.182497 247.1637,91.127361 z"
+     transform="matrix(0.09697608,0,0,0.08685594,34.941261,14.891047)"
+     inkscape:transform-center-x="0.090908986"
+     inkscape:transform-center-y="-0.94566414"
+     inkscape:export-xdpi="90"
+     inkscape:export-ydpi="90"
+     inkscape:export-filename="/home/simon/Pictures/star-1.png" />
+</svg>

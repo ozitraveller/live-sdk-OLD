@@ -1,0 +1,10 @@
+#!/bin/sh
+# set geany as default X editor.
+#########################################
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install /usr/bin/editor editor /usr/bin/mousepad 99

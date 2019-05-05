@@ -1,0 +1,82 @@
+#!/bin/sh
+#
+# fluxbox startup-script:
+#
+# Lines starting with a '#' are ignored.
+
+# Change your keymap:
+# xmodmap "~/.Xmodmap"
+
+# Applications you want to run with fluxbox.
+# MAKE SURE THAT APPS THAT KEEP RUNNING HAVE AN ''&'' AT THE END.
+#
+# unclutter -idle 2 &
+# wmnd &
+# wmsmixer -w &
+# idesk &
+# xfce4-volumed &
+
+# policykit-1-gnome
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+pkill conky
+
+#
+# Debian-local change:
+#   - fbautostart has been added with a quick hack to check to see if it
+#     exists. If it does, we'll start it up by default.
+which fbautostart > /dev/null
+if [ $? -eq 0 ]; then
+    fbautostart
+fi
+
+# And last but not least we start fluxbox.
+# Because it is the last app you have to run it with ''exec'' before it.
+
+fluxbox &
+fbpid=$!
+
+# before nitrogen
+hsetroot -solid "#000000" & 
+# hsetroot -solid "#2E3436" & 
+
+sleep 1
+{
+#	compton --config ~/.compton.conf &
+#	(sleep 3 && fbpanel) &
+	(sleep 3 && connman-ui-gtk --tray) &
+	# (sleep 2 && cmst -m) &
+	# (sleep 3 && wicd-gtk --tray) &
+# 	(sleep 3 && volumeicon --tray) &
+#	(sleep 3 && clipit) &
+	(sleep 3 && conky -c ~/.conkyrc) &
+	# nitrogen --restore &
+	# feh --bg-scale $HOME/images/wallpapers/shared/filename.jpg &
+	(sleep 6 && star-welcome --firstrun) &
+}
+
+## Enable power management
+# xfce4-power-manager &
+
+## Start notifications
+dunst &
+
+## Start Thunar Daemon
+# thunar --daemon &
+
+## Set keyboard settings - 250 ms delay and 25 cps (characters per second) repeat rate.
+## Adjust the values according to your preferances.
+xset r rate 250 25 &
+
+## Turn on/off system beep
+xset b off &
+
+## read xpdf, xterm, uxrvt etc.. config
+xrdb -merge ~/.Xresources
+
+wait $fbpid
+
+# or if you want to keep a log:
+# exec fluxbox -log "~/.fluxbox/log"
+
+

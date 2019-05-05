@@ -1,0 +1,78 @@
+# This is an automatically generated file.
+# Please see <file:/usr/share/doc/menu/README> for information.
+
+# to use your own menu, copy this to ~/.fluxbox/menu, then edit
+# ~/.fluxbox/init and change the session.menuFile path to ~/.fluxbox/menu
+
+[begin] (Star Fluxbox)
+#     [exec] (Run Program) {xfce4-appfinder --collapsed}
+# [separator]	
+# 	[exec] (Command) {gmrun} <>
+ 	[exec] (Terminal) {x-terminal-emulator} <>
+	[exec] (File Manager) {x-file-manager} <>
+	[exec] (Web browser) {x-www-browser} <>
+# installer start
+[separator]	
+	[exec] (Install Star) {su-to-root -X -c /usr/sbin/debian-installer-launcher} <>
+# installer end		
+[separator]	
+      [submenu] (Settings) {}
+         [exec] (ARandR Screen Layout Editor) {/usr/bin/arandr}
+         [exec] (Appearance) {/usr/bin/lxappearance} <>
+      [end]
+[separator]	
+      [submenu] (Accessories) {}
+#        [exec] (Archive Manager) {/usr/bin/file-roller} <>	
+		 [exec] (Calculator) {/usr/bin/xcalc} <>
+         [exec] (Leafpad) {editor} <>
+         [exec] (Pcmanfm) {x-file-manager} <>
+         [exec] (Terminal) {x-terminal-emulator} <>	
+         [exec] (Xarchiver) {/usr/bin/xarchiver} <>		 		 		 
+         [exec] (Xterm) {/usr/bin/xterm} <>		 		 		 
+      [end]
+      [submenu] (Graphics) {}
+         [exec] (Mirage) {mirage} <>
+         [submenu] (Take Screenshot) {}
+			[exec] (Now) {scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'} <>
+			[exec] (In 5 Seconds...) {scrot -d 5 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'} <>
+			[exec] (In 10 Seconds...) {scrot -d 10 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'} <>
+			[exec] (Selected Area... (click &amp; drag mouse)) {scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'} <>
+		[end]
+      [end]
+      [submenu] (Internet) {}
+         [exec] (Epiphany) {x-www-browser} <>
+      [end]
+      [submenu] (Multimedia) {}
+         [exec] (Mpv) {x-media-player}
+         [exec] (Audio Mixer) {x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer}
+      [end]
+      [submenu] (Office) {}
+         [exec] (Pdf Viewer) {/usr/bin/xpdf}
+      [end]
+      [submenu] (System) {}
+      	 [exec] (Alternatives Configurator) {su-to-root -X -c /usr/bin/galternatives} <>
+		 [exec] (LxTask Manager) {/usr/bin/lxtask} <>
+         [exec] (Bootup Manager) {su-to-root -X -c /usr/bin/bum}
+         [exec] (Disk Manager) {su-to-root -X -c /usr/sbin/disk-manager}
+         [exec] (Gdebi Package Installer) {su-to-root -X -c /usr/bin/gdebi-gtk} <>
+         [exec] (Gparted) {su-to-root -X -c /usr/sbin/gparted}
+         [exec] (Root Terminal) {su-to-root -X -c x-terminal-emulator} <>
+         [exec] (Root File Manager) {su-to-root -X -c x-file-manager} <>
+         [exec] (System Information) {/usr/bin/hardinfo}
+         [exec] (Synaptic Package Manager) {su-to-root -X -c /usr/sbin/synaptic} <>
+      [end]
+      [submenu] (Fluxbox) {Settings} <>
+         [config] (Fluxbox Menu)
+         [reconfig] (Reload Config)
+		 [restart] (Restart Fluxbox)
+         [exec] (Fluxbox Menu Editor) {cd ~/fluxmenu && python fluxMenu.py} <>
+         [workspaces] (Workspaces)
+         [submenu] (Styles) {}
+         [stylesdir] (/usr/share/fluxbox/styles)
+         [stylesdir] (~/.fluxbox/styles)
+      [end]
+    [end]
+  [separator]
+    [exec] (Lock) {/usr/bin/i3lock -n -p default --color=000000} <>  
+	[exec] (Exit) {/usr/bin/star-logout} <>   
+[end]

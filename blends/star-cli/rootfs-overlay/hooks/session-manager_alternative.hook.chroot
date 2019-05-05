@@ -1,0 +1,11 @@
+#!/bin/sh
+# set jwm as default x-window-manager.
+#############################################
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install "/usr/bin/x-session-manager" "x-session-manager" "/usr/bin/jwm" 100
+update-alternatives --config x-window-manager

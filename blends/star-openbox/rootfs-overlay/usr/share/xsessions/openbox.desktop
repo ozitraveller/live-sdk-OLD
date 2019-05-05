@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Openbox
+Comment=Highly configurable and low resource X11 Window manager
+Exec=/usr/bin/openbox-session
+Terminal=false
+TryExec=/usr/bin/openbox-session
+Type=Application
+
+[X-Window Manager]
+SessionManaged=true

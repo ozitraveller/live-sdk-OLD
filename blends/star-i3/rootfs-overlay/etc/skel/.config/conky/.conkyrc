@@ -1,0 +1,46 @@
+out_to_x no
+own_window no
+out_to_console yes
+background no
+max_text_width 0
+
+# Update interval in seconds
+update_interval 2.0
+
+# This is the number of times Conky will update before quitting.
+# Set to zero to run forever.
+total_run_times 0
+
+# Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+short_units yes
+
+# How strict should if_up be when testing an interface for being up?
+# The value is one of up, link or address, to check for the interface
+# being solely up, being up and having link or being up, having link
+# and an assigned IP address. 
+if_up_strictness address
+
+# Add spaces to keep things from moving about?  This only affects certain objects.
+# use_spacer should have an argument of left, right, or none
+use_spacer left
+
+# Force UTF8? note that UTF8 support required XFT
+override_utf8_locale no
+
+# number of cpu samples to average
+# set to 1 to disable averaging
+cpu_avg_samples 2
+#   { "full_text" : "B ${execpi 60 acpi -b | awk '{print $3}' | cut -c1-4} ${battery_percent BAT0}%", "color" : "\#ffffff" } 
+#   { "full_text" : "B ${execi 1 ~/.conky/battery.sh}%", "color" : "\#ffffff" }
+# Stuff after 'TEXT' will be formatted on screen
+TEXT
+
+# JSON for i3bar
+
+ [{ "full_text" : "K $kernel ", "color" : "\#ffffff" }, 
+  { "full_text" : "C ${cpu cpu0}% ", "color" : "\#ffffff" }, 
+  { "full_text" : "M ${color 7D8C93}${memperc}%  ${mem} / ${memmax} ", "color" : "\#ffffff" }, 
+  { "full_text" : "H /h ${fs_free /home} ", "color" : "\#ffffff" },
+  { "full_text" : "N d ${downspeedf} kb/s u ${upspeedf} kb/s ", "color" : "\#ffffff" },
+  { "full_text" : "${if_existing /sys/class/power_supply/BAT0/}${color 73AEB4}  B ${color 7D8C93}${execi 1 $HOME/.config/conky/battery.sh}${endif}", "color" : "\#ffffff" }
+ ],

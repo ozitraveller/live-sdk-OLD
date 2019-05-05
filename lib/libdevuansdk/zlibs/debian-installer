@@ -252,11 +252,14 @@ di_debian_installer() {
 	mkdir -p $workdir/binary/install
 	mkdir -p $workdir/binary/install/gtk
 	cp -av $d/dest/cdrom/ $workdir/binary/install/
-	cp -av $d/dest/cdrom/vmlinuz $workdir/binary/install/
+	# cp -av $d/dest/cdrom/vmlinuz $workdir/binary/install/
 	cp -av $d/dest/cdrom/gtk/initrd.gz $workdir/binary/install/gtk/
+
 	# ozi
 	cp -av $d/dest/cdrom/initrd.gz $workdir/binary/install/
-	cp -av $d/dest/cdrom/gtk/vmlinuz $workdir/binary/install/gtk/	
+	# cp -av $d/dest/cdrom/gtk/vmlinuz $workdir/binary/install/gtk/	
+	ln $workdir/binary/live/vmlinuz $workdir/binary/install/gtk/vmlinuz
+	ln $workdir/binary/live/vmlinuz $workdir/binary/install/vmlinuz	
 
 	# ozi
 	notice "Symlink firmware packages to /firmware"

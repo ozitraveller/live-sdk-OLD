@@ -1,0 +1,55 @@
+#!/bin/bash
+#Star User Set-up
+
+set -e
+
+USER=$1
+
+if [ ! -d "/home/$USER/.config/star" ]; then
+	mkdir /home/$USER/.config/star
+fi
+
+if [ ! -f "/home/$USER/.config/star/star-setup" ]; then
+
+    #cd /etc/skel
+    #tar cpzf skel.tar.gz .
+    #mv skel.tar.gz /home/$USER/skel.tar.gz
+    #cd /home/$USER
+    #tar xkpsf skel.tar.gz
+    #rm skel.tar.gz
+
+    if [ -f "/home/$USER/.gtkrc-2.0" ]; then
+        sed -i "s/REPLACEME/${USER}/g" /home/$USER/.gtkrc-2.0 > /dev/null 2>&1
+    fi
+    if [ -f "/home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js" ]; then
+        sed -i "s/REPLACEME/${USER}/g" /home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js > /dev/null 2>&1
+    fi
+    
+    ln -s /usr/share/backgrounds /home/$USER/images/wallpapers/shared
+
+	if [ "$USER" != "starlive" ]; then
+		sed -i".bak" '/# installer start/,/# installer end/d' /etc/skel/.config/i3/config
+		rm /etc/skel/.config/i3/config.bak
+		if [ -f "/home/$USER/.config/i3/config" ]; then
+			rm /home/$USER/.config/i3/config
+		fi
+		if [ -f "/home/$USER/.config/conky/conky_shortcuts_live_grey" ]; then
+			rm /home/$USER/.config/conky/conky_shortcuts_live_grey
+		fi
+		
+		cp /etc/skel/.config/i3/config /home/$USER/.config/i3/config
+		cp /etc/skel/.config/conky/conky_shortcuts_live_grey2 /home/$USER/.config/conky/conky_shortcuts_live_grey
+		
+		rpl -q '# policykit-1-gnome' 'exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1' /etc/skel/.config/i3/config > /dev/null 2>&1
+		cp /etc/skel/.config/i3/config /home/$USER/.config/i3/config
+
+	fi
+	
+	touch /home/$USER/.config/star/star-setup
+    chown -R $USER:$USER /home/$USER
+    
+fi
+
+xdg-user-dirs-update
+
+exit 0

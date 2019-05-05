@@ -161,28 +161,28 @@ then
 	done
 fi
 
-if ls ./*.binary > /dev/null 2>&1
-then
-	for HOOK in ./*.binary
-	do
-		if [ ! -e ./"\${HOOK}" ]
-		then
-			continue
-		fi
+#~ if ls ./*.binary > /dev/null 2>&1
+#~ then
+	#~ for HOOK in ./*.binary
+	#~ do
+		#~ if [ ! -e ./"\${HOOK}" ]
+		#~ then
+			#~ continue
+		#~ fi
 
-		if [ ! -x ./"\${HOOK}" ]
-		then
-			echo "chmod  hook : \${HOOK}"
-			chmod +x ./"\${HOOK}"
-		fi
+		#~ if [ ! -x ./"\${HOOK}" ]
+		#~ then
+			#~ echo "chmod  hook : \${HOOK}"
+			#~ chmod +x ./"\${HOOK}"
+		#~ fi
 
-		# Executing hook
-		cd binary
-		../"\${HOOK}" # || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-		cd "${OLDPWD}"
-		rm -f ./"\${HOOK}"
-	done
-fi
+		#~ # Executing hook
+		#~ cd ../..
+		#~ eval bootstrap/hooks/"\${HOOK}" # || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		#~ cd "${OLDPWD}"
+		#~ rm -f ./"\${HOOK}"
+	#~ done
+#~ fi
 
 EOF
 
@@ -215,13 +215,13 @@ rm -rf /hooks
 #~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
 
 # Option 3
-# apt-get --yes --force-yes purge ${purge_packages_final}
+apt-get --yes --force-yes purge ${purge_packages_final}
 
 # Option 4
-for _PACKAGE in ${purge_packages_final}
-do
-	apt-get --yes --force-yes purge "\${_PACKAGE}"
-done
+#~ for _PACKAGE in ${purge_packages_final}
+#~ do
+	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
+#~ done
 
 # Option 5
 #~ apt-get --yes --force-yes purge \

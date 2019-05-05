@@ -1,0 +1,91 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+# set -x
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+#~ gtk-update-icon-cache /usr/share/icons/Grey-Maia/
+# gtk-update-icon-cache /usr/share/icons/gnome/
+
+echo STAR-LIVE-Hook: "Removing icons"
+echo ""
+
+#~ # Removing icons
+#~ for ICON in mate menta Adwaita DarkPurpy Clearlooks-Phenix-DarkPurpy
+#~ do
+	#~ if [ -d "/usr/share/icons/${ICON}" ]; then
+		#~ rm -rf "/usr/share/icons/${ICON}"
+		#~ echo "WARNING: ${ICON} removed"
+	#~ fi
+#~ done
+
+#create tmp cache
+mkdir /star-icons
+
+# Move needed themes to cache
+for FILE in Grey-Maia hicolor locolor DMZ-Black DMZ-White
+do
+	mv "/usr/share/icons/${FILE}" /star-icons
+done
+
+# Removing remaining themes
+rm -rf /usr/share/icons/*
+
+# Restore needed themes
+mv /star-icons/* /usr/share/icons/
+
+#remove tmp cache
+rm -rf /star-icons
+
+#update icon cache
+gtk-update-icon-cache /usr/share/icons/Grey-Maia/
+
+
+
+echo ""
+echo STAR-LIVE-Hook: "Removing themes"
+echo ""
+
+#create tmp cache
+mkdir /star-themes
+
+# Move needed themes to cache
+for FILE in Adwaita Adwaita-Dark Clearlooks Clearlooks_Overcast Kokodi NumixHolo Xfce Default
+do
+	mv "/usr/share/themes/${FILE}" /star-themes
+done
+
+#~ mv /usr/share/themes/gnome /star-tmp
+#~ mv /usr/share/themes/Adwaita /star-tmp
+#~ mv /usr/share/themes/Adwaita-Dark /star-tmp
+#~ mv /usr/share/themes/Clearlooks /star-tmp
+
+# Removing remaining themes
+rm -rf /usr/share/themes/*
+
+# Restore needed themes
+mv /star-themes/* /usr/share/themes/
+
+#remove tmp cache
+rm -rf /star-themes
+
+echo ""
+echo STAR-LIVE-Hook: "Removing slim themes"
+echo ""
+
+rm -rf /usr/share/slim/themes/{default,default-OLD,desktop-slim-theme,devuan-curve,devuan-curve-purpy}
+
+echo ""
+
+rm -f /etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop*
+rm -f /etc/xdg/connman-tray.desktop
+

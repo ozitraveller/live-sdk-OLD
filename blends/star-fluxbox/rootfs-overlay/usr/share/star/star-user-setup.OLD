@@ -1,0 +1,52 @@
+#!/bin/bash
+#Star User Set-up
+
+set -e
+
+USER=$1
+
+if [ ! -d "/home/$USER/.config/star" ]; then
+	mkdir /home/$USER/.config/star
+fi
+
+if [ ! -f "/home/$USER/.config/star/star-setup" ]; then
+
+    #cd /etc/skel
+    #tar cpzf skel.tar.gz .
+    #mv skel.tar.gz /home/$USER/skel.tar.gz
+    #cd /home/$USER
+    #tar xkpsf skel.tar.gz
+    #rm skel.tar.gz
+    
+    if [ -f "/home/$USER/.fluxbox/init" ]; then
+        sed -i "s/REPLACEME/${USER}/g" /home/$USER/.fluxbox/init > /dev/null 2>&1
+    fi
+    if [ -f "/home/$USER/.gtkrc-2.0" ]; then
+        sed -i "s/REPLACEME/${USER}/g" /home/$USER/.gtkrc-2.0 > /dev/null 2>&1
+    fi
+    if [ -f "/home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js" ]; then
+        sed -i "s/REPLACEME/${USER}/g" /home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js > /dev/null 2>&1
+    fi
+                
+    ln -s /usr/share/backgrounds /home/$USER/images/wallpapers/shared
+    
+    if [ "$USER" != "starlive" ]; then
+		sed -i".bak" '/# installer start/,/# installer end/d' /etc/skel/.fluxbox/menu
+		rm /etc/skel/.fluxbox/menu.bak
+		if [ -f "/home/$USER/.fluxbox/menu" ]; then
+			rm /home/$USER/.fluxbox/menu
+		fi
+		cp /etc/skel/.fluxbox/menu /home/$USER/.fluxbox/menu
+		
+		rpl -q '# policykit-1-gnome' '/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &' /etc/skel/.fluxbox/startup > /dev/null 2>&1
+		cp /etc/skel/.fluxbox/startup /home/$USER/.fluxbox/startup
+	fi
+	
+	touch /home/$USER/.config/star/star-setup
+    chown -R $USER:$USER /home/$USER
+    
+fi
+
+xdg-user-dirs-update
+
+exit 0

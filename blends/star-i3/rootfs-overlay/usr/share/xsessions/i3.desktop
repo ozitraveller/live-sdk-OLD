@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=I3
+Comment=Highly configurable and low resource X11 Window manager
+Exec=/usr/bin/i3
+Terminal=false
+TryExec=/usr/bin/i3
+Type=Application
+
+[X-Window Manager]
+SessionManaged=true

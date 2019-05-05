@@ -1,0 +1,40 @@
+[app] (name=gmrun)
+  [Position]	(WINCENTER)	{0 0}
+  [Layer]	{2}
+[end]
+[app] (name=xfce4-terminal) (class=Xfce4-terminal) (role=xfce4-terminal-dropdown)
+  [Position]	(TOPCENTER)	{0 0}
+  [Deco]	{0x5e0}
+  [Layer]	{2}
+  [Alpha]	{255}
+[end]
+[app] (name=xfce4-terminal) (class=Xfce4-terminal)
+  [Dimensions]	{80% 89%}
+  [Position]	(CENTER)	{0 0}
+  [Deco]	{0x66f}
+  [Minimized]	{no}
+  [Maximized]	{no}
+  [Fullscreen]	{no}
+  [Layer]	{8}
+  [Alpha]	{255}
+[end]
+[app] (name=thunar) (class=Thunar)
+  [Dimensions]	{80% 89%}
+  [Position]	(CENTER)	{0 0}
+  [Deco]	{0x66f}
+  [Minimized]	{no}
+  [Maximized]	{no}
+  [Fullscreen]	{no}
+  [Layer]	{8}
+  [Alpha]	{255}
+[end]
+[app] (name=xpdf) (class=Xpdf)
+  [Dimensions]	{80% 89%}
+  [Position]	(CENTER)	{0 0}
+  [Deco]	{0x66f}
+  [Minimized]	{no}
+  [Maximized]	{no}
+  [Fullscreen]	{no}
+  [Layer]	{8}
+  [Alpha]	{255}
+[end]

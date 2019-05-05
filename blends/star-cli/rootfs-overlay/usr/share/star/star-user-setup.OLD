@@ -1,0 +1,70 @@
+#!/bin/bash
+#Star User Set-up
+
+set -x
+
+USER=$1
+
+if [ ! -d "/home/$USER/.config/star" ]; then
+	mkdir /home/$USER/.config/star
+fi
+
+if [ ! -f "/home/$USER/.config/star/star-setup" ]; then
+
+    #cd /etc/skel
+    #tar cpzf skel.tar.gz .
+    #mv skel.tar.gz /home/$USER/skel.tar.gz
+    #cd /home/$USER
+    #tar xkpsf skel.tar.gz
+    #rm skel.tar.gz
+
+    if [ -f "/etc/apt/sources.list.d/zz-sources.list" ]; then
+        rm -f /etc/apt/sources.list.d/zz-sources.list
+    fi
+    if [ -f "/home/$USER/.gtkrc-2.0" ]; then
+        rpl -q 'REPLACEME' $USER /home/$USER/.gtkrc-2.0 > /dev/null 2>&1
+    fi
+    if [ -f "/home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js" ]; then
+        rpl -q 'REPLACEME' $USER /home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js > /dev/null 2>&1
+    fi
+    #~ if [ -f "/home/$USER/.config/midori/config" ]; then
+        #~ rpl -q 'REPLACEME' $USER /home/$USER/.config/midori/config > /dev/null 2>&1
+    #~ fi
+    #~ if [ -f "/home/$USER/.config/netsurf/Choices" ]; then
+        #~ rpl -q 'REPLACEME' $USER /home/$USER/.config/netsurf/Choices > /dev/null 2>&1
+    #~ fi
+
+    ln -s /usr/share/backgrounds /home/$USER/images/wallpapers/shared
+
+    #~ if [ "$USER" != "starlive" ]; then
+		#~ sed -i".bak" '/<!-- installer start -->/,/<!-- installer end -->/d' /etc/skel/.config/jwm/menu
+		#~ rm /etc/skel/.config/jwm/menu.bak
+		#~ if [ -f "/home/$USER/.config/jwm/menu" ]; then
+			#~ rm /home/$USER/.config/jwm/menu
+		#~ fi
+		#~ cp /etc/skel/.config/jwm/menu /home/$USER/.config/jwm/menu
+		#~ 
+		#~ rpl -q '# policykit-1-gnome' '/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &' /etc/skel/.config/jwm/autostart > /dev/null 2>&1
+		#~ cp /etc/skel/.config/jwm/autostart /home/$USER/.config/jwm/autostart
+	#~ else
+		#~ # rm -f /etc/apt/sources.list
+		#~ echo "deb http://packages.devuan.org/merged jessie main contrib non-free" > /etc/apt/sources.list
+	#~ fi
+	
+    #if [ "$USER" != "starlive" ]; then
+		#sed -i".bak" '/<!-- installer start -->/,/<!-- installer end -->/d' /etc/skel/.jwmrc
+		#rm /etc/skel/.jwmrc.bak
+		#if [ -f "/home/$USER/.jwmrc" ]; then
+			#rm /home/$USER/.jwmrc
+		#fi
+		#cp /etc/skel/.jwmrc /home/$USER/.jwmrc
+	#fi
+
+	touch /home/$USER/.config/star/star-setup
+    chown -R $USER:$USER /home/$USER
+
+fi
+
+xdg-user-dirs-update
+
+exit 0

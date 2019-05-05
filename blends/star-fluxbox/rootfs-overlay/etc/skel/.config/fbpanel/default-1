@@ -1,0 +1,242 @@
+########################################
+## fbpanel configuration file         ##
+########################################
+# Global {
+
+#     # screen edge
+#     # legal values are: left, right, top, bottom
+     edge = top
+
+#     # allignment of a panel
+#     # legal values are: left, right, center
+#     allign = left
+
+# config {} - block of plugin's private configuration.
+#             This part is plugin  dependant
+
+
+Global {
+    edge = top
+    allign = center
+    margin = 0
+    widthtype = percent
+    width = 86
+    height = 24
+    transparent = true
+    tintcolor = #ffffff
+    alpha = 28
+    setdocktype = true
+    setpartialstrut = true
+    autohide = false
+    heightWhenHidden = 2
+    roundcorners = true
+    roundcornersradius = 7
+    layer = none
+    MaxElemHeight = 32
+}
+
+
+
+Plugin {
+    type = space
+    config {
+        size = 2
+    }
+}
+
+Plugin {
+    type = space
+    config {
+        size = 15
+    }
+}
+
+
+Plugin {
+    type = launchbar
+    config {
+        button {
+            icon = terminal
+            tooltip = Terminal
+            action = x-terminal-emulator
+        }
+        button {
+            icon = file-manager
+            tooltip = File Manager
+            action = thunar
+        }
+        button {
+            icon = file-manager
+            tooltip = File Manager
+            action = smplayer
+        }
+        button {
+				icon = web-browser
+				tooltip = Web Browser
+				action = x-www-browser
+			}
+    }
+}
+
+Plugin {
+    type = space
+    config {
+        size = 15
+    }
+}
+
+
+# Plugin {
+#    type = wincmd
+#    config {
+#        icon = gnome-fs-desktop
+#        tooltip = Left click to iconify all windows. Middle click to shade them.
+#    }
+#}
+
+
+Plugin {
+    type = space
+    config {
+        size = 15
+    }
+}
+
+
+
+Plugin {
+    type = taskbar
+    expand = true
+    config {
+        ShowIconified = true
+        ShowMapped    = true
+        ShowAllDesks  = false
+        tooltips = true
+        IconsOnly = false
+        MaxTaskWidth = 150
+    }
+}
+
+
+Plugin {
+    type = space
+	config {
+	   size = 15
+	}
+}
+
+Plugin {
+    type = pager
+    config {
+        showwallpaper = true
+    }
+}
+
+Plugin {
+    type = space
+    config {
+        size = 10
+    }
+}
+
+Plugin {
+    type = mem
+    expand = false
+    padding = 2
+    config {
+        ShowSwap = false
+    }
+}
+
+Plugin {
+    type = cpu
+    config {
+        Color = green
+    }
+}
+
+Plugin {
+    type = net
+    expand = false
+    padding = 0
+    config {
+        #interface = ppp0
+        interface = wlan0
+        # set connection limits to make traffic graph more accurate
+        TxLimit = 20
+        RxLimit = 190
+        TxColor = violet
+        RxColor = blue
+    }
+}
+
+
+Plugin {
+    type = space
+    config {
+        size = 10
+    }
+}
+
+#plugin {
+#    type = volume
+#}
+
+#plugin {
+#    type = battery
+#}
+
+Plugin {
+    type = tray
+}
+
+Plugin {
+    type = space
+    config {
+        size = 10
+    }
+}
+
+# Digital Clock
+Plugin {
+    type = dclock
+    config {
+        ShowSeconds = false
+        HoursView = 24
+        TooltipFmt = %A %x
+        #Action = xmessage Please define some command &
+    }
+}
+
+# 'icons' plugin lets you customize window icons.
+# these changes apply to entire desktop
+Plugin {
+    type = icons
+    config {
+        DefaultIcon = /usr/share/fbpanel/images/default.xpm
+        application {
+            icon = gnome-terminal
+            ClassName = XTerm
+        }
+        application {
+            icon = gnome-terminal
+            ClassName = mlterm
+        }
+        application {
+            icon = gnome-terminal
+            ClassName = URxvt
+        }
+        application {
+            icon = gnome-emacs
+            ClassName = Emacs
+        }
+        application {
+            icon = mozilla-firefox
+            ClassName = Firefox-bin
+        }
+        application {
+            icon = mozilla-firefox
+            ClassName = Firefox
+        }
+    }
+}

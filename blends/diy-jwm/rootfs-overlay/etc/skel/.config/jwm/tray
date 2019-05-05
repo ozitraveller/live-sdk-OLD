@@ -9,7 +9,7 @@
       <TrayButton icon="/usr/share/icons/Grey-Maia/places/22/user-desktop.svg">showdesktop</TrayButton>
       <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/utilities-terminal.png">exec:x-terminal-emulator</TrayButton>
       <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/system-file-manager.svg">exec:x-file-manager</TrayButton>
-      <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/smplayer.png">exec:x-media-player</TrayButton>
+      <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/mpv.svg">exec:x-media-player</TrayButton>
       <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/web-browser.png">exec:x-www-browser</TrayButton>
 
       <TaskList maxwidth="130" border="false"/>

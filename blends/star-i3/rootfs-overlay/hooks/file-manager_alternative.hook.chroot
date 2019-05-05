@@ -1,0 +1,13 @@
+#!/bin/sh
+# set thunar as default file-manager.
+#############################################
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+# update-alternatives --install /usr/bin/x-file-manager x-file-manager /usr/bin/thunar 99
+update-alternatives --install /usr/bin/x-file-manager x-file-manager /usr/bin/pcmanfm 99
+# update-alternatives --install /usr/bin/x-file-manager x-file-manager /usr/bin/spacefm 99
+update-alternatives --config x-file-manager

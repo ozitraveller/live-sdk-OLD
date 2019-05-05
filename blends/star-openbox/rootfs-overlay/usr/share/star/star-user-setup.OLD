@@ -1,0 +1,55 @@
+#!/bin/bash
+#Star User Set-up
+
+set -x
+
+USER=$1
+
+if [ ! -d "/home/$USER/.config/star" ]; then
+	mkdir /home/$USER/.config/star
+fi
+
+if [ ! -f "/home/$USER/.config/star/star-setup" ]; then
+
+    #cd /etc/skel
+    #tar cpzf skel.tar.gz .
+    #mv skel.tar.gz /home/$USER/skel.tar.gz
+    #cd /home/$USER
+    #tar xkpsf skel.tar.gz
+    #rm skel.tar.gz
+
+
+    if [ -f "/etc/apt/sources.list.d/zz-sources.list" ]; then
+        rm -f /etc/apt/sources.list.d/zz-sources.list
+    fi
+    if [ -f "/home/$USER/.gtkrc-2.0" ]; then
+        sed -i "s/REPLACEME/${USER}/g" /home/$USER/.gtkrc-2.0 > /dev/null 2>&1
+    fi
+    if [ -f "/home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js" ]; then
+        sed -i "s/REPLACEME/${USER}/g" /home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js > /dev/null 2>&1
+    fi
+    
+    ln -s /usr/share/backgrounds /home/$USER/images/wallpapers/shared
+    
+    if [ "$USER" != "starlive" ]; then
+		sed -i".bak" '/<!-- installer start -->/,/<!-- installer end -->/d' /etc/skel/.config/openbox/menu.xml
+		rm /etc/skel/.config/openbox/menu.xml.bak
+		if [ -f "/home/$USER/.config/openbox/menu.xml" ]; then
+			rm /home/$USER/.config/openbox/menu.xml
+		fi
+		cp /etc/skel/.config/openbox/menu.xml /home/$USER/.config/openbox/menu.xml
+		
+		rpl -q '# policykit-1-gnome' '/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &' /etc/skel/.config/openbox/autostart > /dev/null 2>&1
+		cp /etc/skel/.config/openbox/autostart /home/$USER/.config/openbox/autostart
+	else
+		echo "deb http://packages.devuan.org/merged jessie main contrib non-free" > /etc/apt/sources.list
+	fi
+	
+	touch /home/$USER/.config/star/star-setup
+    chown -R $USER:$USER /home/$USER
+    
+fi
+
+xdg-user-dirs-update
+
+exit 0

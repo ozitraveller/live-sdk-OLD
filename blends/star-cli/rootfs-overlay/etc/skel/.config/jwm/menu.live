@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<JWM>
+	
+
+   <!-- The root menu, if this is undefined you will not get a menu. -->
+   <!-- Additional RootMenu attributes: onroot, labeled, label -->
+   <RootMenu height="15" onroot="123">
+      <Program icon="terminal.png" label="Terminal">x-terminal-emulator</Program>
+      <Program icon="thunar.png" label="File Manager">x-file-manager</Program>
+      <Program icon="firefox.png" label="Web Browser">x-www-browser</Program>
+<!-- installer start -->
+      <Separator/>
+	  <Program label="Install Star" confirm="false">su-to-root -X -c /usr/sbin/debian-installer-launcher</Program>	
+<!-- installer end -->	        
+      <Separator/>
+      <Menu icon="folder.png" label="Settings">
+		  <Menu icon="folder.png" label="Jwm">
+			<Program label="Edit menu" confirm="false">leafpad ~/.config/jwm/menu</Program>
+			<Program label="Edit tray" confirm="false">leafpad ~/.config/jwm/tray</Program>
+			<Program label="Edit theme" confirm="false">leafpad ~/.config/jwm/theme-adwaita-dark</Program>
+			<Program label="Edit keys" confirm="false">leafpad ~/.config/jwm/keys</Program>
+			<Program label="Edit preferences" confirm="false">leafpad ~/.config/jwm/preferences</Program>
+			<Program label="Edit groups" confirm="false">leafpad ~/.config/jwm/groups</Program>
+			<Program label="Edit start" confirm="false">leafpad ~/.config/jwm/start</Program>
+			<Program label="Edit autostart" confirm="false">leafpad ~/.config/jwm/autostart</Program>
+			<Separator/>
+			<Program label="Restart" confirm="false">/usr/bin/jwm -restart</Program>
+			<Program label="Reload menu" confirm="false">/usr/bin/jwm -reload</Program>
+		  </Menu>
+          <Program label="Display Settings" confirm="false">/usr/bin/arandr</Program>
+          <Program label="Appearance" confirm="false">/usr/bin/lxappearance</Program>
+      </Menu>
+      <Separator/>
+      <Menu icon="folder.png" label="Accessories">
+		  <Program label="Calculator" confirm="false">/usr/bin/xcalc</Program>
+          <Program label="Leafpad" confirm="false">editor</Program>
+		  <Program label="Terminal">x-terminal-emulator</Program>
+		  <Program label="Pcmanfm">x-file-manager</Program>
+		  <Program label="Xarchiver">/usr/bin/xarchiver</Program>
+		  <Program label="Xterm">/usr/bin/xterm</Program>
+      </Menu>
+      <Menu icon="folder.png" label="Graphics">
+          <Program label="Mirage" confirm="false">/usr/bin/mirage</Program>
+		  <Menu icon="folder.png" label="Take Screenshot">
+			  <Program label="Now" confirm="false">scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'</Program>
+			  <Program label="In 5 Seconds..." confirm="false">scrot -d 5 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'</Program>
+			  <Program label="In 10 Seconds..." confirm="false">scrot -d 10 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'</Program>
+			  <Program label="Selected Area... (click &amp; drag mouse)" confirm="false">scrot -s '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'</Program>
+		  </Menu>
+      </Menu>
+      <Menu icon="folder.png" label="Internet">
+          <Program icon="epiphany.png" label="Epiphany">x-www-browser</Program>
+      </Menu>
+      <Menu icon="folder.png" label="Multimedia">
+          <Program label="Mpv" confirm="false">x-media-player</Program>
+		  <Program label="Audio Mixer" confirm="false">x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer</Program>
+      </Menu>
+      <Menu icon="folder.png" label="Office">
+          <Program label="Pdf Viewer" confirm="false">/usr/bin/xpdf</Program>
+      </Menu>
+      <Menu icon="folder.png" label="System">
+		  <Program label="Alternatives Configurator" confirm="false">su-to-root -X -c /usr/bin/galternatives</Program>
+		  <Program label="Htop Task Manager" confirm="false">x-terminal-emulator -t 'htop task manager' -e htop</Program>
+          <Program label="Bootup-Manager" confirm="false">su-to-root -X -c /usr/bin/bum</Program>
+          <Program label="Disk Manager" confirm="false">su-to-root -X -c /usr/sbin/disk-manager</Program>
+          <Program label="Gdebi Package Installer" confirm="false">su-to-root -X -c /usr/bin/gdebi-gtk</Program>
+          <Program label="Gparted" confirm="false">su-to-root -X -c /usr/sbin/gparted</Program>
+          <Program label="Root Terminal" confirm="false">su-to-root -X -c x-terminal-emulator</Program>
+          <Program label="Root File Manager" confirm="false">su-to-root -X -c x-file-manager</Program>
+          <Program label="System Information" confirm="false">/usr/bin/hardinfo</Program>
+          <Program label="Synaptic Package Manager" confirm="false">su-to-root -X -c /usr/sbin/synaptic</Program>
+      </Menu>
+      <Separator/>
+      <Program label="Lock">/usr/bin/i3lock -n -p default --color=000000</Program>
+      <Program icon="exit.png" label="Log Out">/usr/bin/star-logout</Program>
+   </RootMenu>
+
+</JWM>
