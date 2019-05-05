@@ -209,21 +209,38 @@ extra_packages+=(
 	ncdu
 	pciutils
 	task-english
-	fluxbox
 	dunst
 	connman
 	connman-ui
 	hsetroot
-	lxterminal
 	arandr
-	lxappearance
-	leafpad
-	pcmanfm
-	libfm-modules
 	lsof
 	yad
 	mpv
 	xarchiver
+	xfce4-panel 
+	xfce4-session 
+	xfce4-settings 
+	xfce4-terminal
+	xfce4-appfinder
+	xfce4-screenshooter
+	xfce4-notifyd
+	libnotify-bin
+	libxfce4ui-utils
+	xfce4-taskmanager
+	xfwm4 
+	xfwm4-themes 
+	xfdesktop4
+	qalculate-gtk
+	menu	
+	mousepad
+	thunar
+	thunar-data
+	thunar-volman
+	thunar-archive-plugin
+	thunar-media-tags-plugin
+	tumbler
+	gtk3-engines-xfce
 
 )
 
