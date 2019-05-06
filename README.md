@@ -153,7 +153,7 @@ This part creates a log file in the live-sdk folder (just dumps everything from 
 
 
 ## Cleaning the build folders (dist, log, tmp)
-Clean the build environment: log files in lve-sdk folder, and any files in log, tmp, dist folders
+Clean the build environment: log files in live-sdk folder, and any files in: log, tmp, dist folders
 
 In a terminal: 
 
