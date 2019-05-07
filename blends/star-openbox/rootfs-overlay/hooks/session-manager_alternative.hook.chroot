@@ -1,5 +1,5 @@
 #!/bin/sh
-# set fluxbox as default x-window-manager.
+# set openbox as default x-window-manager.
 #############################################
 
 set -e

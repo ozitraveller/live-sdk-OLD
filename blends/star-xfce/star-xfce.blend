@@ -232,13 +232,13 @@ rm -rf /hooks
 #~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
 
 # Option 3
-apt-get --yes --force-yes purge ${purge_packages_final}
+#~ apt-get --yes --force-yes purge ${purge_packages_final}
 
 # Option 4
-#~ for _PACKAGE in ${purge_packages_final}
-#~ do
-	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
-#~ done
+for _PACKAGE in ${purge_packages_final}
+do
+	apt-get --yes --force-yes purge "\${_PACKAGE}"
+done
 
 # Option 5
 #~ apt-get --yes --force-yes purge \

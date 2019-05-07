@@ -97,8 +97,8 @@ yes | apt-get -f install
 
 # chmod -R 755 /usr/bin/lock-screen
 # chmod -R 755 /usr/bin/compositor
-chmod +x /usr/local/bin/usbpmount.sh
-chmod +x /usr/local/bin/usb-unmount.sh
+# chmod +x /usr/local/bin/usbpmount.sh
+# chmod +x /usr/local/bin/usb-unmount.sh
 chmod +x /usr/bin/preseed-hack
 # rm -f /usr/bin/preseed-hack
 rm -f /etc/apt/sources.list~

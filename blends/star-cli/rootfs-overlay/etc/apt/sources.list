@@ -1,0 +1,13 @@
+deb http://deb.devuan.org/merged jessie main contrib non-free
+# deb https://pkgmaster.devuan.org/devuan/ jessie main contrib non-free
+# deb-src http://packages.devuan.org/merged/ jessie main
+
+# jessie-security, previously known as 'volatile'
+deb http://deb.devuan.org/merged jessie-security main contrib non-free
+# deb https://pkgmaster.devuan.org/devuan/ jessie-security main contrib non-free
+# deb-src http://packages.devuan.org/merged/ jessie-security main
+
+# jessie-updates, previously known as 'volatile'
+deb http://deb.devuan.org/merged jessie-updates main contrib non-free
+# deb https://pkgmaster.devuan.org/devuan/ jessie-updates main contrib non-free
+# deb-src http://packages.devuan.org/merged/ jessie-updates main

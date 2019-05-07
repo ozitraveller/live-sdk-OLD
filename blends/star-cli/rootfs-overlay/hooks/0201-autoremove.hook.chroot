@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+apt-get autoremove --yes
+#apt-get -y remove gnome-user-guide
+#apt-get -y remove debian-installer-launcher
+

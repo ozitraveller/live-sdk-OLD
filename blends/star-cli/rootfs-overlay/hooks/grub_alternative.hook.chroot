@@ -1,0 +1,11 @@
+#!/bin/sh
+# set default grub background.
+#########################################
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+
+update-alternatives --install /usr/bin/desktop-grub desktop-grub /usr/share/images/desktop-base/star-grub-plain.png 99
+

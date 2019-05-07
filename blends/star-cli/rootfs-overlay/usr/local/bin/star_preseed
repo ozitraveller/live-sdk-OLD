@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+# set star sources.list
+# cp /usr/share/star/preferences /etc/apt/preferences
+# cp /usr/share/star/apt.conf /etc/apt/apt.conf
+# cp /usr/share/star/sources.list /etc/apt/sources.list
+
+# remove the live tools
+dpkg --purge live-tools
+
+# remove autologin after install
+# sed -i "s/autologin-user=starlive/# autologin-user=/g" /etc/lightdm/lightdm.conf
+# sed -i "s/autologin-user-timeout=0/# autologin-user-timeout=0/g" /etc/lightdm/lightdm.conf
+
+# update grub
+sed -i "s/echo Devuan/echo Star/g" /etc/default/grub
+# sed -i "s/quiet/quiet init=/lib/systemd/systemd/g" /etc/default/grub
+sed -i "s/GRUB_THEME=/#GRUB_THEME=/g" /etc/default/grub
+echo "GRUB_BACKGROUND=\"/usr/share/images/desktop-base/star-grub-plain.png\"" >> /etc/default/grub
+update-grub
+
+# there is a hook for this
+# update-alternatives --install /usr/bin/desktop-grub desktop-grub /usr/share/images/desktop-base/star-grub.png 99
+
+# enable firewall
+ufw default reject incoming
+ufw default allow outgoing
+ufw enable

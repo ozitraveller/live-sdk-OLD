@@ -328,7 +328,6 @@ purge_packages_final+=(
 	laptop-detect
 	less
 	loadlin
-	lxde-settings-daemon
 	lynx
 	lynx-common
 	mailutils-common

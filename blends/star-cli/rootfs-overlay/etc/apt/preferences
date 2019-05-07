@@ -1,0 +1,11 @@
+# Package: *
+# Pin: release n=sid
+# Pin-Priority: 500
+
+# Package: *
+# Pin: release n=unstable
+# Pin-Priority: 200
+
+# Package: *
+# Pin: release n=experimental
+# Pin-Priority: 100

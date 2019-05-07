@@ -24,7 +24,7 @@
     format = "%s %p\n%b"
     
     # Sort messages by urgency.
-    sort = no
+    sort = yes
     
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -37,7 +37,7 @@
     # window allows bounces back and forth.
     # This option conflicts with "word_wrap".
     # Set to 0 to disable.
-    bounce_freq = 5
+    bounce_freq = 0
 
     
     # Show age of message if message is older than show_age_threshold
@@ -47,7 +47,7 @@
     
     # Split notifications into multiple lines if they don't fit into
     # geometry.
-    word_wrap = no
+    word_wrap = yes
     
     # Ignore newlines '\n' in notifications.
     ignore_newline = no
@@ -65,11 +65,11 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "0x0+25+25"
+    geometry = "300x5-30+48"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
-    shrink = yes
+    shrink = no
     
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
@@ -131,7 +131,7 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = #c0c0c0
+    separator_color = frame
     
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
@@ -142,7 +142,7 @@
     dmenu = /usr/bin/dmenu -p dunst:
     
     # Browser for opening urls in context menu.
-    browser = epiphany
+    browser = x-www-browser
 
     # Align icons left/right/off
     icon_position = left
@@ -151,8 +151,10 @@
     icon_folders = /usr/share/icons/Grey-Maia/16x16/status/:/usr/share/icons/Grey-Maia/16x16/devices/
 
 [frame]
-    width = 1
-    color = "#c0c0c0"
+    #width = 3
+    #color = "#323234"
+    width = 3
+    color = "##626262"
 
 [shortcuts]
 
@@ -179,18 +181,22 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#000000"
-    foreground = "#888888"
-    timeout = 10
+    background = "#232323"
+    foreground = "#A8A8A8"
+    timeout = 5
 
 [urgency_normal]
-    background = "#000000"
-    foreground = "#ffffff"
-    timeout = 10
+    #background = "#285577"
+    #foreground = "#CECFD1"
+    #background = "#26282B"
+    background = "#232323"
+    foreground = "#A8A8A8"
+    timeout = 5
 
 [urgency_critical]
-    background = "#900000"
-    foreground = "#ffffff"
+    background = "#D64E4E"
+    foreground = "#F0E0E0"
+    frame_color = "#D64E4E"
     timeout = 0
 
 
