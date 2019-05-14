@@ -106,49 +106,40 @@ base_packages+=(
 
 extra_packages+=(	
 
-	xorg
-	accountsservice
-	upower
-	slim
-	kexec-tools
-	pm-utils
-	xdg-user-dirs
-	xdg-utils
-	alsa-utils
-	apulse
-	rtkit
-	tasksel
-	gamin
-	cpufrequtils
-	tzdata
-	unrar
-	unace
-	unalz
-	unzip
-	lzop
-	rzip
+	gdisk
+	htop
+	iftop
+	iotop
+	ncdu
+	parted
+	wavemon
+	iw
+	localepurge
+	openssh-server
+	mc	
+	mc-data	
+	debfoster
+	rsync
+	ufw
 	zip
-	xz-utils
-	arj
-	bzip2
-	gzip
-	rpl
-	libxss1
-	logrotate
-	mpg321
-	gstreamer1.0-plugins-base
-	gstreamer1.0-plugins-good 
-	gstreamer1.0-plugins-bad
-	gstreamer1.0-plugins-ugly
-	gstreamer1.0-alsa
-	gir1.2-gst-plugins-base-1.0
-	gir1.2-gstreamer-1.0
+	unzip
+	setnet
+	wpasupplicant
+	net-tools
+	iputils-ping
+	bind9-host
+	traceroute
+	apt-listchanges
+	wget
+	ca-certificates
+	hwdata
 	policykit-1
 	policykit-1-gnome
 	rfkill
 	usbutils
-	localepurge
-	xserver-xorg-video-all
+	cpufrequtils
+	tzdata
+	logrotate
 	intel-microcode
 	amd64-microcode
 	iucode-tool
@@ -167,63 +158,14 @@ extra_packages+=(
 	firmware-b43-installer 
 	firmware-b43legacy-installer 
 	b43-fwcutter 
-	mobile-broadband-provider-info 
 	iw
 	wireless-tools
-	wpasupplicant
 	lsb-release
-	wmctrl
-	setnet
-	iputils-ping
-	bind9-host
-	traceroute
 	apt-transport-https
-	desktop-base
 	bash-completion
-	ttf-dejavu 
-	fonts-liberation 
-	fontconfig-config 
-	dmz-cursor-theme
-	gtk2-engines-murrine 
-	gtk2-engines-pixbuf
-	bum 
-	hdparm 
-	disk-manager 
-	ufw 
-	gparted  
-	htop
-	gksu 
 	gdebi 
-	hardinfo 
-	synaptic
-	galternatives
-	i3lock
-	suckless-tools 
-	epiphany-browser
-	conky-all 
-	scrot
-	xfsdump
-	xfsprogs
-	xpdf
-	xterm
 	ncdu
 	pciutils
-	task-english
-	fluxbox
-	dunst
-	connman
-	connman-ui
-	hsetroot
-	lxterminal
-	arandr
-	lxappearance
-	leafpad
-	pcmanfm
-	libfm-modules
-	lsof
-	yad
-	mpv
-	xarchiver
 
 )
 

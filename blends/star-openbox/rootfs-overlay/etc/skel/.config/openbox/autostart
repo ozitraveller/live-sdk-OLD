@@ -1,0 +1,66 @@
+## Openbox autostart
+## =================
+## When you login to your Star Openbox session, this autostart script 
+## will be executed to set-up your environment and launch any applications
+## you want to run at startup.
+##
+## Note*: some programs, such as 'nm-applet' are run via XDG autostart.
+## Run '/usr/lib/openbox/openbox-xdg-autostart --list' to list any
+## XDG autostarted programs.
+##
+## More information about this can be found at:
+## http://openbox.org/wiki/Help:Autostart
+##
+## Have fun & happy Star! :)
+
+# policykit-1-gnome
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+
+pkill conky
+
+## Set root window colour
+hsetroot -solid "#000000" & 
+# hsetroot -solid "#2E3436" & 
+
+## Group start:
+## 1. nitrogen - restores wallpaper
+## 2. compositor - start
+## 3. sleep - give compositor time to start
+## 4. tint2 panel
+
+sleep 1
+{
+	# compton --config ~/.compton.conf &
+	(sleep 3 && tint2) &
+	(sleep 3 && connman-ui-gtk --tray) &
+	# (sleep 2 && cmst -m) &
+	# (sleep 3 && wicd-gtk --tray) &
+ 	# (sleep 3 && volumeicon --tray) &
+	# (sleep 3 && clipit) &
+	(sleep 3 && conky -c ~/.conkyrc) &
+	# nitrogen --restore &
+	# feh --bg-scale $HOME/images/wallpapers/shared/filename.jpg &
+	(sleep 6 && star-welcome --firstrun) &
+}
+
+## Enable power management
+# xfce4-power-manager &
+
+## Start Thunar Daemon
+# thunar --daemon &
+
+## Start notifications
+dunst &
+
+## Start mixer
+# volti &
+
+## Set keyboard settings - 250 ms delay and 25 cps (characters per second) repeat rate.
+## Adjust the values according to your preferances.
+xset r rate 250 25 &
+
+## Turn on/off system beep
+xset b off &
+
+## read xpdf, xterm, uxrvt etc.. config
+xrdb -merge ~/.Xresources

@@ -123,7 +123,7 @@ update-rc.d live-sessions defaults
 # ----------- extra_packages
 for _PACKAGE in ${extra_packages}
 do
-	echo "\${_PACKAGE}"
+	# echo "\${_PACKAGE}"
 	apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
 done
 

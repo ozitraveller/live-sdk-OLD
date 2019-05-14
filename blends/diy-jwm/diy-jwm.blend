@@ -111,7 +111,14 @@ update-rc.d live-sessions defaults
 
 # export DEBIAN_FRONTEND=noninteractive
 
-apt-get --yes --force-yes --fix-missing install ${extra_packages}
+# ----------- extra_packages
+for _PACKAGE in ${extra_packages}
+do
+	# echo "\${_PACKAGE}"
+	apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
+done
+
+# apt-get --yes --force-yes --fix-missing install ${extra_packages}
 # apt-get --yes --force-yes autoremove
 
 

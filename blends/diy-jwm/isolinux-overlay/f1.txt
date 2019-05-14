@@ -1,6 +1,6 @@
                   0fWelcome to Devuan GNU/Linux!07                                09F107
 
-This is a Devuan 1.0 (jessie) installation CD-ROM.
+This is a Devuan 2.0 (ascii) installation CD-ROM.
 
 0fHELP INDEX07
 

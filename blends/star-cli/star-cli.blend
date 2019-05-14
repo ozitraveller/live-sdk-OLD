@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# star-jwm.blend
+# star-cli.blend
 
 
 	#~ gvfs
@@ -45,7 +45,7 @@ blend_postinst() {
 	
 	pushd "$strapdir"
 		mkdir ./hooks
-		sudo rsync -avx --no-o --no-g $R/extra/common/rootfs-overlay/* . || zerr
+		# sudo rsync -avx --no-o --no-g $R/extra/common/rootfs-overlay/* . || zerr
 		sudo rsync -avx --no-o --no-g "$BLENDPATH"/rootfs-overlay/* . || zerr
 	popd
 	
@@ -97,9 +97,9 @@ yes | apt-get -f install
 
 # chmod -R 755 /usr/bin/lock-screen
 # chmod -R 755 /usr/bin/compositor
-chmod +x /usr/local/bin/usbpmount.sh
-chmod +x /usr/local/bin/usb-unmount.sh
-chmod +x /usr/bin/preseed-hack
+#~ chmod +x /usr/local/bin/usbpmount.sh
+#~ chmod +x /usr/local/bin/usb-unmount.sh
+#~ chmod +x /usr/bin/preseed-hack
 # rm -f /usr/bin/preseed-hack
 rm -f /etc/apt/sources.list~
 rm -f /etc/apt/trusted.gpg~
@@ -113,8 +113,8 @@ rm -f vmlinuz.old
 rm -f initrd.img.old
 rm -f /etc/ssh/ssh_host_*
 rm -f /etc/fstab
-chmod +x /etc/init.d/live-sessions
-update-rc.d live-sessions defaults
+#~ chmod +x /etc/init.d/live-sessions
+#~ update-rc.d live-sessions defaults
 # chmod +x /usr/bin/preseed-hack
 
 
@@ -123,7 +123,7 @@ update-rc.d live-sessions defaults
 # ----------- extra_packages
 for _PACKAGE in ${extra_packages}
 do
-	echo "\${_PACKAGE}"
+	# echo "\${_PACKAGE}"
 	apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
 done
 
@@ -232,13 +232,13 @@ rm -rf /hooks
 #~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
 
 # Option 3
-apt-get --yes --force-yes purge ${purge_packages_final}
+# apt-get --yes --force-yes purge ${purge_packages_final}
 
 # Option 4
-#~ for _PACKAGE in ${purge_packages_final}
-#~ do
-	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
-#~ done
+for _PACKAGE in ${purge_packages_final}
+do
+	apt-get --yes --force-yes purge "\${_PACKAGE}"
+done
 
 # Option 5
 #~ apt-get --yes --force-yes purge \
@@ -279,11 +279,15 @@ EOF
 	mv -f $strapdir/list_installed-packages $R/log/
 	mv -f $strapdir/*.txt $R/log/
 	
-	cp -rfav $R/extra/common/extra/config-files/slim.conf $strapdir/etc/	
+	cp -rfav $R/blends/$blendname/extra/config-files/grub.* $strapdir/etc/default/	
 	
 	# Copy in custom apt config here! MUST BE just before the iso is created
 	# \cp causes OVERWRITE
-	\cp -rfav $R/extra/common/extra/apt-files/apt/* $strapdir/etc/apt/
+	\cp -rfav $R/blends/$blendname/extra/apt-files/apt/* $strapdir/etc/apt/
+	
+	# copy blend isolinux-overlay cfg files
+	rm -f $workdir/binary/isolinux/*.cfg
+	cp -rav $R/blends/$blendname/isolinux-overlay/*.cfg $workdir/binary/isolinux/
 
 }
 
@@ -292,48 +296,6 @@ blend_installer_update () {
 	req=(workdir release strapdir)
 	ckreq || return 1
 notice "Running blend_installer_update"
-
-		
-	local TARGET_INITRD
-	local INCLUDE_PATH
-	local INITRD_GI
-	TARGET_INITRD="install/gtk/initrd.gz"
-	INCLUDE_PATH="includes.installer"
-	REPACK_TMPDIR="unpacked-initrd"
-	INITRD_GI="gtk/initrd.gz"
-
-cat <<EOF | sudo tee ${strapdir}/Repack_Initrd >/dev/null
-#!/bin/sh
-
-# set -x
-
-cd binary
-
-#~ if [ -d ${INCLUDE_PATH} ]
-#~ then
-	#~ INCLUDE_PATH=$(readlink -f ${INCLUDE_PATH})
-#~ fi
-	
-# cpio does not have an "extract to directory", so we must change directory
-mkdir -p ${REPACK_TMPDIR}
-
-cd ${REPACK_TMPDIR}
-gzip -d < ../${TARGET_INITRD} | cpio -i --make-directories --no-absolute-filenames
-
-# New way, include target directory content in the initrd
-REPACK_TMPDIR_ABS="${REPACK_TMPDIR}"
-
-cd ../"${INCLUDE_PATH}"
-cp -rav ./* ../${REPACK_TMPDIR}
-
-find -print0 | cpio -pumd0 --no-preserve-owner "${REPACK_TMPDIR_ABS}/"
-cd ../${REPACK_TMPDIR}
-
-find -print0 | cpio -H newc -o0 | gzip -9 > ../${TARGET_INITRD}
-	
-EOF
-
-	notice "Installer gtk update - Repack_initrd"
 
 	# the preseed.cfg file:
 	notice "copying isolinux overlay - preseed.cfg"
@@ -344,32 +306,20 @@ EOF
 	notice "move binary - sudo mv ${workdir}/binary ${strapdir}"
 	mv ${workdir}/binary ${strapdir}
 	mv ${strapdir}/includes.installer ${strapdir}/binary
-			
-	if [ -d ${strapdir}/binary/includes.installer ] && [ -n "$(ls -A ${strapdir}/binary/includes.installer)" ]
-	then
-notice "=------1------="
-		if [ -e ${strapdir}/binary/install/gtk ]
-		then
-notice "=------2------="
 
-			#~ if ls $R/extra/common/installer-files/*.cfg > /dev/null 2>&1
-			#~ then
-				#~ cp -rfav $R/extra/common/installer-files/*.cfg ${strapdir}/binary/install/
-			#~ fi
-			cp -rfav $R/extra/common/extra/installer-files/preseed.cfg ${strapdir}/binary/install/
-			cp -rfav ${strapdir}/binary/install/cdrom/initrd.gz ${strapdir}/binary/install/
-
-			notice "Repack_initrd - ${INITRD_GI}" "/includes.installer"
-			chroot-script Repack_Initrd || zerr
-			
-		fi
-	fi
+	cp -rfav $R/blends/$blendname/extra/installer-files/preseed.cfg ${strapdir}/binary/install/
+	cp -rfav ${strapdir}/binary/install/cdrom/initrd.gz ${strapdir}/binary/install/
 
 	mv ${strapdir}/binary ${workdir}
 
 	rm -rf ${workdir}/binary/includes.installer
 	rm -rf ${workdir}/binary/unpacked-initrd
 	rm -rf ${workdir}/binary/install/cdrom
+	
+	rm -rf ${workdir}/binary/install/gtk
+	rm -f ${workdir}/binary/install/vmlinuz
+	rm -f ${workdir}/binary/live/initrd.img
+	mv ${workdir}/binary/live/vmlinuz ${workdir}/binary/install
 
 }
 
@@ -486,3 +436,4 @@ EOF
 	cp -rfav /$R/extra/common/binary-overlay/boot/grub ${workdir}/binary/boot/
 	
 }
+

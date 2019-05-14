@@ -15,10 +15,13 @@ dpkg --purge live-tools
 # sed -i "s/autologin-user-timeout=0/# autologin-user-timeout=0/g" /etc/lightdm/lightdm.conf
 
 # update grub
-sed -i "s/echo Devuan/echo Star/g" /etc/default/grub
-# sed -i "s/quiet/quiet init=/lib/systemd/systemd/g" /etc/default/grub
-sed -i "s/GRUB_THEME=/#GRUB_THEME=/g" /etc/default/grub
-echo "GRUB_BACKGROUND=\"/usr/share/images/desktop-base/star-grub-plain.png\"" >> /etc/default/grub
+rm -f /etc/default/grub
+mv /etc/default/grub.t /etc/default/grub
+
+#~ sed -i "s/echo Debian/echo Star/g" /etc/default/grub
+#~ sed -i "s/echo Devuan/echo Star/g" /etc/default/grub
+#~ sed -i "s/GRUB_THEME=/#GRUB_THEME=/g" /etc/default/grub
+#~ echo "GRUB_BACKGROUND=\"/usr/share/images/desktop-base/star-grub-plain.png\"" >> /etc/default/grub
 update-grub
 
 # there is a hook for this

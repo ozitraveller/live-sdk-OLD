@@ -242,7 +242,6 @@ purge_packages_final+=(
 	aptitude-common
 	at
 	at-spi2-core
-	bluez
 	browser-plugin-evince
 	btrfs-progs
 	btrfs-tools
@@ -324,7 +323,6 @@ purge_packages_final+=(
 	mysql-common
 	ncurses-term
 	nss-updatedb
-	ofono
 	openresolv
 	os-prober
 	p11-kit
