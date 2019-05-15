@@ -279,7 +279,7 @@ EOF
 	mv -f $strapdir/list_installed-packages $R/log/
 	mv -f $strapdir/*.txt $R/log/
 	
-	cp -rfav $R/blends/$blendname/extra/config-files/grub.* $strapdir/etc/default/	
+	# cp -rfav $R/blends/$blendname/extra/config-files/grub.* $strapdir/etc/default/	
 	
 	# Copy in custom apt config here! MUST BE just before the iso is created
 	# \cp causes OVERWRITE
