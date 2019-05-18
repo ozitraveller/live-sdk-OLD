@@ -78,15 +78,6 @@ fe00::0          ip6-mcastprefix
 fe02::1          ip6-allnodes
 fe02::1          ip6-allrouters" > $strapdir/etc/hosts
 
-	_VERSION='2.0.2'
-	_SOURCE='star-kirk'	
-
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/hostname
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
-
 	cat <<EOF | sudo tee ${strapdir}/finalize >/dev/null
 #!/bin/sh
 
@@ -141,6 +132,19 @@ EOF
 
 }
 
+blend_prebuild() {
+	fn blend_prebuild
+	req=(strapdir blend)
+	ckreq || return 1
+
+notice "executing $blend prebuild"
+
+	blend_installer_update 		|| zerr
+	blend_exec_hooks 			|| zerr
+	blend_cleanup 				|| zerr
+	blend_write_isolinux_cfg	|| zerr
+
+}
 
 blend_exec_hooks() {
 	fn blend_exec_hooks
@@ -285,6 +289,15 @@ EOF
 	# \cp causes OVERWRITE
 	\cp -rfav $R/extra/common/extra/apt-files/apt/* $strapdir/etc/apt/
 
+	_VERSION='2.0.2'
+	_SOURCE='star-kirk'	
+
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/hostname
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
+	
 }
 
 blend_installer_update () {
@@ -370,6 +383,19 @@ notice "=------2------="
 	rm -rf ${workdir}/binary/includes.installer
 	rm -rf ${workdir}/binary/unpacked-initrd
 	rm -rf ${workdir}/binary/install/cdrom
+
+}
+
+blend_write_isolinux_cfg() {
+	fn blend_write_isolinux_cfg
+	req=(workdir)
+	ckreq || return 1
+	
+	notice "copying isolinux overlay"
+	#~ cp -rav $R/blends/$blendname/isolinux-overlay/*.cfg $workdir/binary/isolinux/
+
+	#~ cp -rav $R/blends/$blendname/isolinux-overlay/*.txt $workdir/binary/isolinux/
+	#~ cp -rav $R/blends/$blendname/isolinux-overlay/splash.png $workdir/binary/isolinux/	
 
 }
 
@@ -476,7 +502,7 @@ EOF
 	popd
 
 
-	#~ # Copy efi files to iso
+	# Copy efi files to iso
 	pushd $workdir
 	sudo rsync -avx "$efi_work"/boot binary/
 	sudo rsync -avx "$efi_work"/efi  binary/

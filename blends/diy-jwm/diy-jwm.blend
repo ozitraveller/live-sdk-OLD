@@ -129,9 +129,21 @@ EOF
 
 	chroot-script -d finalize || zerr
 	
-
 }
 
+blend_prebuild() {
+	fn blend_prebuild
+	req=(strapdir blend)
+	ckreq || return 1
+
+notice "executing $blend prebuild"
+
+	blend_installer_update 		|| zerr
+	blend_exec_hooks 			|| zerr
+	blend_cleanup 				|| zerr
+	blend_write_isolinux_cfg	|| zerr
+
+}
 
 blend_exec_hooks() {
 	fn blend_exec_hooks
@@ -363,6 +375,19 @@ notice "=------2------="
 
 }
 
+blend_write_isolinux_cfg() {
+	fn blend_write_isolinux_cfg
+	req=(workdir)
+	ckreq || return 1
+	
+	notice "copying isolinux overlay"
+	cp -rav $R/blends/$blendname/isolinux-overlay/*.cfg $workdir/binary/isolinux/
+
+	cp -rav $R/blends/$blendname/isolinux-overlay/*.txt $workdir/binary/isolinux/
+	cp -rav $R/blends/$blendname/isolinux-overlay/splash.png $workdir/binary/isolinux/	
+
+}
+
 # create /boot and /efi for uefi.
 # uefi code borrowed and adapted from David Hare, who borrowed and adapted it 
 # from similar scripts by Colin Watson and Patrick J. Volkerding.
@@ -466,7 +491,7 @@ EOF
 	popd
 
 
-	#~ # Copy efi files to iso
+	# Copy efi files to iso
 	pushd $workdir
 	sudo rsync -avx "$efi_work"/boot binary/
 	sudo rsync -avx "$efi_work"/efi  binary/

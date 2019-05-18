@@ -69,9 +69,10 @@ build_iso_dist() {
 	di_banudebs                 || { zerr; wrapup }
 	di_reprepro                 || { zerr; wrapup }
 	di_debian_installer         || { zerr; wrapup }
-	blend_installer_update      || { zerr; wrapup }
-	blend_exec_hooks            || { zerr; wrapup }
-	blend_cleanup	            || { zerr; wrapup }
+	#~ blend_installer_update      || { zerr; wrapup }
+	#~ blend_exec_hooks            || { zerr; wrapup }
+	#~ blend_cleanup	            || { zerr; wrapup }
+	blend_prebuild	            || { zerr; wrapup }
 	iso_squash_strap            || { zerr; wrapup }
 # 	iso_xorriso_build           || { zerr; wrapup }
 	iso_genisoimage_build       || { zerr; wrapup }
@@ -397,6 +398,12 @@ blend_preinst() {
 
 blend_postinst() {
 	fn blend_postinst
+	func "not overriden"
+	return 0
+}
+
+blend_prebuild() {
+	fn blend_prebuild
 	func "not overriden"
 	return 0
 }

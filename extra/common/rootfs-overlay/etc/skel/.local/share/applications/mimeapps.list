@@ -1,7 +1,7 @@
 [Added Associations]
 x-scheme-handler/file=exo-file-manager.desktop
 x-scheme-handler/trash=exo-file-manager.desktop
-application/x-shellscript=geany.desktop;
+application/x-shellscript=leafpad.desktop;
 text/html=exo-web-browser.desktop
 x-scheme-handler/http=exo-web-browser.desktop
 x-scheme-handler/https=exo-web-browser.desktop
@@ -16,8 +16,8 @@ image/tiff=mirage.desktop
 image/svg+xml=mirage.desktop
 
 [Default Applications]
-application/x-shellscript=geany.desktop
-text/plain=geany.desktop
+application/x-shellscript=leafpad.desktop
+text/leafpad=geany.desktop
 text/html=exo-web-browser.desktop
 x-scheme-handler/http=exo-web-browser.desktop
 x-scheme-handler/https=exo-web-browser.desktop
