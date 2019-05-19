@@ -33,7 +33,7 @@ ${offset 15}${if_existing /sys/class/power_supply/BAT0/}${color 73AEB4}  B ${col
 
 conky.config = {
     alignment = 'bottom_left',
-    background = true,
+    background = false,
     border_width = 1,
     cpu_avg_samples = 2,
 	default_color = 'white',
@@ -58,6 +58,7 @@ conky.config = {
     own_window = true,
     own_window_class = 'Conky',
     own_window_type = 'desktop',
+    own_window_transparent = true,
     stippled_borders = 0,
     update_interval = 1.0,
     uppercase = false,
@@ -67,8 +68,6 @@ conky.config = {
 }
 
 conky.text = [[
-${voffset 0}${offset 5}${color 73AEB4}Star GNU/Linux ${color 7D8C93}${execi 60 cat /etc/os-release | tail -n5 | head -n1 | cut -b 10-21 }
-
 ${voffset 0}${offset 5}${color 73AEB4}K ${color 7D8C93}$kernel${color 73AEB4} \
 ${goto 140}C ${color 7D8C93}${cpu cpu0}%${color 73AEB4} \
 ${goto 195}M ${color 7D8C93}${memperc}%  ${mem} / ${memmax}${color 73AEB4} \

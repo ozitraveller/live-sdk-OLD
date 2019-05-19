@@ -43,4 +43,4 @@ case $ret in
 esac
 
 eval exec $cmd
-wmctrl -i -a $(wmctrl -l | grep diy-logout | tail -n 1 | cut -d ' ' -f1)
+# wmctrl -i -a $(wmctrl -l | grep diy-logout | tail -n 1 | cut -d ' ' -f1)

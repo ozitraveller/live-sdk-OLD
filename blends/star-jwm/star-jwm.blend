@@ -290,7 +290,7 @@ EOF
 	\cp -rfav $R/extra/common/extra/apt-files/apt/* $strapdir/etc/apt/
 
 	_VERSION='2.0.2'
-	_SOURCE='star-kirk'	
+	# _SOURCE='star-kirk'	
 
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/hostname
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue
