@@ -3,14 +3,14 @@
 dpkg --purge live-boot live-tools live-config live-config-sysvinit live-boot-initramfs-tools
 rm -rf /etc/live
 
-update-rc.d -f live-sessions remove
-rm -f /etc/init.d/live-sessions
+#~ update-rc.d -f live-sessions remove
+#~ rm -f /etc/init.d/live-sessions
 
 chmod -R 777 /tmp/*.deb
 dpkg -i /tmp/*.deb
 rm -f /tmp/*.deb
 
-#~ rm -f /etc/init.d/rc.local
+rm -f /etc/rc.local
 #~ echo \
 #~ "
 #~ #!/bin/sh -e
