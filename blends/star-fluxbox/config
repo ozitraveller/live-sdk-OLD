@@ -58,7 +58,6 @@ base_packages+=(
 	apt-utils
 	aptitude
 	nss-updatedb
-	sudo
 	parted
 	console-setup
 	console-data
@@ -66,8 +65,6 @@ base_packages+=(
 	dselect
 	mawk
 	ntp
-	openssh-server
-	openssh-client	
 	firmware-linux-free
 	os-prober
 	debconf
@@ -152,7 +149,6 @@ extra_packages+=(
 	intel-microcode
 	amd64-microcode
 	iucode-tool
-	firmware-amd-graphics
 	firmware-zd1211
 	firmware-linux 
 	firmware-netxen
@@ -210,6 +206,7 @@ extra_packages+=(
 	pciutils
 	task-english
 	fluxbox
+	tint2	
 	dunst
 	connman
 	connman-ui
@@ -220,6 +217,7 @@ extra_packages+=(
 	leafpad
 	pcmanfm
 	libfm-modules
+	mirage
 	lsof
 	yad
 	mpv
@@ -239,6 +237,7 @@ purge_packages_final+=(
 	acpi-support-base
 	acpid
 	alsa-oss
+	aptitude	
 	aptitude-common
 	at
 	at-spi2-core

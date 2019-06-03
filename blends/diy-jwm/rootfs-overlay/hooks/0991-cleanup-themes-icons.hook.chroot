@@ -27,6 +27,7 @@ done
 
 # Removing remaining themes
 rm -rf /usr/share/icons/*
+rm -f /usr/share/backgrounds/*.svg
 
 # Restore needed themes
 mv /diy-icons/* /usr/share/icons/
@@ -73,4 +74,5 @@ echo ""
 
 rm -f /etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop*
 rm -f /etc/xdg/connman-tray.desktop
+rm -f usr/share/jwm/*
 

@@ -27,6 +27,7 @@ done
 
 # Removing remaining themes
 rm -rf /usr/share/icons/*
+rm -f /usr/share/backgrounds/*.svg
 
 # Restore needed themes
 mv /diy-icons/* /usr/share/icons/

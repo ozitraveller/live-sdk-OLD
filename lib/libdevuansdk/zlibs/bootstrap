@@ -64,15 +64,15 @@ bootstrap_complete_base() {
 
 bootstrap_thirdstage() {
 	fn bootstrap_thirdstage
-	req=(R os strapdir arch release core_packages base_packages extra_packages purge_packages)
+	req=(R os strapdir arch release core_packages base_packages extra_packages)
 	ckreq || return 1
 	
 	#~ find $R/extra/gnupg-keys -type f -name "*.asc" -exec cp {} $strapdir/home \;
 	
 	#This is a dirty temporary solution until my next amprolla compiling of packages.gnuinos.org
-	custom_deb_packages=$R/extra/missing-pkgs/$release	
-	install-custdebs || { zerr; wrapup }
-	custom_deb_packages=$blendlib/custom-pkgs/$release
+	#~ custom_deb_packages=$R/extra/missing-pkgs/$release	
+	#~ install-custdebs || { zerr; wrapup }
+	#~ custom_deb_packages=$blendlib/custom-pkgs/$release
 
 	cat << EOF | sudo tee $strapdir/thirdstage >/dev/null
 #!/bin/sh
@@ -81,6 +81,7 @@ bootstrap_thirdstage() {
 apt-get update
 rm -f /tmp/*.deb
 rm -f /home/*.deb
+# rm -f /home/*.asc
 
 debconf-set-selections /debconf.set
 
@@ -119,9 +120,8 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get --yes --force-yes --fix-missing install ${core_packages}
 apt-get --yes --force-yes --fix-missing install ${base_packages}
 apt-get --yes --force-yes --fix-missing install ${extra_packages}
-apt-get --yes --force-yes purge ${purge_packages}
-
-##apt-get --yes --force-yes autoremove
+# [[ ${#purge_packages[*]} != 0 ]] && apt-get --yes --force-yes purge ${purge_packages}
+apt-get --yes --force-yes autoremove
 apt-get clean
 
 sed -e 's/# en_US.UTF-8/en_US.UTF-8/' -i /etc/locale.gen

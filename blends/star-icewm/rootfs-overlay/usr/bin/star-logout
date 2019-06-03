@@ -1,0 +1,46 @@
+#! /bin/bash
+
+# sources :
+# http://vsido.org/index.php?topic=1273.0 - hakerdefo & PackRat
+# http://smokey01.com/yad/
+# https://sourceforge.net/p/yad-dialog/wiki/Examples/
+
+# depends : yad, wmctrl
+
+SUSPEND="dbus-send --system --print-reply --dest=\"org.freedesktop.UPower\" /org/freedesktop/UPower org.freedesktop.UPower.Suspend"
+REBOOT="dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart"
+POWEROFF="dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop"
+
+star_ttle="star-logout"
+star_clas="$vslo_ttle"
+star_wico="/usr/share/images/star-blank.png"
+star_wico_big="$star_wico"
+
+action=$(yad --class="$star_ttle"  --title="$star_ttle" --window-icon="$star_wico" \
+	--skip-taskbar --fixed --on-top --center --width=430 --buttons-layout=center \
+    --button="Cancel:1"  \
+    --button="Logout:2"  \
+    --button="Suspend:3"  \
+    --button="Reboot:4"  \
+    --button="Shutdown:5"
+)
+ret=$?
+
+case $ret in
+    2) 
+    case $(wmctrl -m | grep Name) in
+        *Openbox) cmd="openbox --exit" ;;
+        *JWM) cmd="jwm -exit" ;;
+		*Fluxbox) cmd="fluxbox-remote 'Exit'" ;; 
+        *i3) cmd="i3-msg exit" ;; 
+        *) exit 1 ;;
+    esac
+    ;;
+    3) cmd=$SUSPEND ;;
+    4) cmd=$REBOOT ;;
+    5) cmd=$POWEROFF ;;
+    *) exit 1 ;;    
+esac
+
+eval exec $cmd
+# wmctrl -i -a $(wmctrl -l | grep star-logout | tail -n 1 | cut -d ' ' -f1)

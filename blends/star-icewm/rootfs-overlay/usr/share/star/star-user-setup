@@ -1,0 +1,64 @@
+#!/bin/bash
+#Star User Set-up
+
+# set -x
+
+USER=$1
+
+#~ readonly USER=${USER}
+#~ readonly HOME=${HOME}
+#~ readonly GROUP=$(id -ng "$USER")
+
+if [ ! -d "/home/${USER}/.config/star" ]; then
+	mkdir /home/"${USER}"/.config/star
+fi
+
+if [ ! -f "/home/${USER}/.config/star/star-setup" ]; then
+
+    cd /etc/skel
+    tar cpzf skel.tar.gz .
+    mv skel.tar.gz /home/"${USER}"/skel.tar.gz
+    cd /home/"${USER}"
+    tar xkpsf skel.tar.gz
+    rm skel.tar.gz
+
+    if [ -f "/etc/apt/sources.list.d/zz-sources.list" ]; then
+        rm -f /etc/apt/sources.list.d/zz-sources.list
+    fi
+    if [ -f "/home/${USER}/.gtkrc-2.0" ]; then
+		sed -i "s/REPLACEME/${USER}/g" /home/"${USER}"/.gtkrc-2.0 > /dev/null 2>&1
+        #~ rpl -q 'REPLACEME' "${USER}" /home/"${USER}"/.gtkrc-2.0 > /dev/null 2>&1
+    fi
+    #~ if [ -f "/home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js" ]; then
+        #~ rpl -q 'REPLACEME' $USER /home/$USER/.mozilla/firefox/cpffssvb.default/prefs.js > /dev/null 2>&1
+    #~ fi
+    #~ if [ -f "/home/$USER/.config/midori/config" ]; then
+        #~ rpl -q 'REPLACEME' $USER /home/$USER/.config/midori/config > /dev/null 2>&1
+    #~ fi
+    #~ if [ -f "/home/$USER/.config/netsurf/Choices" ]; then
+        #~ rpl -q 'REPLACEME' $USER /home/$USER/.config/netsurf/Choices > /dev/null 2>&1
+    #~ fi
+    if [ -f "/home/${USER}/.config/epiphany/session_state.xml" ]; then
+		sed -i "s/REPLACEME/${USER}/g" /home/"${USER}"/.config/epiphany/session_state.xml > /dev/null 2>&1
+    fi
+    #~ if [ -f "/home/${USER}/.config/pcmafm/session" ]; then
+		#~ sed -i "s/REPLACEME/${USER}/g" /home/"${USER}"/.config/pcmafm/session > /dev/null 2>&1
+    #~ fi  
+    
+    ln -s /usr/share/backgrounds /home/"${USER}"/images/wallpapers/shared
+
+	#~ if [ "${USER}" != "starlive" ]; then
+		#~ if [ -f "/home/${USER}/.config/jwm/menu" ]; then
+			#~ rm /home/"${USER}"/.config/jwm/menu
+			#~ mv /home/"${USER}"/.config/jwm/menu.bak /home/"${USER}"/.config/jwm/menu
+		#~ fi		
+	#~ fi
+
+	touch /home/"${USER}"/.config/star/star-setup
+    chown -R "${USER}":"${USER}" /home/"${USER}"
+
+fi
+
+xdg-user-dirs-update
+
+exit 0

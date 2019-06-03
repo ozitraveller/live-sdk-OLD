@@ -58,16 +58,13 @@ base_packages+=(
 	apt-utils
 	aptitude
 	nss-updatedb
-	sudo
 	parted
 	console-setup
 	console-data
 	locales
 	dselect
 	mawk
-	ntp
-	openssh-server
-	openssh-client	
+	ntp	
 	firmware-linux-free
 	os-prober
 	debconf
@@ -152,7 +149,6 @@ extra_packages+=(
 	intel-microcode
 	amd64-microcode
 	iucode-tool
-	firmware-amd-graphics
 	firmware-zd1211
 	firmware-linux 
 	firmware-netxen
@@ -241,6 +237,7 @@ extra_packages+=(
 	thunar-media-tags-plugin
 	tumbler
 	gtk3-engines-xfce
+	mirage
 
 )
 

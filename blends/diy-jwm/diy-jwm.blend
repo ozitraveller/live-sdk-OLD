@@ -1,18 +1,7 @@
 #!/usr/bin/env zsh
 # diy-jwm.blend
 
-vars+=(mkefi efi_work)
-
 arrs+=(purge_packages_final)
-
-#~ # uncomment to create uefi-bootable iso
-mkefi="yes"
-efi_work="$BLENDPATH/efi-files"
-
-#~ #grubversion="grub-pc"
-#~ grubversion="grub-efi-amd64"
-
-#~ image_name="${os}_${release}_${version}_${arch}_uefi"
 
 BLENDPATH="${BLENDPATH:-$(dirname $0)}"
 
@@ -48,15 +37,9 @@ blend_postinst() {
 
 blend_finalize() {
 	fn blend_finalize
-	req=(strapdir blend blendname os arch release extra_packages workdir)
+	req=(R strapdir blend os)
 	ckreq || return 1
 notice "Running blend_finalize"
-
-	# cp -rav $R/blends/$blendname/custom-packages/$release/*_${arch}.deb $strapdir/home/
-	# cp -rav $R/blends/$blendname/custom-packages/$release/*_all.deb     $strapdir/home/
-	# cp -rav $R/blends/$blend/dselect/pkglist.txt                    $strapdir/home/
-	
-	sed -i '12i Defaults        env_reset , timestamp_timeout = 0' $strapdir/etc/sudoers
 	
 # remove fstab for iso. Probably, this should be in iso_prepare_strap
 	rm -f $strapdir/etc/fstab
@@ -69,14 +52,6 @@ fe00::0          ip6-mcastprefix
 fe02::1          ip6-allnodes
 fe02::1          ip6-allrouters" > $strapdir/etc/hosts
 
-	_VERSION='2.0.2'
-	_SOURCE='DIY'	
-
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/hostname
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
 
 	cat <<EOF | sudo tee ${strapdir}/finalize >/dev/null
 #!/bin/sh
@@ -127,13 +102,14 @@ rm -f /var/lib/apt/lists/*_dists_*
 
 EOF
 
-	chroot-script -d finalize || zerr
+
+	chroot-script -d ${strapdir}/finalize || zerr
 	
 }
 
 blend_prebuild() {
 	fn blend_prebuild
-	req=(strapdir blend)
+	req=(strapdir blend blendname os arch release extra_packages workdir)
 	ckreq || return 1
 
 notice "executing $blend prebuild"
@@ -142,6 +118,64 @@ notice "executing $blend prebuild"
 	blend_exec_hooks 			|| zerr
 	blend_cleanup 				|| zerr
 	blend_write_isolinux_cfg	|| zerr
+	
+	sed -i '12i Defaults        env_reset , timestamp_timeout = 0' $strapdir/etc/sudoers
+	
+	cat > ${strapdir}/etc/rc.local <<EOF
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+groupadd ${user}
+/usr/sbin/useradd --home /home/${user} --create-home --gid ${user} ${user}
+
+sed -i "s/^${user}:x/${user}:/g" /etc/passwd
+
+tmp_shadow=\`cat shadow\`
+rm -f tmp
+#rm -f shadow
+for line in $tmp_shadow; do
+	if echo "$line" | grep -o "^${user}:"; then
+		line=\`echo \$line | sed -e "s/[\/,\.]//g"\`
+		hash=\`echo \$line | cut -d ":" -f 2,3,4,5,6,7,8\`
+	fi
+	echo "\$line" >> tmp
+done
+
+sed -i "s/\$hash/::::/g" tmp
+
+sed -i '25i ${user} ALL=(ALL:ALL) ALL' /etc/sudoers
+
+if [ -e /etc/slim.conf ]; then
+	echo "default_user        ${os}" >> /etc/slim.conf
+	echo "auto_login          yes" >> /etc/slim.conf
+fi
+
+exit 0
+	
+EOF
+
+chmod +x ${strapdir}/etc/rc.local
+	
+	#~ cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
+#~ #!/bin/sh
+
+#~ dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
+
+#~ EOF
+	
+	#~ chroot-script -d list_installed-packages || zerr
+	#~ mv -f $strapdir/list_installed-packages $R/log/
+	#~ mv -f $strapdir/*.txt $R/log/	
 
 }
 
@@ -234,13 +268,13 @@ rm -rf /hooks
 #~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
 
 # Option 3
-apt-get --yes --force-yes purge ${purge_packages_final}
+# apt-get --yes --force-yes purge ${purge_packages_final}
 
 # Option 4
-#~ for _PACKAGE in ${purge_packages_final}
-#~ do
-	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
-#~ done
+for _PACKAGE in ${purge_packages_final}
+do
+	apt-get --yes --force-yes purge "\${_PACKAGE}"
+done
 
 # Option 5
 #~ apt-get --yes --force-yes purge \
@@ -270,23 +304,22 @@ EOF
 
 	chroot-script -d scrubclean || zerr
 	
-	cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
-#!/bin/sh
-
-dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
-
-EOF
-	
-	chroot-script -d list_installed-packages || zerr
-	mv -f $strapdir/list_installed-packages $R/log/
-	mv -f $strapdir/*.txt $R/log/
-	
 	cp -rfav $R/blends/$blendname/extra/config-files/slim.conf $strapdir/etc/	
 	
 	# Copy in custom apt config here! MUST BE just before the iso is created
 	# \cp causes OVERWRITE
 	\cp -rfav $R/blends/$blendname/extra/apt-files/apt/* $strapdir/etc/apt/
 
+
+	_VERSION='2.0.2'
+	# _SOURCE='DIY'	
+
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/hostname
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
+	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
+	
 }
 
 blend_installer_update () {
@@ -300,7 +333,7 @@ notice "Running blend_installer_update"
 	local INCLUDE_PATH
 	local INITRD_GI
 	TARGET_INITRD="install/gtk/initrd.gz"
-	INCLUDE_PATH="includes.installer"
+	INCLUDE_PATH="d-i"
 	REPACK_TMPDIR="unpacked-initrd"
 	INITRD_GI="gtk/initrd.gz"
 
@@ -345,23 +378,23 @@ EOF
 
 	notice "move binary - sudo mv ${workdir}/binary ${strapdir}"
 	mv ${workdir}/binary ${strapdir}
-	mv ${strapdir}/includes.installer ${strapdir}/binary
+	mv ${strapdir}/d-i ${strapdir}/binary
 			
-	if [ -d ${strapdir}/binary/includes.installer ] && [ -n "$(ls -A ${strapdir}/binary/includes.installer)" ]
+	if [ -d ${strapdir}/binary/d-i ] && [ -n "$(ls -A ${strapdir}/binary/d-i)" ]
 	then
 notice "=------1------="
 		if [ -e ${strapdir}/binary/install/gtk ]
 		then
 notice "=------2------="
 
-			if ls $R/extra/installer-files/*.cfg > /dev/null 2>&1
+			if ls $R/extra/d-i/*.cfg > /dev/null 2>&1
 			then
-				cp -rfav $R/extra/installer-files/*.cfg ${strapdir}/binary/install/
+				cp -rfav $R/extra/d-i/*.cfg ${strapdir}/binary/install/
 			fi
-			cp -rfav $R/blends/$blendname/extra/installer-files/preseed.cfg ${strapdir}/binary/install/
+			cp -rfav $R/blends/$blendname/extra/d-i/preseed.cfg ${strapdir}/binary/install/
 			cp -rfav ${strapdir}/binary/install/cdrom/initrd.gz ${strapdir}/binary/install/
 
-			notice "Repack_initrd - ${INITRD_GI}" "/includes.installer"
+			notice "Repack_initrd - ${INITRD_GI}" "/d-i"
 			chroot-script Repack_Initrd || zerr
 			
 		fi
@@ -369,7 +402,7 @@ notice "=------2------="
 
 	mv ${strapdir}/binary ${workdir}
 
-	rm -rf ${workdir}/binary/includes.installer
+	rm -rf ${workdir}/binary/d-i
 	rm -rf ${workdir}/binary/unpacked-initrd
 	rm -rf ${workdir}/binary/install/cdrom
 
@@ -388,11 +421,27 @@ blend_write_isolinux_cfg() {
 
 }
 
+blend_post_efi() {
+	fn blend_post_efi
+	req=(workdir blend blendname)
+	ckreq || return 1
+
+notice "executing $blend post_efi"	
+
+notice "copying grub overlay"
+
+	cp -rfav /$R/blends/$blendname/grub-overlay/boot/grub ${workdir}/binary/boot/
+		
+	rm -f ${workdir}/binary/boot/grub/splash.png
+	ln ${workdir}/binary/isolinux/splash.png ${workdir}/binary/boot/grub/splash.png
+
+}
+
 # create /boot and /efi for uefi.
 # uefi code borrowed and adapted from David Hare, who borrowed and adapted it 
 # from similar scripts by Colin Watson and Patrick J. Volkerding.
-iso_make_efi() {
-	fn iso_make_efi
+iso_make_efiX() {
+	fn iso_make_efiX
 	req=(workdir efi_work blend blendname)
 	ckreq || return 1
 	set -x
@@ -433,7 +482,7 @@ EOF
 	mkdir -p efi/boot
 
 	# copy splash
-	cp ${isolinux_overlay}splash.png boot/grub/splash.png
+	### ?? cp ${isolinux_overlay}splash.png boot/grub/splash.png
 	
 	# second grub.cfg file
 	for i in $(ls /usr/lib/grub/x86_64-efi|grep part_|grep \.mod|sed 's/.mod//'); do echo "insmod $i" >> boot/grub/x86_64-efi/grub.cfg; done
@@ -474,11 +523,21 @@ EOF
 	
 	# copy modules and font
 	cp /usr/lib/grub/x86_64-efi/* boot/grub/x86_64-efi/
+
+	# Delete some modules
+	#~ list=$R/extra/banmods
+	#~ for line in $(cat $list); do
+		#~ rm -f ${workdir}/binary/boot/grub/x86_64-ef/${line}.mod
+	#~ done	
+	
+	while read line; do
+		rm -f ${workdir}/binary/boot/grub/x86_64-efi/${line}.mod
+	done < $R/extra/banmods	
 	
 	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
 	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
-#	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
-	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
+	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
+	# cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
 	
 	# doesn't need to be root-owned
 #	sudo chown -R 1000:1000 $(pwd) 2>/dev/null

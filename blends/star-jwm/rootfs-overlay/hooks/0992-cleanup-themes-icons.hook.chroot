@@ -1,0 +1,17 @@
+#!/bin/sh
+
+## live-build(7) - System Build Scripts
+## Copyright (C) 2006-2013 Daniel Baumann <daniel@debian.org>
+##
+## This program comes with ABSOLUTELY NO WARRANTY; for details see COPYING.
+## This is free software, and you are welcome to redistribute it
+## under certain conditions; see COPYING for details.
+
+
+# set -x
+
+echo DIY-LIVE-Hook: "$0"
+echo ""
+
+rm -f usr/share/jwm/*
+

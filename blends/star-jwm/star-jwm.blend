@@ -143,7 +143,18 @@ notice "executing $blend prebuild"
 	blend_exec_hooks 			|| zerr
 	blend_cleanup 				|| zerr
 	blend_write_isolinux_cfg	|| zerr
+	
+	cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
+#!/bin/sh
 
+dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
+
+EOF
+	
+	chroot-script -d list_installed-packages || zerr
+	mv -f $strapdir/list_installed-packages $R/log/
+	mv -f $strapdir/*.txt $R/log/
+	
 }
 
 blend_exec_hooks() {
@@ -272,17 +283,6 @@ EOF
 
 	chroot-script -d scrubclean || zerr
 	
-	cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
-#!/bin/sh
-
-dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
-
-EOF
-	
-	chroot-script -d list_installed-packages || zerr
-	mv -f $strapdir/list_installed-packages $R/log/
-	mv -f $strapdir/*.txt $R/log/
-	
 	cp -rfav $R/extra/common/extra/config-files/slim.conf $strapdir/etc/	
 	
 	# Copy in custom apt config here! MUST BE just before the iso is created
@@ -398,11 +398,27 @@ blend_write_isolinux_cfg() {
 
 }
 
+blend_post_efi() {
+	fn blend_post_efi
+	req=(workdir blend blendname)
+	ckreq || return 1
+
+notice "executing $blend post_efi"	
+
+notice "copying grub overlay"
+
+	cp -rfav /$R/extra/common/grub-overlay/boot/grub ${workdir}/binary/boot/	
+		
+	rm -f ${workdir}/binary/boot/grub/splash.png
+	ln ${workdir}/binary/isolinux/splash.png ${workdir}/binary/boot/grub/splash.png
+
+}
+
 # create /boot and /efi for uefi.
 # uefi code borrowed and adapted from David Hare, who borrowed and adapted it 
 # from similar scripts by Colin Watson and Patrick J. Volkerding.
-iso_make_efi() {
-	fn iso_make_efi
+iso_make_efiX() {
+	fn iso_make_efiX
 	req=(workdir efi_work blend blendname)
 	ckreq || return 1
 	set -x

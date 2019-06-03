@@ -1,6 +1,7 @@
 clear
 
-echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
 
   INSTALL IMAGE EDITORS 
   --------------------

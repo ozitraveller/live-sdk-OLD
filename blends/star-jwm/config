@@ -6,10 +6,10 @@ hookscripts="yes"
 
 # uncomment to create uefi-bootable iso
 #~ mkefi="yes"
-#~ efi_work="$BLENDPATH/efi-files"
+# efi_work="$BLENDPATH/efi-files"
 
 #grubversion="grub-pc"
-grubversion="grub-efi-amd64"
+# grubversion="grub-efi-amd64"
 
 core_packages+=(
 	
@@ -58,7 +58,6 @@ base_packages+=(
 	apt-utils
 	aptitude
 	nss-updatedb
-	sudo
 	parted
 	console-setup
 	console-data
@@ -66,8 +65,6 @@ base_packages+=(
 	dselect
 	mawk
 	ntp
-	openssh-server
-	openssh-client	
 	firmware-linux-free
 	os-prober
 	debconf
@@ -152,7 +149,6 @@ extra_packages+=(
 	intel-microcode
 	amd64-microcode
 	iucode-tool
-	firmware-amd-graphics
 	firmware-zd1211
 	firmware-linux 
 	firmware-netxen
@@ -220,6 +216,7 @@ extra_packages+=(
 	leafpad
 	pcmanfm
 	libfm-modules
+	mirage
 	lsof
 	yad
 	mpv
@@ -239,13 +236,16 @@ purge_packages_final+=(
 	acpi-support-base
 	acpid
 	alsa-oss
+aptitude	
 	aptitude-common
 	at
 	at-spi2-core
+binutils	
 	bluez
 	browser-plugin-evince
 	btrfs-progs
 	btrfs-tools
+build-essential	
 	console-common
 	console-data
 	cowbuilder
@@ -263,6 +263,8 @@ purge_packages_final+=(
 	dirmngr
 	distro-info-data
 	dnsutils
+docbook-xml	
+dpkg-dev	
 	dput
 	dselect
 	eatmydata
@@ -286,6 +288,7 @@ purge_packages_final+=(
 	gcr
 	gdisk
 	geoip-database
+gettext	
 	git
 	git-buildpackage
 	git-core
@@ -310,6 +313,7 @@ purge_packages_final+=(
 	krb5-locales
 	laptop-detect
 	less
+licensecheck	
 	loadlin
 	lxde-settings-daemon
 	lynx
@@ -326,11 +330,15 @@ purge_packages_final+=(
 	nss-updatedb
 	ofono
 	openresolv
+openssh-client
+openssh-server
+openssh-sftp-server	
 	os-prober
 	p11-kit
 	p11-kit-modules:amd64
 	p7zip
 	p7zip-full
+patch	
 	patchutils
 	pbuilder
 	pbzip2
@@ -358,6 +366,8 @@ purge_packages_final+=(
 	reportbug
 	rtmpdump
 	screen
+sgml-base
+sgml-data	
 	strace
 	t1utils
 	tcpd
@@ -376,6 +386,7 @@ purge_packages_final+=(
 	wireless-regdb
 	xdelta
 	xdelta3
+xml-core	
 	xorriso
 	xserver-xorg-input-wacom
 	xserver-xorg-legacy

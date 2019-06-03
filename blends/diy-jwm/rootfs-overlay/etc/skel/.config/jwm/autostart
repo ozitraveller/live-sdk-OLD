@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # policykit-1-gnome
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+# /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
 # will need to know actual name of process
 #pgrep wicd-client &>/dev/null; [ $? = 0 ] && killall wicd-client
@@ -22,7 +22,7 @@ sleep 1
 # 	(sleep 3 && volumeicon --tray) &
 #	(sleep 3 && clipit) &
 	(sleep 3 && conky -c ~/.conkyrc) &
-	# nitrogen --restore &
+	# nitrogen --restore # & not required can cause race conditions
 	# feh --bg-scale $HOME/images/wallpapers/shared/filename.jpg &
 	(sleep 6 && diy-welcome --firstrun) &
 }

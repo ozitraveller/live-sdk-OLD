@@ -63,15 +63,13 @@ build_iso_dist() {
 	iso_setup_isolinux          || { zerr; wrapup }
 	iso_write_isolinux_cfg      || { zerr; wrapup }
  	iso_make_efi                || { zerr; wrapup }	
+ 	blend_post_efi              || { zerr; wrapup }	 	
 	di_disk_info                || { zerr; wrapup }
 	di_debmirror                || { zerr; wrapup }
 	di_localudebs               || { zerr; wrapup }
 	di_banudebs                 || { zerr; wrapup }
 	di_reprepro                 || { zerr; wrapup }
 	di_debian_installer         || { zerr; wrapup }
-	#~ blend_installer_update      || { zerr; wrapup }
-	#~ blend_exec_hooks            || { zerr; wrapup }
-	#~ blend_cleanup	            || { zerr; wrapup }
 	blend_prebuild	            || { zerr; wrapup }
 	iso_squash_strap            || { zerr; wrapup }
 # 	iso_xorriso_build           || { zerr; wrapup }
@@ -404,6 +402,12 @@ blend_postinst() {
 
 blend_prebuild() {
 	fn blend_prebuild
+	func "not overriden"
+	return 0
+}
+
+blend_post_efi() {
+	fn blend_post_efi
 	func "not overriden"
 	return 0
 }

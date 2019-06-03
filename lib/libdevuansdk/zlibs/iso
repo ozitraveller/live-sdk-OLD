@@ -96,10 +96,6 @@ iso_setup_isolinux() {
 		"32")  efiboot="bootia32.efi"     ;;
 		"64")  efiboot="bootix32.efi"     ;;
 	esac
-	
-	#mkdir -p $workdir/binary/efi
-	#mkdir -p $workdir/binary/efi/boot
-	#cp -rav $workdir/syslinux/syslinux-*/efi${bits}/efi/syslinux.efi   $workdir/binary/boot/$efiboot
 		
 	cp -rav $workdir/syslinux/syslinux-*/bios/core/isolinux.bin                  $workdir/binary/isolinux/
 	cp -rav $workdir/syslinux/syslinux-*/bios/com32/chain/chain.c32              $workdir/binary/isolinux/
@@ -262,4 +258,145 @@ iso_genisoimage_build() {
 	[[ "$DEBUG" = 1 ]] || {
 		[[ -n "$workdir" ]] && rm -rf "$workdir"
 	}
+}
+
+iso_make_efi() {
+	fn iso_make_efi
+	req=(workdir url_pkg arch blend blendname)
+	ckreq || return 1
+	
+	notice "creating efi boot files"
+	
+	binary=$workdir/"binary"
+	efi_dir=$workdir/"efi_dir"		
+	
+	if [ -d $efi_dir ] ; then
+		if [ -d $efi_dir/img-mnt ] ; then
+			umount -l $efi_dir/img-mnt
+		fi
+		rm -rf $efi_dir
+	fi
+	
+	# start with empty directories.
+	
+	if [ -d $binary/boot ] ; then
+		rm -rf $binary/boot
+	fi
+
+	if [ -d $binary/efi ] ; then
+		rm -rf $binary/efi
+	fi
+	
+	case $arch in	
+		amd64)  arch_efi="x86_64-efi"
+				boot_efi="bootx64.efi"
+				efi_pkg="grub-efi-amd64-bin"
+				;;
+		i386)   arch_efi="i386-efi"
+				boot_efi="bootia32.efi"
+				efi_pkg="grub-efi-ia32-bin"
+				;;
+		*) error "invalid grub_arch specified"; zerr;;
+	esac	
+	
+	mkdir -p $binary/efi/boot
+	mkdir -p $binary/boot/grub/theme
+	mkdir -p $binary/boot/grub/$arch_efi
+	
+	mkdir -p $efi_dir/efi/boot
+	mkdir -p $efi_dir/boot/grub/$arch_efi	
+
+# ozi - moved to blend_post_efi()	
+	# copy splash, theme and grub.cfg
+	#~ cp $R/extra/isolinux-overlay/splash.png $binary/boot/grub/	
+	#~ cp $R/extra/grub-overlay/1              $binary/boot/grub/theme
+	#~ cp $R/extra/grub-overlay/grub.cfg       $binary/boot/grub/
+
+	tempdir=$efi_dir/"tmp"
+	mkdir -p $tempdir/boot/grub
+
+	cat >$tempdir/boot/grub/grub.cfg <<EOF
+search --file --set=root /isolinux/isolinux.cfg
+set prefix=(\$root)/boot/grub
+source \$prefix/${arch_efi}/grub.cfg
+EOF
+
+	pushd $tempdir
+	
+		# make a tarred "memdisk" to embed in the grub image
+		tar -cvf memdisk boot
+		
+		# make the grub image - Required grub-efi-amd64-bin or grub-efi-ia32-bin !!
+		grub-mkimage -O $arch_efi -m "memdisk" -o $boot_efi -p '(memdisk)/boot/grub' \
+			search iso9660 configfile normal memdisk tar cat part_msdos part_gpt fat ext2 ntfs ntfscomp hfsplus chain boot linux
+		
+	popd
+	
+	cp $tempdir/$boot_efi $efi_dir/efi/boot
+	cp $tempdir/$boot_efi $binary/efi/boot	
+	rm -rf $tempdir
+	
+	## Do the boot image "boot/grub/efiboot.img"	
+	dd if=/dev/zero of=$efi_dir/boot/grub/efiboot.img bs=1K count=1440
+	/sbin/mkdosfs -F 12 $efi_dir/boot/grub/efiboot.img
+	mkdir $efi_dir/img-mnt
+	mount -o loop $efi_dir/boot/grub/efiboot.img $efi_dir/img-mnt
+	mkdir -p $efi_dir/img-mnt/efi/boot
+	cp $efi_dir/efi/boot/$boot_efi $efi_dir/img-mnt/efi/boot/
+	umount -l $efi_dir/img-mnt
+	rmdir $efi_dir/img-mnt
+	
+	cp $efi_dir/boot/grub/efiboot.img $binary/boot/grub/
+	
+	pushd $efi_dir
+	wget $url_pkg/dists/$release/main/binary-$arch/Packages.gz
+	gzip -d Packages.gz
+	pkg=`grep "^Filename: pool/" Packages | grep "/${efi_pkg}_" | grep "_${arch}.deb"`
+	wget $url_pkg/${pkg#*" "}
+	pkg=${pkg##*/}
+	dpkg -x $pkg $efi_pkg
+	pkg=`grep "^Filename: pool/" Packages | grep "/grub-common_" | grep "_${arch}.deb"`
+	wget $url_pkg/${pkg#*" "}
+	pkg=${pkg##*/}
+	dpkg -x $pkg grub-common	
+	rm -f Packages
+	
+	# copy modules and font
+	cp $efi_dir/$efi_pkg/usr/lib/grub/$arch_efi/*.mod $binary/boot/grub/$arch_efi/
+	cp $efi_dir/$efi_pkg/usr/lib/grub/$arch_efi/*.lst $binary/boot/grub/$arch_efi/
+	
+	# Delete some modules
+	#~ list=$R/extra/banmods
+	#~ for line in $(cat $list); do
+		#~ rm -f $binary/boot/grub/$arch_efi/${line}.mod
+	#~ done
+
+	while read line; do
+		rm -f ${workdir}/binary/boot/grub/${arch_efi}/${line}.mod
+	done < $R/extra/banmods		
+	
+	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
+	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
+#	cp grub-common/usr/share/grub/ascii.pf2 boot/grub/font.pf2
+	cp $efi_dir/grub-common/usr/share/grub/ascii.pf2 $binary/boot/grub/font.pf2
+# ozi - too big
+#	cp $efi_dir/grub-common/usr/share/grub/unicode.pf2 $binary/boot/grub/font.pf2
+	
+	# second grub.cfg file
+	for i in $(ls $efi_dir/$efi_pkg/usr/lib/grub/$arch_efi|grep part_|grep \.mod|sed 's/.mod//'); do
+		echo "insmod $i" >> $binary/boot/grub/$arch_efi/grub.cfg;
+	done	
+	
+	# Additional modules so we don't boot in blind mode. I don't know which ones are really needed.
+	#for i in efi_gop efi_uga ieee1275_fb vbe vga video_bochs video_cirrus jpeg png gfxterm ; do
+	#	echo "insmod $i" >> $workdir/binary/boot/grub/$arch_efi/grub.cfg ;
+	#done
+	
+	echo "source /boot/grub/grub.cfg" >> $workdir/binary/boot/grub/$arch_efi/grub.cfg
+	
+	rm -rf $efi_dir
+	
+	popd
+	unset tempdir efi_dir arch_efi boot_efi
+	
 }

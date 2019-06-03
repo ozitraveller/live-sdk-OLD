@@ -133,8 +133,35 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 	mv Packages Packages4
 	cat Packages1 Packages2 Packages3 Packages4 > Packages
 
-	list=$R/extra/di_pkgs
-	for line in $(cat $list); do
+	case $arch in	
+		amd64)	grub_efi="grub-efi-amd64"
+				;;
+		i386)	grub_efi="grub-efi-ia32"
+				;;
+		*) error "invalid grub_arch specified"; zerr;;
+	esac
+	
+	di_pkgs+=(
+		grub-pc
+		grub-pc-bin
+		$grub_efi
+		${grub_efi}-bin
+		grub-common
+		grub2-common
+		efibootmgr
+		libefiboot1
+		libefivar1
+		libpopt0
+		ucf
+		libdevmapper1.02.1
+		libfreetype6
+		libfuse2
+		gettext-base
+		libpng12-0
+		dmsetup
+	)		
+
+	for line in $di_pkgs; do
 		echo $line
 		pkg=`grep "^Filename: pool/" Packages | grep "/${line}_" | grep ".deb"`
 		wget $url_pkg/${pkg#*" "}
@@ -240,8 +267,8 @@ di_debian_installer() {
 	#~ gunzip initrd.gz
 	#~ cd tmp1
 	#~ cpio -id < ../initrd
-	#~ gtkrc="$R/extra/d-i/gtkrc"
-	#~ logo="$R/extra/d-i/logo_installer_darkpurpy.png"
+	#~ gtkrc="$R/extra/common/d-i/gtkrc"
+	#~ logo="$R/extra/common/d-i/*.png"
 	#~ [[ -f $gtkrc ]] && cp -av $gtkrc $workdir/d-i/tmp/tmp1/usr/share/themes/Clearlooks/gtk-2.0/
 	#~ [[ -f $logo  ]] && cp -av $logo  $workdir/d-i/tmp/tmp1/usr/share/graphics/
 	#~ find . | cpio --create --format='newc' > $d/dest/cdrom/gtk/initrd
@@ -257,6 +284,7 @@ di_debian_installer() {
 
 	# ozi
 	cp -av $d/dest/cdrom/initrd.gz $workdir/binary/install/
+	#~ rm -rf $workdir/binary/install/cdrom
 	# cp -av $d/dest/cdrom/gtk/vmlinuz $workdir/binary/install/gtk/	
 	ln $workdir/binary/live/vmlinuz $workdir/binary/install/gtk/vmlinuz
 	ln $workdir/binary/live/vmlinuz $workdir/binary/install/vmlinuz	

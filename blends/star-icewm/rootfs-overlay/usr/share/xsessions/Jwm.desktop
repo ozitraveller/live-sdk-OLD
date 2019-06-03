@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Icewm
+Comment=Highly configurable and low resource X11 Window manager
+Exec=/usr/bin/icewm
+Terminal=false
+TryExec=/usr/bin/icewm
+Type=Application
+
+[X-Window Manager]
+SessionManaged=true

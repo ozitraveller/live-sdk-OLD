@@ -143,7 +143,18 @@ notice "executing $blend prebuild"
 	blend_exec_hooks 			|| zerr
 	blend_cleanup 				|| zerr
 	blend_write_isolinux_cfg	|| zerr
+	
+	cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
+#!/bin/sh
 
+dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
+
+EOF
+	
+	chroot-script -d list_installed-packages || zerr
+	mv -f $strapdir/list_installed-packages $R/log/
+	mv -f $strapdir/*.txt $R/log/
+	
 }
 
 blend_exec_hooks() {
@@ -271,17 +282,6 @@ apt-get clean
 EOF
 
 	chroot-script -d scrubclean || zerr
-	
-	cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
-#!/bin/sh
-
-dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
-
-EOF
-	
-	chroot-script -d list_installed-packages || zerr
-	mv -f $strapdir/list_installed-packages $R/log/
-	mv -f $strapdir/*.txt $R/log/
 	
 	# cp -rfav $R/blends/$blendname/extra/config-files/grub.* $strapdir/etc/default/	
 	
