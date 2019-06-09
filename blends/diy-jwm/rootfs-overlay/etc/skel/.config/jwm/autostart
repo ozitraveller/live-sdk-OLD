@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # policykit-1-gnome
-# /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 
 # will need to know actual name of process
 #pgrep wicd-client &>/dev/null; [ $? = 0 ] && killall wicd-client

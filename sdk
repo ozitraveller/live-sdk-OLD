@@ -30,6 +30,7 @@ source $R/lib/zuper/zuper
 vars+=(livesdk_version)
 vars+=(R workdir strapdir)
 vars+=(os oslib blendlib)
+# vars+=(username userpass default_shell)
 vars+=(MAKEOPTS)
 
 ## global arrs

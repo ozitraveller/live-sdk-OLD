@@ -1,22 +1,18 @@
 clear
 
-# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
-echo "
+echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
 
-  INSTALL PRINTER SUPPORT
+  PRINTER SUPPORT
   ---------------
   By default, DIY does not come with printer support. Would you like
   to add printer support now? If you choose to do this, the following package
   will be installed:
 
-      cups cups-pdf system-config-printer printer-driver-hpijs hplip
+      cups cups-pdf system-config-printer printer-driver-hpijs
 
   Note: additional packages listed as dependencies will also be installed."
 
 if prompt "  Would you like to install printer support?"; then
 	 
-	sudo apt-get install -y cups cups-pdf system-config-printer printer-driver-hpijs hplip
+	sudo apt-get install -y cups cups-pdf system-config-printer printer-driver-hpijs
 fi
-
-# printer-driver-hpcups printer-driver-hpijs
-# sudo usermod -a -G lpadmin my_user_name

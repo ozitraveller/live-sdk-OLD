@@ -6,3 +6,4 @@ sudo rm -rf ./*.log
 sudo rm -rf ./tmp/*
 sudo rm -rf ./dist/*
 sudo rm -rf ./log/*
+rm -f /home/ozi/.local/share/recently-used.xbel

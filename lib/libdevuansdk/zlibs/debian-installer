@@ -261,20 +261,20 @@ di_debian_installer() {
 	make --keep-going --ignore-errors build_cdrom_isolinux	
 	popd
 	
-	#~ mkdir -p $workdir/d-i/tmp/tmp1
-	#~ mv $d/dest/cdrom/gtk/initrd.gz $workdir/d-i/tmp
-	#~ pushd $workdir/d-i/tmp
-	#~ gunzip initrd.gz
-	#~ cd tmp1
-	#~ cpio -id < ../initrd
-	#~ gtkrc="$R/extra/common/d-i/gtkrc"
-	#~ logo="$R/extra/common/d-i/*.png"
-	#~ [[ -f $gtkrc ]] && cp -av $gtkrc $workdir/d-i/tmp/tmp1/usr/share/themes/Clearlooks/gtk-2.0/
-	#~ [[ -f $logo  ]] && cp -av $logo  $workdir/d-i/tmp/tmp1/usr/share/graphics/
-	#~ find . | cpio --create --format='newc' > $d/dest/cdrom/gtk/initrd
-	#~ gzip -f $d/dest/cdrom/gtk/initrd
-	#~ rm -rf $workdir/d-i/tmp
-	#~ popd
+	mkdir -p $workdir/d-i/tmp/tmp1
+	mv $d/dest/cdrom/gtk/initrd.gz $workdir/d-i/tmp
+	pushd $workdir/d-i/tmp
+	gunzip initrd.gz
+	cd tmp1
+	cpio -id < ../initrd
+	gtkrc="$R/blends/$blendname/d-i/gtkrc"
+	logo="$R/blends/$blendname/d-i/*.png"
+	[[ -f $gtkrc ]] && cp -av $gtkrc $workdir/d-i/tmp/tmp1/usr/share/themes/Clearlooks/gtk-2.0/
+	[[ -f $logo  ]] && cp -av $logo  $workdir/d-i/tmp/tmp1/usr/share/graphics/
+	find . | cpio --create --format='newc' > $d/dest/cdrom/gtk/initrd
+	gzip -f $d/dest/cdrom/gtk/initrd
+	rm -rf $workdir/d-i/tmp
+	popd
 	
 	mkdir -p $workdir/binary/install
 	mkdir -p $workdir/binary/install/gtk
@@ -353,36 +353,36 @@ EOF
 
 ## the preseed.cfg file:
 	
-	echo \
-"
-# Enable first user as sudo user
-# d-i passwd/root-login boolean false
+	#~ echo \
+#~ "
+#~ # Enable first user as sudo user
+#~ # d-i passwd/root-login boolean false
 
-# Disable loading firmware, provided post install
-d-i hw-detect/load_firmware boolean false
+#~ # Disable loading firmware, provided post install
+#~ d-i hw-detect/load_firmware boolean false
 
-# Disable networking set-up, this is a live cd, so not needed as self-contained
-d-i netcfg/enable boolean false
+#~ # Disable networking set-up, this is a live cd, so not needed as self-contained
+#~ d-i netcfg/enable boolean false
 
-# Change default hostname to ${os}
-d-i netcfg/get_hostname string ${os}
-d-i netcfg/get_hostname seen false
+#~ # Change default hostname to ${os}
+#~ d-i netcfg/get_hostname string ${os}
+#~ d-i netcfg/get_hostname seen false
 
-# Change default filesystem from ext3 to ext4 (not neccesary since jessie)
-d-i partman/default_filesystem string ext4
+#~ # Change default filesystem from ext3 to ext4 (not neccesary since jessie)
+#~ d-i partman/default_filesystem string ext4
 
-# Descomente lo siguiente si no quiere usar una réplica en red.
-d-i apt-setup/use_mirror boolean false
+#~ # Descomente lo siguiente si no quiere usar una réplica en red.
+#~ d-i apt-setup/use_mirror boolean false
 
-# Run final commands in target install
-d-i preseed/late_command string \
-    in-target preseed-hack
-    in-target rm -f /usr/bin/preseed-hack
+#~ # Run final commands in target install
+#~ d-i preseed/late_command string \
+    #~ in-target preseed-hack
+    #~ in-target rm -f /usr/bin/preseed-hack
     
-# Omitir el mensaje final sobre la finalización de la instalación.
-#d-i finish-install/reboot_in_progress note
+#~ # Omitir el mensaje final sobre la finalización de la instalación.
+#~ #d-i finish-install/reboot_in_progress note
 
-" > $workdir/binary/install/preseed.cfg
+#~ " > $workdir/binary/install/preseed.cfg
 
 	sudo chmod -R 777 $workdir/binary	
 }

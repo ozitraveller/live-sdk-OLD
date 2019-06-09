@@ -110,15 +110,7 @@ iso_write_isolinux_cfg() {
 	req=(workdir)
 	ckreq || return 1
 	
-	if [ -d $R/extra/isolinux-overlay ] && [ -n "$(ls -A ${R}/extra/isolinux-overlay)" ]
-	then
-
-		notice "copying isolinux overlay"
-		cp -rav $R/extra/isolinux-overlay/*.cfg $workdir/binary/isolinux/
-		# ozi
-		cp -rav $R/extra/isolinux-overlay/*.txt $workdir/binary/isolinux/
-		cp -rav $R/extra/isolinux-overlay/splash.png $workdir/binary/isolinux/	
-	fi
+	## overridden in blends
 	
 	#distrib=`echo "${blend_distribution}" | sed 's/^./\u&/'`		
 	#sed -i "s/${distrib} Live/${blend_distribution} ${version%%.*} ${label} ${kernel_flavor}/g" $workdir/binary/isolinux/menu.cfg
@@ -300,7 +292,7 @@ iso_make_efi() {
 	esac	
 	
 	mkdir -p $binary/efi/boot
-	mkdir -p $binary/boot/grub/theme
+	# mkdir -p $binary/boot/grub/theme
 	mkdir -p $binary/boot/grub/$arch_efi
 	
 	mkdir -p $efi_dir/efi/boot

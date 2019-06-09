@@ -1,7 +1,6 @@
 clear
 
-# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
-echo "
+echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
 
   INSTALL VERSION CONTROL TOOLS
   -----------------------------
@@ -9,10 +8,10 @@ echo "
   If you choose to do this, the following packages will be installed:
 
       git git-gui git-cvs git-svn git-email mercurial
-      subversion subversion-tools bzr bzrtools cvs
-      
+      subversion subversion-tools bzr bzrtools cvs thunar-vcs-plugin geany
+
   Note: additional packages listed as dependencies will also be installed."
 
 if prompt "  Would you like to install version control tools?"; then
-    sudo apt-get install -y git git-gui git-cvs git-svn git-email mercurial subversion subversion-tools bzr bzrtools cvs
+    sudo apt-get install -y git git-gui git-cvs git-svn git-email mercurial subversion subversion-tools bzr bzrtools cvs thunar-vcs-plugin geany
 fi

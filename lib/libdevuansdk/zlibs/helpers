@@ -61,9 +61,8 @@ build_iso_dist() {
 	blend_postinst              || { zerr; wrapup }
 	fill_apt_cache              || { zerr; wrapup }
 	iso_setup_isolinux          || { zerr; wrapup }
-	iso_write_isolinux_cfg      || { zerr; wrapup }
+#	iso_write_isolinux_cfg      || { zerr; wrapup }
  	iso_make_efi                || { zerr; wrapup }	
- 	blend_post_efi              || { zerr; wrapup }	 	
 	di_disk_info                || { zerr; wrapup }
 	di_debmirror                || { zerr; wrapup }
 	di_localudebs               || { zerr; wrapup }
@@ -71,6 +70,7 @@ build_iso_dist() {
 	di_reprepro                 || { zerr; wrapup }
 	di_debian_installer         || { zerr; wrapup }
 	blend_prebuild	            || { zerr; wrapup }
+ 	# blend_post_efi              || { zerr; wrapup }	 	
 	iso_squash_strap            || { zerr; wrapup }
 # 	iso_xorriso_build           || { zerr; wrapup }
 	iso_genisoimage_build       || { zerr; wrapup }

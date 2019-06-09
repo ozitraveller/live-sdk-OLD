@@ -391,10 +391,10 @@ blend_write_isolinux_cfg() {
 	ckreq || return 1
 	
 	notice "copying isolinux overlay"
-	#~ cp -rav $R/blends/$blendname/isolinux-overlay/*.cfg $workdir/binary/isolinux/
+	cp -rav /$R/extra/common/isolinux-overlay/* $workdir/binary/isolinux/
 
-	#~ cp -rav $R/blends/$blendname/isolinux-overlay/*.txt $workdir/binary/isolinux/
-	#~ cp -rav $R/blends/$blendname/isolinux-overlay/splash.png $workdir/binary/isolinux/	
+	#~ cp -rav /$R/extra/common/isolinux-overlay/*.txt $workdir/binary/isolinux/
+	#~ cp -rav /$R/extra/common/isolinux-overlay/splash.png $workdir/binary/isolinux/	
 
 }
 
