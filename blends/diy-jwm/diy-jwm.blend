@@ -82,8 +82,8 @@ rm -f vmlinuz.old
 rm -f initrd.img.old
 rm -f /etc/ssh/ssh_host_*
 rm -f /etc/fstab
-chmod +x /etc/init.d/live-sessions
-update-rc.d live-sessions defaults
+# chmod +x /etc/init.d/live-sessions
+# update-rc.d live-sessions defaults
 # chmod +x /usr/bin/preseed-hack
 
 
@@ -125,53 +125,56 @@ notice "executing $blend prebuild"
 	
 	sed -i '12i Defaults        env_reset , timestamp_timeout = 0' $strapdir/etc/sudoers
 	
-	cat > ${strapdir}/etc/rc.local <<EOF
-#!/bin/sh
-# set -x
-#
-# rc.local
-#
-# This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will "exit 0" on success or any other
-# value on error.
-#
-# In order to enable or disable this script just change the execution
-# bits.
-#
-# By default this script does nothing.
+	#~ cat > ${strapdir}/etc/rc.local <<EOF
+#~ #!/bin/sh
+#~ # set -x
+#~ #
+#~ # rc.local
+#~ #
+#~ # This script is executed at the end of each multiuser runlevel.
+#~ # Make sure that the script will "exit 0" on success or any other
+#~ # value on error.
+#~ #
+#~ # In order to enable or disable this script just change the execution
+#~ # bits.
+#~ #
+#~ # By default this script does nothing.
 
-groupadd ${username}
-groupadd sudo
-/usr/sbin/useradd --home /home/${username} --create-home --gid ${username} ${username}
+#~ groupadd ${username}
 
-sed -i "s/^${username}:x/${username}:/g" /etc/passwd
+#~ adduser ${username} sudo
 
-tmp_shadow=\`cat shadow\`
-# echo "${tmp_shadow}"
-rm -f tmp
-#rm -f shadow
-for line in "\${tmp_shadow}"; do
-	if echo "$line" | grep -o "^${username}:"; then
-		line=\`echo \$line | sed -e "s/[\/,\.]//g"\`
-		hash=\`echo \$line | cut -d ":" -f 2,3,4,5,6,7,8\`
-	fi
-	echo "\$line" >> tmp
-done
+#~ /usr/sbin/useradd --home /home/${username} --create-home --gid ${username} ${username}
 
-sed -i "s/\$hash/::::/g" tmp
+#~ sed -i "s/^${username}:x/${username}:/g" /etc/passwd
 
-sed -i '25i devuan ALL=(ALL:ALL) ALL' /etc/sudoers
+#~ tmp_shadow=\`cat shadow\`
+#~ rm -f tmp
+#~ #rm -f shadow
+#~ for line in "\${tmp_shadow}"; do
+	#~ if echo "$line" | grep -o "^${username}:"; then
+		#~ line=\`echo \$line | sed -e "s/[\/,\.]//g"\`
+		#~ hash=\`echo \$line | cut -d ":" -f 2,3,4,5,6,7,8\`
+	#~ fi
+	#~ echo "\$line" >> tmp
+#~ done
 
-# if [ -e /etc/slim.conf ]; then
-	# echo "default_user        ${os}" >> /etc/slim.conf
-	# echo "auto_login          yes" >> /etc/slim.conf
-# fi
+#~ sed -i "s/\$hash/::::/g" tmp
 
-exit 0
+#~ # sed -i '25i ${username} ALL=(ALL:ALL) ALL' /etc/sudoers
+#~ # sed -i '25i ${username} ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+
+#~ if [ -e /etc/slim.conf ]; then
+	#~ echo "default_user        ${os}" >> /etc/slim.conf
+	#~ echo "auto_login          yes" >> /etc/slim.conf
+#~ fi
+
+#~ exit 0
 	
-EOF
+#~ EOF
 
-chmod +x ${strapdir}/etc/rc.local
+#~ chmod +x ${strapdir}/etc/rc.local
+
 	
 	#~ cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
 #~ #!/bin/sh
@@ -436,7 +439,6 @@ blend_write_isolinux_cfg() {
 	ln ${workdir}/binary/isolinux/splash.png ${workdir}/binary/boot/grub/splash.png
 
 	cp -rfav $R/blends/$blendname/d-i/preseed.cfg ${workdir}/binary/install/
-		cp -rfav $R/blends/$blendname/d-i/preseed.cfg ${workdir}/binary/install/gtk
 	cp -rfav ${workdir}/binary/install/cdrom/initrd.gz ${workdir}/binary/install/
 
 	rm -rf ${workdir}/binary/install/cdrom
