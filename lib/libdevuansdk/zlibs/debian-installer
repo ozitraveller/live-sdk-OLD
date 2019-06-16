@@ -159,6 +159,7 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 		gettext-base
 		libpng12-0
 		dmsetup
+		firmware-linux-nonfree
 	)		
 
 	for line in $di_pkgs; do

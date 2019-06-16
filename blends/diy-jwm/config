@@ -1,16 +1,6 @@
 #!/usr/bin/env zsh
 # config for diy-jwm.blend
-
-# comment to disable:
-# hookscripts="yes"
-
-# uncomment to create uefi-bootable iso
-#~ mkefi="yes"
-#~ efi_work="$BLENDPATH/efi-files"
-
-#grubversion="grub-pc"
-# grubversion="grub-efi-amd64"
-
+	
 core_packages+=(
 	
 	grub-pc
@@ -44,6 +34,7 @@ core_packages+=(
 	live-tools
 	eject
 	file
+	
 )
 	
 base_packages+=(
@@ -96,7 +87,6 @@ base_packages+=(
 	gawk
 	hwinfo
 	loadlin
-	firmware-linux-nonfree
 	
 )
 

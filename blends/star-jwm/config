@@ -67,7 +67,6 @@ base_packages+=(
 	ntp
 	firmware-linux-free
 	os-prober
-	debconf
 	lsof
 	bash-completion
 	acpi-support-base
@@ -98,6 +97,7 @@ base_packages+=(
 	gawk
 	hwinfo
 	loadlin
+	firmware-linux-nonfree
 	
 )
 
