@@ -52,7 +52,7 @@ base_packages+=(
 	base-files
 	lsb-release
 	lsb-base
-	adduser
+	user-setup
 	sudo
 	rpl
 	apt-utils

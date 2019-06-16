@@ -99,10 +99,10 @@ export DEBIAN_FRONTEND=noninteractive
 #~ done
 
 #~ # -----------
-#~ for _PACKAGE in ${base_packages}
-#~ do
-	#~ apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
-#~ done
+for _PACKAGE in ${base_packages}
+do
+	apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
+done
 
 #~ # -----------
 #~ for _PACKAGE in ${extra_packages}
@@ -118,7 +118,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Option 2
 apt-get --yes --force-yes --fix-missing install ${core_packages}
-apt-get --yes --force-yes --fix-missing install ${base_packages}
+#~ apt-get --yes --force-yes --fix-missing install ${base_packages}
 apt-get --yes --force-yes --fix-missing install ${extra_packages}
 # [[ ${#purge_packages[*]} != 0 ]] && apt-get --yes --force-yes purge ${purge_packages}
 apt-get --yes --force-yes autoremove

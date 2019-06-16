@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+echo STAR-LIVE-Hook: "$0"
+echo ""
+echo "I: Change distro name"
+
+if [ -f "usr/share/applications/debian-installer-launcher.desktop" ]; then
+	echo "update : debian-installer-launcher.desktop"
+	sed -i 's/Install Debian/Install Star/' usr/share/applications/debian-installer-launcher.desktop
+	sed -i 's/Installer Debian/Installer Star/' usr/share/applications/debian-installer-launcher.desktop
+fi
+
+echo ""
+

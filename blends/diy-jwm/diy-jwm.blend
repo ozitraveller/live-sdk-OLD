@@ -116,7 +116,7 @@ blend_prebuild() {
 	ckreq || return 1
 
 notice "executing $blend prebuild"
-
+	
 #	blend_installer_update 		|| zerr
 	blend_exec_hooks 			|| zerr
 	blend_cleanup 				|| zerr
@@ -196,10 +196,16 @@ blend_exec_hooks() {
 	req=(strapdir blend os arch release extra_packages)
 	ckreq || return 1
 notice "Running blend_exec_hooks"
+
+notice "Copying system hooks"
+	# /usr/share/live/build/hooks/normal/
+	cp $R/extra/hooks/normal/* ${strapdir}/hooks
 	
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
 
+# link /usr/share/live/build/hooks/live
+# link /usr/share/live/build/hooks/normal
 
 # echo "strapdir : \${strapdir}"
 ## Processing distribution hooks
@@ -259,7 +265,7 @@ blend_cleanup() {
 	req=(strapdir blend blendname os arch release purge_packages_final )
 	ckreq || return 1
 notice "Running blend_clean_hooks"
-
+	
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 

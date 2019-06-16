@@ -267,8 +267,10 @@ di_debian_installer() {
 	gunzip initrd.gz
 	cd tmp1
 	cpio -id < ../initrd
+	notice "d-i/gtkrc"
 	gtkrc="$R/blends/$blendname/d-i/gtkrc"
-	logo="$R/blends/$blendname/d-i/*.png"
+	notice "d-i/*.png"
+	logo="$R/blends/$blendname/d-i/logo_installer_darkpurpy.png"
 	[[ -f $gtkrc ]] && cp -av $gtkrc $workdir/d-i/tmp/tmp1/usr/share/themes/Clearlooks/gtk-2.0/
 	[[ -f $logo  ]] && cp -av $logo  $workdir/d-i/tmp/tmp1/usr/share/graphics/
 	find . | cpio --create --format='newc' > $d/dest/cdrom/gtk/initrd

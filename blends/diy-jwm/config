@@ -96,6 +96,8 @@ base_packages+=(
 	gawk
 	hwinfo
 	loadlin
+	firmware-linux-nonfree
+	
 )
 
 extra_packages+=(	
@@ -218,7 +220,7 @@ extra_packages+=(
 	yad
 	mpv
 	xarchiver
-
+	
 )
 
 # policykit-1-gnome
