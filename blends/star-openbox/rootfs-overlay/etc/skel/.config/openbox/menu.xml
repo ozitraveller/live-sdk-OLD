@@ -80,7 +80,7 @@
 					</command>
 				</action>
 			</item>
-			<item label="Leafpad">
+			<item label="Mousepad">
 				<action name="Execute">
 					<command>
 						editor

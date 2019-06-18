@@ -1,16 +1,6 @@
 #!/usr/bin/env zsh
 # config for diy-jwm.blend
 
-# comment to disable:
-hookscripts="yes"
-
-# uncomment to create uefi-bootable iso
-#~ mkefi="yes"
-# efi_work="$BLENDPATH/efi-files"
-
-#grubversion="grub-pc"
-# grubversion="grub-efi-amd64"
-
 core_packages+=(
 	
 	grub-pc
@@ -97,7 +87,6 @@ base_packages+=(
 	gawk
 	hwinfo
 	loadlin
-	firmware-linux-nonfree
 	
 )
 
@@ -213,7 +202,7 @@ extra_packages+=(
 	lxterminal
 	arandr
 	lxappearance
-	leafpad
+	mousepad
 	pcmanfm
 	libfm-modules
 	mirage
@@ -224,6 +213,7 @@ extra_packages+=(
 
 )
 
+purge_packages_option=()
 purge_packages+=(
 
 )
@@ -236,16 +226,14 @@ purge_packages_final+=(
 	acpi-support-base
 	acpid
 	alsa-oss
-aptitude	
+	aptitude
 	aptitude-common
 	at
 	at-spi2-core
-binutils	
 	bluez
 	browser-plugin-evince
 	btrfs-progs
 	btrfs-tools
-build-essential	
 	console-common
 	console-data
 	cowbuilder
@@ -263,8 +251,6 @@ build-essential
 	dirmngr
 	distro-info-data
 	dnsutils
-docbook-xml	
-dpkg-dev	
 	dput
 	dselect
 	eatmydata
@@ -276,6 +262,7 @@ dpkg-dev
 	exfat-fuse
 	exim4-base
 	exim4-config
+	exim4-daemon-light
 	fakeroot
 	ffmpeg
 	fonts-dejavu
@@ -288,7 +275,6 @@ dpkg-dev
 	gcr
 	gdisk
 	geoip-database
-gettext	
 	git
 	git-buildpackage
 	git-core
@@ -297,6 +283,7 @@ gettext
 	gnome-user-guide
 	gnustep-base-common
 	gnustep-common
+	gnustep-base-runtime
 	gsfonts
 	gsfonts-x11
 	gstreamer1.0-x:amd64
@@ -313,11 +300,11 @@ gettext
 	krb5-locales
 	laptop-detect
 	less
-licensecheck	
 	loadlin
 	lxde-settings-daemon
 	lynx
 	lynx-common
+	mailutils
 	mailutils-common
 	manpages
 	manpages-dev
@@ -332,13 +319,12 @@ licensecheck
 	openresolv
 openssh-client
 openssh-server
-openssh-sftp-server	
+openssh-sftp-server
 	os-prober
 	p11-kit
 	p11-kit-modules:amd64
 	p7zip
 	p7zip-full
-patch	
 	patchutils
 	pbuilder
 	pbzip2
@@ -359,15 +345,24 @@ patch
 	python-openssl
 	python-pkg-resources
 	python-pyasn1
+	python-requests
+	python-setuptools	
 	python-six
 	python-urllib3
+	python3-debianbts
+	python3-httplib2
+	python3-magic
+	python3-pycurl
+	python3-pysimplesoap
+	python3-reportbug
+	python3-requests
+	python3-urllib3
+	quilt
 	rarian-compat
 	rename
 	reportbug
 	rtmpdump
 	screen
-sgml-base
-sgml-data	
 	strace
 	t1utils
 	tcpd
@@ -386,7 +381,6 @@ sgml-data
 	wireless-regdb
 	xdelta
 	xdelta3
-xml-core	
 	xorriso
 	xserver-xorg-input-wacom
 	xserver-xorg-legacy

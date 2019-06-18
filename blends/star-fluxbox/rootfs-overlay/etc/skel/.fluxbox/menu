@@ -17,7 +17,7 @@
       [submenu] (Accessories) {}
 #        [exec] (Archive Manager) {/usr/bin/file-roller} <>	
 		 [exec] (Calculator) {/usr/bin/xcalc} <>
-         [exec] (Leafpad) {editor} <>
+         [exec] (Mousepad) {editor} <>
          [exec] (Pcmanfm) {x-file-manager} <>
          [exec] (Terminal) {x-terminal-emulator} <>	
          [exec] (Xarchiver) {/usr/bin/xarchiver} <>		 		 		 

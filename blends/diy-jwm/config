@@ -202,7 +202,7 @@ extra_packages+=(
 	lxterminal
 	arandr
 	lxappearance
-	leafpad
+	mousepad
 	pcmanfm
 	libfm-modules
 	mirage

@@ -28,7 +28,7 @@
 		  <Program label="Archive Manager">/usr/bin/file-roller</Program>
 -->
 		  <Program label="Calculator" confirm="false">/usr/bin/xcalc</Program>
-          <Program label="Leafpad" confirm="false">editor</Program>
+          <Program label="Mousepad" confirm="false">editor</Program>
 		  <Program label="Terminal">x-terminal-emulator</Program>
 		  <Program label="Pcmanfm">x-file-manager</Program>
 		  <Program label="Xarchiver">/usr/bin/xarchiver</Program>

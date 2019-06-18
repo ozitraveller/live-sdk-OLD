@@ -214,7 +214,7 @@ extra_packages+=(
 	arandr
 	gtk-chtheme
 	lxappearance
-	leafpad
+	mousepad
 	pcmanfm
 	libfm-modules
 	lsof

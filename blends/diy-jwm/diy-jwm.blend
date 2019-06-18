@@ -5,9 +5,6 @@ arrs+=(purge_packages_final)
 
 BLENDPATH="${BLENDPATH:-$(dirname $0)}"
 
-username="devuan"
-# userpass="devuan"
-
 source $BLENDPATH/config
 
 blend_preinst() {
@@ -112,80 +109,25 @@ EOF
 
 blend_prebuild() {
 	fn blend_prebuild
-	req=(strapdir blend blendname os arch release extra_packages workdir)
+	req=(strapdir)
 	ckreq || return 1
 
 notice "executing $blend prebuild"
-	
-#	blend_installer_update 		|| zerr
+
 	blend_exec_hooks 			|| zerr
 	blend_cleanup 				|| zerr
 	blend_write_isolinux_cfg	|| zerr
-# 	blend_post_efi              || zerr
-	
-	sed -i '12i Defaults        env_reset , timestamp_timeout = 0' $strapdir/etc/sudoers
-	
-	#~ cat > ${strapdir}/etc/rc.local <<EOF
-#~ #!/bin/sh
-#~ # set -x
-#~ #
-#~ # rc.local
-#~ #
-#~ # This script is executed at the end of each multiuser runlevel.
-#~ # Make sure that the script will "exit 0" on success or any other
-#~ # value on error.
-#~ #
-#~ # In order to enable or disable this script just change the execution
-#~ # bits.
-#~ #
-#~ # By default this script does nothing.
 
-#~ groupadd ${username}
-
-#~ adduser ${username} sudo
-
-#~ /usr/sbin/useradd --home /home/${username} --create-home --gid ${username} ${username}
-
-#~ sed -i "s/^${username}:x/${username}:/g" /etc/passwd
-
-#~ tmp_shadow=\`cat shadow\`
-#~ rm -f tmp
-#~ #rm -f shadow
-#~ for line in "\${tmp_shadow}"; do
-	#~ if echo "$line" | grep -o "^${username}:"; then
-		#~ line=\`echo \$line | sed -e "s/[\/,\.]//g"\`
-		#~ hash=\`echo \$line | cut -d ":" -f 2,3,4,5,6,7,8\`
-	#~ fi
-	#~ echo "\$line" >> tmp
-#~ done
-
-#~ sed -i "s/\$hash/::::/g" tmp
-
-#~ # sed -i '25i ${username} ALL=(ALL:ALL) ALL' /etc/sudoers
-#~ # sed -i '25i ${username} ALL=(ALL) NOPASSWD: ALL' /etc/sudoers
-
-#~ if [ -e /etc/slim.conf ]; then
-	#~ echo "default_user        ${os}" >> /etc/slim.conf
-	#~ echo "auto_login          yes" >> /etc/slim.conf
-#~ fi
-
-#~ exit 0
-	
-#~ EOF
-
-#~ chmod +x ${strapdir}/etc/rc.local
-
-	
 	#~ cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
 #~ #!/bin/sh
 
 #~ dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
 
 #~ EOF
-	
+
 	#~ chroot-script -d list_installed-packages || zerr
 	#~ mv -f $strapdir/list_installed-packages $R/log/
-	
+
 	notice "moving log file to log folder"
 	mv -f $strapdir/*.txt $R/log/		
 
@@ -265,7 +207,7 @@ blend_cleanup() {
 	req=(strapdir blend blendname os arch release purge_packages_final )
 	ckreq || return 1
 notice "Running blend_clean_hooks"
-	
+
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 
@@ -286,13 +228,13 @@ rm -rf /hooks
 #~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
 
 # Option 3
-# apt-get --yes --force-yes purge ${purge_packages_final}
+apt-get --yes --force-yes purge ${purge_packages_final}
 
 # Option 4
-for _PACKAGE in ${purge_packages_final}
-do
-	apt-get --yes --force-yes purge "\${_PACKAGE}"
-done
+#~ for _PACKAGE in ${purge_packages_final}
+#~ do
+	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
+#~ done
 
 # Option 5
 #~ apt-get --yes --force-yes purge \
@@ -337,7 +279,7 @@ EOF
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
-	
+
 }
 
 blend_installer_updateXX () {
