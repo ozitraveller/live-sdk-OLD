@@ -1,15 +1,5 @@
 #!/usr/bin/env zsh
-# config for diy-jwm.blend
-
-# comment to disable:
-hookscripts="yes"
-
-# uncomment to create uefi-bootable iso
-#~ mkefi="yes"
-#~ efi_work="$BLENDPATH/efi-files"
-
-#grubversion="grub-pc"
-grubversion="grub-efi-amd64"
+# config for star-netinstblend
 
 core_packages+=(
 	
@@ -169,6 +159,7 @@ extra_packages+=(
 
 )
 
+purge_packages_option=()
 purge_packages+=(
 
 )
@@ -181,6 +172,7 @@ purge_packages_final+=(
 	acpi-support-base
 	acpid
 	alsa-oss
+	aptitude
 	aptitude-common
 	at
 	at-spi2-core
@@ -216,6 +208,7 @@ purge_packages_final+=(
 	exfat-fuse
 	exim4-base
 	exim4-config
+	exim4-daemon-light
 	fakeroot
 	ffmpeg
 	fonts-dejavu
@@ -236,6 +229,7 @@ purge_packages_final+=(
 	gnome-user-guide
 	gnustep-base-common
 	gnustep-common
+	gnustep-base-runtime
 	gsfonts
 	gsfonts-x11
 	gstreamer1.0-x:amd64
@@ -256,6 +250,7 @@ purge_packages_final+=(
 	lxde-settings-daemon
 	lynx
 	lynx-common
+	mailutils
 	mailutils-common
 	manpages
 	manpages-dev
@@ -268,6 +263,9 @@ purge_packages_final+=(
 	nss-updatedb
 	ofono
 	openresolv
+openssh-client
+openssh-server
+openssh-sftp-server
 	os-prober
 	p11-kit
 	p11-kit-modules:amd64
@@ -293,8 +291,19 @@ purge_packages_final+=(
 	python-openssl
 	python-pkg-resources
 	python-pyasn1
+	python-requests
+	python-setuptools	
 	python-six
 	python-urllib3
+	python3-debianbts
+	python3-httplib2
+	python3-magic
+	python3-pycurl
+	python3-pysimplesoap
+	python3-reportbug
+	python3-requests
+	python3-urllib3
+	quilt
 	rarian-compat
 	rename
 	reportbug
@@ -328,93 +337,5 @@ purge_packages_final+=(
 	youtube-dl
 	zsh
 	zsh-common
-	autoconf
-	automake
-	autopoint
-	autotools-dev
-	binutils
-	build-essential
-	console-setup
-	console-setup-linux
-	dbus-x11
-	dctrl-tools
-	debhelper
-	dh-autoreconf
-	dh-strip-nondeterminism
-	dpkg-dev
-	elogind
-	exim4-daemon-light
-	file
-	gamin
-	gconf2
-	gconf2-common
-	gconf-service
-	gdebi
-	gdebi-core
-	gettext
-	gir1.2-atk-1.0:amd64
-	gir1.2-freedesktop:amd64
-	gir1.2-gdkpixbuf-2.0:amd64
-	gir1.2-glib-2.0:amd64
-	gir1.2-gtk-3.0:amd64
-	gir1.2-pango-1.0:amd64
-	gir1.2-vte-2.91:amd64
-	gksu
-	gnome-icon-theme
-	gnupg2
-	gnustep-base-runtime
-	groff-base
-	grub-common
-	hdparm
-	intltool-debian
-	kbd
-	kexec-tools
-	keyboard-configuration
-	lsb-release
-	lsof
-	lzop
-	m4
-	man-db
-	mtools
-	ntp
-	patch
-	perl
-	perl-modules-5.24
-	pmount
-	pm-utils
-	po-debconf
-	powermgmt-base
-	psmisc
-	python
-	python2.7
-	python2.7-minimal
-	python3-chardet
-	python3-debian
-	python3-debianbts
-	python3-gi
-	python3-httplib2
-	python3-pkg-resources
-	python3-pycurl
-	python3-pysimplesoap
-	python3-reportbug
-	python3-requests
-	python3-six
-	python3-urllib3
-	python-minimal
-	rpl
-	rtkit
-	rzip
-	sgml-base
-	squashfs-tools
-	unace
-	unalz
-	upower
-	user-setup
-	uuid-runtime
-	x11-common
-	xauth
-	xdg-user-dirs
-	xml-core
-	xz-utils
 
 )

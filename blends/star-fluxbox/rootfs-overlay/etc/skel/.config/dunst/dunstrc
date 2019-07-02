@@ -1,5 +1,6 @@
 [global]
     font = Liberation Sans 10
+    #font = Fira Mono 9
     
     # Allow a small subset of html markup:
     #   <b>bold</b>
@@ -21,7 +22,9 @@
     #   %I  iconname (without its path)
     #   %p  progress value if set ([  0%] to [100%]) or nothing
     # Markup is allowed
-    format = "%s %p\n%b"
+    #format = "<b>%s</b>%p\n%b"
+    format = "%I\n%p<b>%s</b>\n%b"
+    #format = "%s\n%b"
     
     # Sort messages by urgency.
     sort = yes
@@ -38,7 +41,6 @@
     # This option conflicts with "word_wrap".
     # Set to 0 to disable.
     bounce_freq = 0
-
     
     # Show age of message if message is older than show_age_threshold
     # seconds.
@@ -65,7 +67,7 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-30+48"
+    geometry = "500x5-30+28"
     
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -74,13 +76,12 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing windowmanager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 17
+    transparency = 0
     
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
     # Set to 0 to disable.
-    # default 120
-    idle_threshold = 120 
+    idle_threshold = 120
     
     # Which monitor should the notifications be displayed on.
     monitor = 0
@@ -113,17 +114,16 @@
     # This adds empty space above and under the text.
     line_height = 0
     
-    # Draw a line of "separator_height" pixel height between two
+    # Draw a line of "separatpr_height" pixel height between two
     # notifications.
     # Set to 0 to disable.
-    separator_height = 1
+    separator_height = 2
     
     # Padding between text and separator.
-    # padding = 8
     padding = 8
     
     # Horizontal padding.
-    horizontal_padding = 10
+    horizontal_padding = 8
     
     # Define a color for the separator.
     # possible values are:
@@ -131,7 +131,7 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = frame
+    separator_color = auto
     
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
@@ -143,18 +143,29 @@
     
     # Browser for opening urls in context menu.
     browser = x-www-browser
+    
+    # Define the corner radius of the notification window
+    # in pixel size. If the radius is 0, you have no rounded
+    # corners.
+    # The radius will be automatically lowered if it exceeds half of the
+    # notification height to avoid clipping text and/or icons.
+    # corner_radius = 7
 
     # Align icons left/right/off
+    icon_position = off
     icon_position = left
 
     # Paths to default icons.
     icon_folders = /usr/share/icons/Grey-Maia/16x16/status/:/usr/share/icons/Grey-Maia/16x16/devices/
-
+    #icon_folders = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    #icon_folders = /usr/share/icons/Flattr/status/scalable/:/usr/share/icons/Flattr/devices/scalable/
+    #icon_folders = /usr/share/icons/Paper/48x48/notifications/
+    
 [frame]
     #width = 3
     #color = "#323234"
-    width = 3
-    color = "##626262"
+    width = 0
+    color = "#626262"
 
 [shortcuts]
 
@@ -164,19 +175,18 @@
     # Xev might be helpful to find names for keys.
     
     # Close notification.
-    close = mod1+space
+    close = ctrl+space
     
     # Close all notifications.
-    # close_all = ctrl+shift+space
-    close_all = ctrl+mod1+space
-
+    close_all = ctrl+shift+space
+    
     # Redisplay last message(s).
     # On the US keyboard layout "grave" is normally above TAB and left
     # of "1".
-    history = ctrl+mod4+h 
+    history = ctrl+grave
     
     # Context menu.
-    context = ctrl+alt+c
+    context = ctrl+shift+period
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
@@ -189,14 +199,14 @@
     #background = "#285577"
     #foreground = "#CECFD1"
     #background = "#26282B"
-    background = "#232323"
-    foreground = "#A8A8A8"
-    timeout = 5
+    background = "#FBF1C7"
+    foreground = "#D65D0E"
+    timeout = 7
 
 [urgency_critical]
-    background = "#D64E4E"
+    background = "#9D0006"
     foreground = "#F0E0E0"
-    frame_color = "#D64E4E"
+    frame_color = "#CC241D"
     timeout = 0
 
 
@@ -233,74 +243,75 @@
 #    format = ""
 
 #[signed_on]
-#    appname = Pidgin
+#   appname = Pithos
 #    summary = "*signed on*"
 #    urgency = low
 #
 #[signed_off]
-#    appname = Pidgin
+#   appname = Pithos
 #    summary = *signed off*
 #    urgency = low
 #
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
+#[sign_on]
+#    appname = Clementine
+#    summary = "*signed on*"
+#    urgency = low
+#
+#[sign_off]
+#    appname = Clementine
+#    summary = *signed_off*
+#    urgency = low
+#[signed_on]
+#    appname = DeadBeeF-0.7.2
+#    summary = "*signed on*"
+#    urgency = low
+#
+#[signed_off]
+#    appname = DeaDBeeF-0.7.2
+#    summary = *signed off*
+#    urgency = low
+#
+#[sign_on]
+#    appname = Parole
+#    summary = "*signed on*"
+#    urgency = low
+#
+#[sign_off]
+#    appname = Parole
+#    summary = *signed_off*
+#    urgency = low    
+#
+#[signed_on]
+#    appname = mpv
+#    summary = "*signed on*"
+#    urgency = low
+#
+#[signed_off]
+#    appname = mpv
+#    summary = *signed off*
+#    urgency = low
+#
+#[signed_on]
+#    appname = gmusicbrowser
+#    summary = "*signed on*"
+#    urgency = low
+#[signed_off]
+#    appname = gmusicbrowser
+#    summary = "*signed off*"
+#    urgency = low    
+#
+#[signed_on]
+#    appname = audacious
+#    summary = "*signed on*"
+#    urgency = low
+#[signed_off]
+#    appname = audacious
+#    summary = "*signed off*"
+#    urgency = low    
 #
 #[twitter]
 #    appname = Pidgin
 #    summary = *twitter.com*
 #    urgency = normal
-#
-#[Claws Mail]
-#    appname = claws-mail
-#    category = email.arrived
-#    urgency = normal
-#    background = "#2F899E"
-#    foreground = "#FFA247"
-#
-#[mute.sh]
-#     appname = mute
-#     category = mute.sound
-#     script = mute.sh
-#
-#[JDownloader]
-#    appname = JDownloader
-#    category = JD
-#    background = "#FFA247"
-#    foreground = "#FFFFFF"
-#
-#[newsbeuter]
-#    summary = *Feeds*
-#    background = "#A8EB41"
-#    foreground = "#FFFFFF"
-#
-[irc]
-        appname = weechat
-        timeout = 0
-        background = "#0033bb"
-        foreground = "#dddddd"
-#
-[weechat hl]
-     appname = weechat
-     category = weechat.HL
-     background = "#FF5C47"
-     foreground = "#FFFFFF"
-#
-[weechat pn]
-     appname = weechat
-     category = weechat.PM
-     background = "#D53B84"
-     foreground = "#FFFFFF"
-#
-#[CMUS]
-#    appname = CMUS
-#    category = cmus
-#    background = "#6C4AB7"
-#    foreground = "#FFE756"
-#
-#
-#     background = "#30AB70"
-#     foreground = "#F67245"
 #
 # vim: ft=cfg

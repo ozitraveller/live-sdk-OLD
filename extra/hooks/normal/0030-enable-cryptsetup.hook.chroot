@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Enable cryptsetup
 
 if [ -e /sbin/cryptsetup ]

@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Remove ssl-cert snakeoil
 
 if [ -e /etc/ssl/certs/ssl-cert-snakeoil.pem ]

@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Truncate log files
 for _FILE in $(find /var/log/ -type f)
 do

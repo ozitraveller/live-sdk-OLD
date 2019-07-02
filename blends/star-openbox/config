@@ -1,15 +1,5 @@
 #!/usr/bin/env zsh
-# config for diy-jwm.blend
-
-# comment to disable:
-hookscripts="yes"
-
-# uncomment to create uefi-bootable iso
-#~ mkefi="yes"
-#~ efi_work="$BLENDPATH/efi-files"
-
-#grubversion="grub-pc"
-# grubversion="grub-efi-amd64"
+# config for star-openbox.blend
 
 core_packages+=(
 	
@@ -97,7 +87,6 @@ base_packages+=(
 	gawk
 	hwinfo
 	loadlin
-	firmware-linux-nonfree
 	
 )
 
@@ -214,7 +203,7 @@ extra_packages+=(
 	lxterminal
 	arandr
 	lxappearance
-	leafpad
+	mousepad
 	pcmanfm
 	libfm-modules
 	mirage
@@ -222,9 +211,11 @@ extra_packages+=(
 	yad
 	mpv
 	xarchiver
+	libnotify-bin
 
 )
 
+purge_packages_option=()
 purge_packages+=(
 
 )
@@ -237,7 +228,7 @@ purge_packages_final+=(
 	acpi-support-base
 	acpid
 	alsa-oss
-	aptitude	
+	aptitude
 	aptitude-common
 	at
 	at-spi2-core
@@ -273,6 +264,7 @@ purge_packages_final+=(
 	exfat-fuse
 	exim4-base
 	exim4-config
+	exim4-daemon-light
 	fakeroot
 	ffmpeg
 	fonts-dejavu
@@ -293,6 +285,7 @@ purge_packages_final+=(
 	gnome-user-guide
 	gnustep-base-common
 	gnustep-common
+	gnustep-base-runtime
 	gsfonts
 	gsfonts-x11
 	gstreamer1.0-x:amd64
@@ -313,6 +306,7 @@ purge_packages_final+=(
 	lxde-settings-daemon
 	lynx
 	lynx-common
+	mailutils
 	mailutils-common
 	manpages
 	manpages-dev
@@ -325,6 +319,9 @@ purge_packages_final+=(
 	nss-updatedb
 	ofono
 	openresolv
+openssh-client
+openssh-server
+openssh-sftp-server
 	os-prober
 	p11-kit
 	p11-kit-modules:amd64
@@ -350,8 +347,19 @@ purge_packages_final+=(
 	python-openssl
 	python-pkg-resources
 	python-pyasn1
+	python-requests
+	python-setuptools	
 	python-six
 	python-urllib3
+	python3-debianbts
+	python3-httplib2
+	python3-magic
+	python3-pycurl
+	python3-pysimplesoap
+	python3-reportbug
+	python3-requests
+	python3-urllib3
+	quilt
 	rarian-compat
 	rename
 	reportbug

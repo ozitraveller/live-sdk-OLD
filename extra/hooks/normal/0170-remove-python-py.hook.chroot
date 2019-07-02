@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Remove Python *.py files.
 #
 # This removes byte-compiled Python modules to save some space.

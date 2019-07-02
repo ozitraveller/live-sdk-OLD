@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Create /etc/mtab symlink, replacing a regular file if necessary
 
 if [ ! -L /etc/mtab ]

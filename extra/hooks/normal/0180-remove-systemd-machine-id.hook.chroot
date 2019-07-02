@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Blank out systemd machine id. If it does not exist, systemd-journald
 # will fail, but if it exists and is empty, systemd will automatically
 # set up a new unique ID.

@@ -162,12 +162,18 @@ blend_exec_hooks() {
 	req=(strapdir blend os arch release extra_packages)
 	ckreq || return 1
 notice "Running blend_exec_hooks"
+
+notice "Copying system hooks"
+	# /usr/share/live/build/hooks/normal/
+	cp $R/extra/hooks/normal/* ${strapdir}/hooks
 	
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
 
+# link /usr/share/live/build/hooks/live
+# link /usr/share/live/build/hooks/normal
 
-# echo "strapdir : \${strapdir}"
+echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
@@ -225,7 +231,7 @@ blend_cleanup() {
 	fn blend_cleanup
 	req=(strapdir blend blendname os arch release purge_packages_final )
 	ckreq || return 1
-notice "Running blend_clean_hooks"
+notice "Running blend_cleanup"
 
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
@@ -277,6 +283,7 @@ apt-get --yes --force-yes purge ${purge_packages_final}
 	#~ lynx \
 	#~ loadlin
 
+apt-get --yes --force-yes autoremove
 apt-get clean
 
 EOF
@@ -487,8 +494,8 @@ EOF
 	
 	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
 	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
-#	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
-	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
+	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
+#	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
 	
 	# doesn't need to be root-owned
 #	sudo chown -R 1000:1000 $(pwd) 2>/dev/null

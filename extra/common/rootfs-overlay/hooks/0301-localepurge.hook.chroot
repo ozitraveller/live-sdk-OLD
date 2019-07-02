@@ -2,7 +2,7 @@
 
 set -e
 
-echo DIY-LIVE-Hook: "$0"
+echo STAR-LIVE-Hook: "$0"
 echo ""
 
 echo "I: Removing unneeded locales"

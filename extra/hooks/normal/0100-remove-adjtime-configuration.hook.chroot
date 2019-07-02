@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Reset generated file
 
 cat > /etc/adjtime << EOF

@@ -21,11 +21,15 @@ echo "I: ufw enable"
 
 #~ ufw status
 
-ufw enable
+ufw disable
 ufw default reject incoming
-# ufw default allow outgoing
+# ufw default reject outgoing
+ufw default allow outgoing
+# ufw allow 80   #http
+# ufw allow 443  #https
 # ufw allow ssh /port 22
 # ufw delete allow 22
+ufw enable
 ufw status verbose
 
 echo ""

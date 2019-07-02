@@ -87,7 +87,7 @@ base_packages+=(
 	gawk
 	hwinfo
 	loadlin
-	
+
 )
 
 extra_packages+=(	
@@ -210,6 +210,7 @@ extra_packages+=(
 	yad
 	mpv
 	xarchiver
+	libnotify-bin
 	
 )
 

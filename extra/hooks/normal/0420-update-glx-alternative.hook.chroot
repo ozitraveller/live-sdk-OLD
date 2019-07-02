@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Use mesa renderer by default
 if [ -e /etc/alternatives/glx ]
 then

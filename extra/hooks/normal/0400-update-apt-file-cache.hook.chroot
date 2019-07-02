@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Update the Apt File cache.
 #
 # This allows to use using apt-file out-of-the-box.

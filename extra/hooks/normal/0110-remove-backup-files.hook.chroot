@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Remove backup files
 rm -f /boot/*.bak
 rm -f /boot/*.old-dkms

@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Update the mlocate database.
 #
 # It is convenient for this to be already up to date on the live system, and it

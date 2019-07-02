@@ -1,26 +1,7 @@
 #!/usr/bin/env zsh
 # star-cli.blend
 
-
-	#~ gvfs
-	#~ gvfs-backends
-	#~ gvfs-fuse
-# 	firmware-bnx2x
-# 	firmware-myricom
-# 	firmware-qlogic
-
-vars+=(mkefi efi_work)
-
 arrs+=(purge_packages_final)
-
-#~ # uncomment to create uefi-bootable iso
-mkefi="yes"
-efi_work="$BLENDPATH/efi-files"
-
-#~ #grubversion="grub-pc"
-#~ grubversion="grub-efi-amd64"
-
-#~ image_name="${os}_${release}_${version}_${arch}_uefi"
 
 BLENDPATH="${BLENDPATH:-$(dirname $0)}"
 
@@ -162,12 +143,18 @@ blend_exec_hooks() {
 	req=(strapdir blend os arch release extra_packages)
 	ckreq || return 1
 notice "Running blend_exec_hooks"
-	
+
+notice "Copying system hooks"
+	# /usr/share/live/build/hooks/normal/
+	cp $R/extra/hooks/normal/* ${strapdir}/hooks
+		
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
 
+# link /usr/share/live/build/hooks/live
+# link /usr/share/live/build/hooks/normal
 
-# echo "strapdir : \${strapdir}"
+echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
@@ -225,7 +212,7 @@ blend_cleanup() {
 	fn blend_cleanup
 	req=(strapdir blend blendname os arch release purge_packages_final )
 	ckreq || return 1
-notice "Running blend_clean_hooks"
+notice "Running blend_cleanup"
 
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
@@ -277,6 +264,7 @@ done
 	#~ lynx \
 	#~ loadlin
 
+apt-get --yes --force-yes autoremove
 apt-get clean
 
 EOF
@@ -301,7 +289,6 @@ EOF
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
-	
 }
 
 blend_installer_update () {
@@ -349,11 +336,20 @@ blend_write_isolinux_cfg() {
 
 }
 
+blend_post_efi() {
+	fn blend_post_efi
+	req=(workdir blend blendname)
+	ckreq || return 1
+
+notice "executing $blend post_efi"	
+
+}
+
 # create /boot and /efi for uefi.
 # uefi code borrowed and adapted from David Hare, who borrowed and adapted it 
 # from similar scripts by Colin Watson and Patrick J. Volkerding.
-iso_make_efi() {
-	fn iso_make_efi
+iso_make_efiX() {
+	fn iso_make_efiX
 	req=(workdir efi_work blend blendname)
 	ckreq || return 1
 	set -x
@@ -438,8 +434,8 @@ EOF
 	
 	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
 	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
-#	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
-	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
+	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
+#	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
 	
 	# doesn't need to be root-owned
 #	sudo chown -R 1000:1000 $(pwd) 2>/dev/null

@@ -45,7 +45,7 @@ notice "Running blend_finalize"
 	# cp -rav $R/blends/$blendname/custom-packages/$release/*_${arch}.deb $strapdir/home/
 	# cp -rav $R/blends/$blendname/custom-packages/$release/*_all.deb     $strapdir/home/
 	# cp -rav $R/blends/$blend/dselect/pkglist.txt                    $strapdir/home/
-	
+
 # remove fstab for iso. Probably, this should be in iso_prepare_strap
 	rm -f $strapdir/etc/fstab
 
@@ -56,7 +56,6 @@ fe00::0          ip6-localnet
 fe00::0          ip6-mcastprefix
 fe02::1          ip6-allnodes
 fe02::1          ip6-allrouters" > $strapdir/etc/hosts
-
 
 	cat <<EOF | sudo tee ${strapdir}/finalize >/dev/null
 #!/bin/sh
@@ -108,12 +107,12 @@ rm -f /var/lib/apt/lists/*_dists_*
 EOF
 
 	chroot-script -d finalize || zerr
-	
+
 }
 
 blend_prebuild() {
 	fn blend_prebuild
-	req=(strapdir blend)
+	req=(strapdir)
 	ckreq || return 1
 
 notice "executing $blend prebuild"
@@ -146,14 +145,14 @@ notice "Running blend_exec_hooks"
 notice "Copying system hooks"
 	# /usr/share/live/build/hooks/normal/
 	cp $R/extra/hooks/normal/* ${strapdir}/hooks
-	
+
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
 
 # link /usr/share/live/build/hooks/live
 # link /usr/share/live/build/hooks/normal
 
-# echo "strapdir : \${strapdir}"
+echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
@@ -210,7 +209,7 @@ blend_cleanup() {
 	fn blend_cleanup
 	req=(strapdir blend blendname os arch release purge_packages_final )
 	ckreq || return 1
-notice "Running blend_clean_hooks"
+notice "Running blend_cleanup"
 
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
@@ -262,6 +261,7 @@ apt-get --yes --force-yes purge ${purge_packages_final}
 	#~ lynx \
 	#~ loadlin
 
+apt-get --yes --force-yes autoremove
 apt-get clean
 
 EOF
@@ -285,7 +285,7 @@ EOF
 }
 
 blend_installer_updateXX () {
-	fn blend_installer_update
+	fn blend_installer_updateXX
 	req=(workdir release strapdir)
 	ckreq || return 1
 notice "Running blend_installer_update"
@@ -391,6 +391,7 @@ blend_write_isolinux_cfg() {
 	cp -rfav ${workdir}/binary/install/cdrom/initrd.gz ${workdir}/binary/install/
 
 	rm -rf ${workdir}/binary/install/cdrom
+
 }
 
 blend_post_efi() {
@@ -491,8 +492,8 @@ EOF
 	
 	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
 	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
-#	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
-	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
+	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
+#	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
 	
 	# doesn't need to be root-owned
 #	sudo chown -R 1000:1000 $(pwd) 2>/dev/null

@@ -40,7 +40,7 @@ blend_finalize() {
 	req=(R strapdir blend os)
 	ckreq || return 1
 notice "Running blend_finalize"
-	
+
 # remove fstab for iso. Probably, this should be in iso_prepare_strap
 	rm -f $strapdir/etc/fstab
 
@@ -51,7 +51,6 @@ fe00::0          ip6-localnet
 fe00::0          ip6-mcastprefix
 fe02::1          ip6-allnodes
 fe02::1          ip6-allrouters" > $strapdir/etc/hosts
-
 
 	cat <<EOF | sudo tee ${strapdir}/finalize >/dev/null
 #!/bin/sh
@@ -96,15 +95,13 @@ done
 # apt-get --yes --force-yes --fix-missing install ${extra_packages}
 # apt-get --yes --force-yes autoremove
 
-
 apt-get clean
 rm -f /var/lib/apt/lists/*_dists_*
 
 EOF
 
-
 	chroot-script -d finalize || zerr
-	
+
 }
 
 blend_prebuild() {
@@ -129,7 +126,7 @@ notice "executing $blend prebuild"
 	#~ mv -f $strapdir/list_installed-packages $R/log/
 
 	notice "moving log file to log folder"
-	mv -f $strapdir/*.txt $R/log/		
+	mv -f $strapdir/*.txt $R/log/
 
 }
 
@@ -142,14 +139,14 @@ notice "Running blend_exec_hooks"
 notice "Copying system hooks"
 	# /usr/share/live/build/hooks/normal/
 	cp $R/extra/hooks/normal/* ${strapdir}/hooks
-	
+
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
 
 # link /usr/share/live/build/hooks/live
 # link /usr/share/live/build/hooks/normal
 
-# echo "strapdir : \${strapdir}"
+echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
@@ -191,7 +188,7 @@ fi
 
 		#~ # Executing hook
 		#~ cd ../..
-		#~ eval bootstrap/hooks/"\${HOOK}" # || { Echo_error "${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
+		#~ eval bootstrap/hooks/"\${HOOK}" # || { Echo_error "\${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 		#~ cd "${OLDPWD}"
 		#~ rm -f ./"\${HOOK}"
 	#~ done
@@ -206,7 +203,7 @@ blend_cleanup() {
 	fn blend_cleanup
 	req=(strapdir blend blendname os arch release purge_packages_final )
 	ckreq || return 1
-notice "Running blend_clean_hooks"
+notice "Running blend_cleanup"
 
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
@@ -258,6 +255,7 @@ apt-get --yes --force-yes purge ${purge_packages_final}
 	#~ lynx \
 	#~ loadlin
 
+apt-get --yes --force-yes autoremove
 apt-get clean
 
 EOF
@@ -270,7 +268,6 @@ EOF
 	# \cp causes OVERWRITE
 	\cp -rfav $R/blends/$blendname/extra/apt-files/apt/* $strapdir/etc/apt/
 
-
 	_VERSION='2.0.2'
 	# _SOURCE='DIY'	
 
@@ -279,11 +276,10 @@ EOF
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
-
 }
 
 blend_installer_updateXX () {
-	fn blend_installer_update
+	fn blend_installer_updateXX
 	req=(workdir release strapdir)
 	ckreq || return 1
 notice "Running blend_installer_update"

@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Disable kexec-tools
 
 if [ -e /sbin/kexec ]

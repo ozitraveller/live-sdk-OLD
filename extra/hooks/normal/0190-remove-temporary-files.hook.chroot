@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Remove temporary files
 rm -rf /var/cache/man/*
 

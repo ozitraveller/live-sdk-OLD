@@ -2,6 +2,8 @@
 
 set -e
 
+echo "$0"
+
 # Update the Apt Xapian index.
 #
 # The package would do this itself, but (a) it checks policy-rc.d which says it
