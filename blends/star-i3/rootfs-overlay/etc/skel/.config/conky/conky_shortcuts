@@ -7,8 +7,8 @@ conky.config = {
 	double_buffer = true,
     font = 'Liberation Sans:size=9',
     draw_shades = false,
-    gap_x = 25,
-    gap_y = 20,
+    gap_x = 30,
+    gap_y = 60,
     minimum_height = 5,
 	minimum_width = 1,
 	maximum_width = 200,
@@ -31,6 +31,9 @@ ${color ffffff}web browser$alignr ${color ffffff}mod+Ctrl+w
 ${color ffffff}editor$alignr ${color ffffff}mod+Ctrl+e
 ${color ffffff}file manager$alignr ${color ffffff}mod+Ctrl+f
 
+${color ffffff}usb mount$alignr ${color ffffff}mod+Ctrl+m
+${color ffffff}usb unmount$alignr ${color ffffff}mod+Ctrl+u
+
 ${color ffffff}restart$alignr ${color ffffff}mod+Shift+r
 
 ${color ffffff}kill focused$alignr ${color ffffff}mod+Shift+q
@@ -40,13 +43,14 @@ ${color ffffff}send to workspace 0-9$alignr ${color ffffff}mod+Shift+0-9
 ${color ffffff}toggle floating$alignr ${color ffffff}mod+Shift+Space
 ${color ffffff}tile vertically$alignr ${color ffffff}mod+v
 ${color ffffff}tile horizontally$alignr ${color ffffff}mod+h
+${color ffffff}toggle split$alignr ${color ffffff}mod+e
 
 ${color ffffff}resize mode$alignr ${color ffffff}mod+r
 ${color ffffff}resize exit$alignr ${color ffffff}esc
-${goto 20}${color ffffff}width shrink$alignr ${color ffffff}h
-${goto 20}${color ffffff}width grow$alignr ${color ffffff}l
-${goto 20}${color ffffff}height shrink$alignr ${color ffffff}k
-${goto 20}${color ffffff}height grow$alignr ${color ffffff}j
+${goto 20}${color ffffff}width shrink$alignr ${color ffffff}l
+${goto 20}${color ffffff}width grow$alignr ${color ffffff}k
+${goto 20}${color ffffff}height shrink$alignr ${color ffffff}j
+${goto 20}${color ffffff}height grow$alignr ${color ffffff};
 
 default mod=<Super>
 

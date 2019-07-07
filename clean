@@ -2,7 +2,7 @@
 
 set -x
 
-sudo rm -rf ./*.log
+# sudo rm -rf ./*.log
 sudo rm -rf ./tmp/*
 sudo rm -rf ./dist/*
 sudo rm -rf ./log/*

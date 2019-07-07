@@ -144,7 +144,9 @@ notice "Running blend_exec_hooks"
 
 notice "Copying system hooks"
 	# /usr/share/live/build/hooks/normal/
-	cp $R/extra/hooks/normal/* ${strapdir}/hooks
+	ls -al $R/extra/hooks/normal
+	cp -rf $R/extra/hooks/normal/* ${strapdir}/hooks
+	ls -al ${strapdir}/hooks
 
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
@@ -156,6 +158,7 @@ echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
+ls -al
 
 ## Processing local hooks
 if ls ./*.chroot > /dev/null 2>&1
@@ -169,7 +172,7 @@ then
 			chmod +x ./"\${HOOK}"
 		fi
 
-		# echo "Executing hook : \${HOOK}"
+		echo "Executing hook : \${HOOK}"
 		eval ./"\${HOOK}" # || { Echo_error "\${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 
 		# echo "Removing hook : \${HOOK}"
@@ -214,9 +217,9 @@ notice "Running blend_cleanup"
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 
-rm -f exec_hooks
-rm -f exec_hooks.log
-rm -rf /hooks
+#~ rm -f exec_hooks
+#~ rm -f exec_hooks.log
+#~ rm -rf /hooks
 
 # Option 1
 # ignore comments & blank lines

@@ -152,11 +152,12 @@ notice "Copying system hooks"
 # link /usr/share/live/build/hooks/live
 # link /usr/share/live/build/hooks/normal
 
-echo "strapdir : \${strapdir}/hooks"
+# echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
 ls -al
+
 ## Processing local hooks
 if ls ./*.chroot > /dev/null 2>&1
 then

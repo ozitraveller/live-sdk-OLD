@@ -197,7 +197,8 @@ extra_packages+=(
 	i3
 	i3status
 	dunst
-	wicd
+	connman
+	connman-ui
 	hsetroot
 	lxterminal
 	arandr

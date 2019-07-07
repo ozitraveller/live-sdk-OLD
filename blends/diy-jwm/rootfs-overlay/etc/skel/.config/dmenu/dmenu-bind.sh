@@ -17,6 +17,6 @@
 
 # dmenu_run -b -i -nb '#151617' -nf '#d8d8d8' -sb '#d8d8d8' -sf '#151617'
 
-dmenu_run -fn 10x20 -nf '#398ee7' -nb black -sf black -sb white -l 20
-
-#~ dmenu_run -fn 10x20 -nf '#1e1e1e' -sf '#1e1e1e' -sb '#f4800d' -nf '#F4800d' -l 20
+# dmenu_run -fn 10x20 -nf '#398ee7' -nb black -sf black -sb white -l 20
+# gruvbox
+dmenu_run -fn 10x20 -nf '#1e1e1e' -sf '#1e1e1e' -sb '#f4800d' -nf '#F4800d' -l 20

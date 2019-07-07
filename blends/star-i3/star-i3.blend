@@ -152,10 +152,11 @@ notice "Copying system hooks"
 # link /usr/share/live/build/hooks/live
 # link /usr/share/live/build/hooks/normal
 
-echo "strapdir : \${strapdir}/hooks"
+# echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
+ls -al
 
 ## Processing local hooks
 if ls ./*.chroot > /dev/null 2>&1
@@ -169,7 +170,7 @@ then
 			chmod +x ./"\${HOOK}"
 		fi
 
-		# echo "Executing hook : \${HOOK}"
+		echo "Executing hook : \${HOOK}"
 		eval ./"\${HOOK}" # || { Echo_error "\${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 
 		# echo "Removing hook : \${HOOK}"
@@ -231,13 +232,13 @@ rm -rf /hooks
 #~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
 
 # Option 3
-apt-get --yes --force-yes purge ${purge_packages_final}
+#~ apt-get --yes --force-yes purge ${purge_packages_final}
 
 # Option 4
-#~ for _PACKAGE in ${purge_packages_final}
-#~ do
-	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
-#~ done
+for _PACKAGE in ${purge_packages_final}
+do
+	apt-get --yes --force-yes purge "\${_PACKAGE}"
+done
 
 # Option 5
 #~ apt-get --yes --force-yes purge \
@@ -261,7 +262,7 @@ apt-get --yes --force-yes purge ${purge_packages_final}
 	#~ lynx \
 	#~ loadlin
 
-apt-get --yes --force-yes autoremove
+# apt-get --yes --force-yes autoremove
 apt-get clean
 
 EOF
