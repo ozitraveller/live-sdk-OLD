@@ -1,0 +1,22 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL BROWSER SUPPORT
+  -------------------------------
+  By default, Star offers epiphany-browser, a simple lightweight
+  web browser. Would you like to install a more advanced web browser now?
+  If you choose to do this, the following packages will be installed: 
+  
+  Chromium
+  
+  Note: additional packages listed as dependencies will also be installed."
+
+if prompt "  Would you like to also install Chromium?"; then
+	sudo apt-get install -y chromium
+	update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/chromium 10
+fi
+
+	
+	

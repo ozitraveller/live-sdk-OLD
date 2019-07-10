@@ -100,7 +100,6 @@ done
 # apt-get --yes --force-yes --fix-missing install ${extra_packages}
 # apt-get --yes --force-yes autoremove
 
-
 apt-get clean
 rm -f /var/lib/apt/lists/*_dists_*
 
@@ -131,8 +130,11 @@ notice "executing $blend prebuild"
 	#~ chroot-script -d list_installed-packages || zerr
 	#~ mv -f $strapdir/list_installed-packages $R/log/
 
-	notice "moving log file to log folder"
-	mv -f $strapdir/*.txt $R/log/
+	if ls strapdir/*.txt > /dev/null 2>&1
+	then
+		notice "moving log file to log folder"
+		mv -f $strapdir/*.txt $R/log/
+	fi
 
 }
 
@@ -144,9 +146,9 @@ notice "Running blend_exec_hooks"
 
 notice "Copying system hooks"
 	# /usr/share/live/build/hooks/normal/
-	ls -al $R/extra/hooks/normal
+	# ls -al $R/extra/hooks/normal
 	cp -rf $R/extra/hooks/normal/* ${strapdir}/hooks
-	ls -al ${strapdir}/hooks
+	# ls -al ${strapdir}/hooks
 
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
@@ -154,11 +156,11 @@ notice "Copying system hooks"
 # link /usr/share/live/build/hooks/live
 # link /usr/share/live/build/hooks/normal
 
-echo "strapdir : \${strapdir}/hooks"
+#~ echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
-ls -al
+#~ ls -al
 
 ## Processing local hooks
 if ls ./*.chroot > /dev/null 2>&1
@@ -217,9 +219,9 @@ notice "Running blend_cleanup"
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 
-#~ rm -f exec_hooks
-#~ rm -f exec_hooks.log
-#~ rm -rf /hooks
+rm -f exec_hooks
+rm -f exec_hooks.log
+rm -rf /hooks
 
 # Option 1
 # ignore comments & blank lines
@@ -271,7 +273,7 @@ EOF
 
 	chroot-script -d scrubclean || zerr
 	
-	cp -rfav $R/extra/common/extra/config-files/slim.conf $strapdir/etc/	
+	cp -rfav $R/extra/common/extra/config-files/slim.conf $strapdir/etc/
 	
 	# Copy in custom apt config here! MUST BE just before the iso is created
 	# \cp causes OVERWRITE
@@ -379,6 +381,7 @@ blend_write_isolinux_cfg() {
 	ckreq || return 1
 	
 	notice "copying isolinux overlay"
+	
 	cp -rav /$R/extra/common/isolinux-overlay/* $workdir/binary/isolinux/
 
 	cp -rav /$R/extra/common/isolinux-overlay/*.txt $workdir/binary/isolinux/
@@ -492,7 +495,7 @@ EOF
 	
 	# copy modules and font
 	cp /usr/lib/grub/x86_64-efi/* boot/grub/x86_64-efi/
-	
+
 	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
 	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
 	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2

@@ -1,0 +1,23 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL PULSEAUDIO SUPPORT
+  -------------------------------
+  By default, Star does not come with PULSEAUDIO SUPPORT 
+  Would you like to install Pulseaudio support now? If you choose to do 
+  this, the following packages will be installed:
+
+      pulseaudio rtkit
+	  optional : volumeicon-alsa
+	  
+  Note: additional packages listed as dependencies will also be installed."
+
+if prompt "  Would you like to install Pulseaudio support?"; then
+	sudo apt-get install -y pulseaudio pavucontrol rtkit
+fi
+
+if prompt "  Would you like to also install volumeicon-alsa?"; then
+	sudo apt-get install -y volumeicon-alsa
+fi

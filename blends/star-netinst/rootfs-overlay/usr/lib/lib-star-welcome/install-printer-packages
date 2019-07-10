@@ -1,0 +1,22 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL PRINTER SUPPORT
+  ---------------
+  By default, Star does not come with printer support. Would you like
+  to add printer support now? If you choose to do this, the following package
+  will be installed:
+
+      cups cups-pdf system-config-printer printer-driver-hpijs hplip
+
+  Note: additional packages listed as dependencies will also be installed."
+
+if prompt "  Would you like to install printer support?"; then
+	 
+	sudo apt-get install -y cups cups-pdf system-config-printer printer-driver-hpijs hplip
+fi
+
+# printer-driver-hpcups printer-driver-hpijs
+# sudo usermod -a -G lpadmin my_user_name

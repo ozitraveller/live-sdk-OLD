@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
-# star-cli.blend
+# star-netinst.blend
 
 arrs+=(purge_packages_final)
 
@@ -45,9 +45,7 @@ notice "Running blend_finalize"
 	# cp -rav $R/blends/$blendname/custom-packages/$release/*_${arch}.deb $strapdir/home/
 	# cp -rav $R/blends/$blendname/custom-packages/$release/*_all.deb     $strapdir/home/
 	# cp -rav $R/blends/$blend/dselect/pkglist.txt                    $strapdir/home/
-	
-	sed -i '12i Defaults        env_reset , timestamp_timeout = 0' $strapdir/etc/sudoers
-	
+
 # remove fstab for iso. Probably, this should be in iso_prepare_strap
 	rm -f $strapdir/etc/fstab
 
@@ -71,7 +69,7 @@ yes | apt-get -f install
 # chmod -R 755 /usr/bin/compositor
 #~ chmod +x /usr/local/bin/usbpmount.sh
 #~ chmod +x /usr/local/bin/usb-unmount.sh
-#~ chmod +x /usr/bin/preseed-hack
+chmod +x /usr/bin/preseed-hack
 # rm -f /usr/bin/preseed-hack
 rm -f /etc/apt/sources.list~
 rm -f /etc/apt/trusted.gpg~
@@ -85,8 +83,8 @@ rm -f vmlinuz.old
 rm -f initrd.img.old
 rm -f /etc/ssh/ssh_host_*
 rm -f /etc/fstab
-#~ chmod +x /etc/init.d/live-sessions
-#~ update-rc.d live-sessions defaults
+# chmod +x /etc/init.d/live-sessions
+# update-rc.d live-sessions defaults
 # chmod +x /usr/bin/preseed-hack
 
 
@@ -109,33 +107,36 @@ rm -f /var/lib/apt/lists/*_dists_*
 EOF
 
 	chroot-script -d finalize || zerr
-	
 
 }
 
 blend_prebuild() {
 	fn blend_prebuild
-	req=(strapdir blend)
+	req=(strapdir)
 	ckreq || return 1
 
 notice "executing $blend prebuild"
 
-	blend_installer_update 		|| zerr
 	blend_exec_hooks 			|| zerr
 	blend_cleanup 				|| zerr
 	blend_write_isolinux_cfg	|| zerr
-	
-	cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
-#!/bin/sh
 
-dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
+	#~ cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
+#~ #!/bin/sh
 
-EOF
-	
-	chroot-script -d list_installed-packages || zerr
-	mv -f $strapdir/list_installed-packages $R/log/
-	mv -f $strapdir/*.txt $R/log/
-	
+#~ dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
+
+#~ EOF
+
+	#~ chroot-script -d list_installed-packages || zerr
+	#~ mv -f $strapdir/list_installed-packages $R/log/
+
+	if ls strapdir/*.txt > /dev/null 2>&1
+	then
+		notice "moving log file to log folder"
+		mv -f $strapdir/*.txt $R/log/
+	fi
+
 }
 
 blend_exec_hooks() {
@@ -146,19 +147,21 @@ notice "Running blend_exec_hooks"
 
 notice "Copying system hooks"
 	# /usr/share/live/build/hooks/normal/
-	cp $R/extra/hooks/normal/* ${strapdir}/hooks
-		
+	ls -al $R/extra/hooks/normal
+	cp -rf $R/extra/hooks/normal/* ${strapdir}/hooks
+	ls -al ${strapdir}/hooks
+
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
 
 # link /usr/share/live/build/hooks/live
 # link /usr/share/live/build/hooks/normal
 
-# echo "strapdir : \${strapdir}/hooks"
+#~ echo "strapdir : \${strapdir}/hooks"
 ## Processing distribution hooks
 
 cd /hooks
-ls -al
+#~ ls -al
 
 ## Processing local hooks
 if ls ./*.chroot > /dev/null 2>&1
@@ -197,7 +200,6 @@ fi
 
 		#~ # Executing hook
 		#~ cd ../..
-		#~ # echo \$PWD
 		#~ eval bootstrap/hooks/"\${HOOK}" # || { Echo_error "\${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
 		#~ cd "${OLDPWD}"
 		#~ rm -f ./"\${HOOK}"
@@ -218,9 +220,9 @@ notice "Running blend_cleanup"
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 
-rm -f exec_hooks
-rm -f exec_hooks.log
-rm -rf /hooks
+#~ rm -f exec_hooks
+#~ rm -f exec_hooks.log
+#~ rm -rf /hooks
 
 # Option 1
 # ignore comments & blank lines
@@ -235,13 +237,13 @@ rm -rf /hooks
 #~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
 
 # Option 3
-# apt-get --yes --force-yes purge ${purge_packages_final}
+apt-get --yes --force-yes purge ${purge_packages_final}
 
 # Option 4
-for _PACKAGE in ${purge_packages_final}
-do
-	apt-get --yes --force-yes purge "\${_PACKAGE}"
-done
+#~ for _PACKAGE in ${purge_packages_final}
+#~ do
+	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
+#~ done
 
 # Option 5
 #~ apt-get --yes --force-yes purge \
@@ -272,15 +274,11 @@ EOF
 
 	chroot-script -d scrubclean || zerr
 	
-	# cp -rfav $R/blends/$blendname/extra/config-files/grub.* $strapdir/etc/default/	
+	cp -rfav $R/extra/common/extra/config-files/slim.conf $strapdir/etc/
 	
 	# Copy in custom apt config here! MUST BE just before the iso is created
 	# \cp causes OVERWRITE
-	\cp -rfav $R/blends/$blendname/extra/apt-files/apt/* $strapdir/etc/apt/
-	
-	# copy blend isolinux-overlay cfg files
-	rm -f $workdir/binary/isolinux/*.cfg
-	cp -rav $R/blends/$blendname/isolinux-overlay/*.cfg $workdir/binary/isolinux/
+	\cp -rfav $R/extra/common/extra/apt-files/apt/* $strapdir/etc/apt/
 
 	_VERSION='2.0.2'
 	# _SOURCE='star-kirk'	
@@ -292,7 +290,7 @@ EOF
 	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
 }
 
-blend_installer_update () {
+blend_installer_updateXX () {
 	fn blend_installer_update
 	req=(workdir release strapdir)
 	ckreq || return 1
@@ -330,10 +328,22 @@ blend_write_isolinux_cfg() {
 	ckreq || return 1
 	
 	notice "copying isolinux overlay"
-	cp -rav $R/blends/$blendname/isolinux-overlay/*.cfg $workdir/binary/isolinux/
+	
+	cp -rav /$R/extra/common/isolinux-overlay/* $workdir/binary/isolinux/
 
-	cp -rav $R/blends/$blendname/isolinux-overlay/*.txt $workdir/binary/isolinux/
-	cp -rav $R/blends/$blendname/isolinux-overlay/splash.png $workdir/binary/isolinux/	
+	cp -rav /$R/extra/common/isolinux-overlay/*.txt $workdir/binary/isolinux/
+	cp -rav /$R/extra/common/isolinux-overlay/splash.png $workdir/binary/isolinux/	
+
+	notice "copying grub overlay"	
+
+	cp -rfav /$R/extra/common/grub-overlay/boot/grub ${workdir}/binary/boot/
+	rm -f ${workdir}/binary/boot/grub/splash.png
+	ln ${workdir}/binary/isolinux/splash.png ${workdir}/binary/boot/grub/splash.png
+
+	cp -rfav /$R/extra/d-i/preseed.cfg ${workdir}/binary/install/
+	cp -rfav ${workdir}/binary/install/cdrom/initrd.gz ${workdir}/binary/install/
+
+	rm -rf ${workdir}/binary/install/cdrom
 
 }
 

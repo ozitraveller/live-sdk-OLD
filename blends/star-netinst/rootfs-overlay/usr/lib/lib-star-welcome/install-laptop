@@ -1,0 +1,19 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL LAPTOP SUPPORT
+  -------------------------------
+  By default, Star does not come with LAPTOP SUPPORT 
+  Would you like to install Laptop support now? If you choose to do 
+  this, the following packages will be installed:
+
+      acpi acpi-support xfce4-power-manager
+	  
+  Note: additional packages listed as dependencies will also be installed."
+
+if prompt "  Would you like to install Laptop support?"; then
+	sudo apt-get install -y acpi acpi-support xfce4-power-manager
+fi
+
