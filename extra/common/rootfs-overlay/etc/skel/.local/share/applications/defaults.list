@@ -1,0 +1,16 @@
+[Default Applications]
+image/jpeg=mirage.desktop
+image/bmp=mirage.desktop
+image/gif=mirage.desktop
+image/png=mirage.desktop
+image/tiff=mirage.desktop
+image/svg+xml=mirage.desktop
+text/html=mousepad.desktop
+text/plain=mousepad.desktop
+application/x-shellscript=mousepad.desktop
+application/javascript=mousepad.desktop
+application/xml=mousepad.desktop
+application/pdf=xpdf.desktop
+x-directory/gnome-default-handler=pcmanfm.desktop
+inode/directory=pcmanfm.desktop
+x-directory/normal=pcmanfm.desktop

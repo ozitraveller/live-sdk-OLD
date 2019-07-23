@@ -25,8 +25,8 @@ echo ""
 # echo "WARNING: apt-mark manual google-chrome-stable"
 # apt-mark manual google-chrome-stable
 
-#echo STAR-LIVE-Hook: "Removing unused packages - for"
-#echo ""
+#~ echo STAR-LIVE-Hook: "Removing unused packages - for"
+#~ echo ""
 ## Removing unused packages
 # for PACKAGE in apt-utils aptitude man-db manpages info dselect
 #~ for PACKAGE in exim4 aptitude
@@ -39,7 +39,7 @@ echo ""
 
 dpkg --purge debconf-i18n
 # dpkg --purge gcc-4.8-base
-dpkg --purge ttf-dejavu
+# dpkg --purge ttf-dejavu
 
 #~ echo STAR-LIVE-Hook: "autoremove --purge"
 #~ echo ""
@@ -102,7 +102,7 @@ echo ""
 # chown -R man:root /live/image/02/usr/share/man
 
 echo ""
-echo DIY-LIVE-Hook: "Truncating logs"
+echo STAR-LIVE-Hook: "Truncating logs"
 echo ""
 # Truncating logs
 for FILE in $(find /var/log/ -type f)
@@ -113,5 +113,8 @@ done
 rm -rf /usr/share/upstart
 rm -rf /usr/share/ghostscript
 rm -rf /usr/share/midi
-rm -rf /usr/share/fonts/{droid, noto}
-rm -rf /usr/share/slim/themes/{default,default-OLD,desktop-slim-theme,devuan-curve,devuan-curve-purpy}
+rm -f /etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop*
+rm -f /etc/xdg/connman-tray.desktop
+
+
+rm -rf /usr/share/perl

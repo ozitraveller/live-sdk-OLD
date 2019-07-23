@@ -72,7 +72,12 @@ rm -rf /usr/share/slim/themes/{default,default-OLD,desktop-slim-theme,devuan-cur
 
 echo ""
 
-rm -f /etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop*
-rm -f /etc/xdg/connman-tray.desktop
-rm -f usr/share/jwm/*
+rm -f /usr/share/jwm/*
 
+echo ""
+echo STAR-LIVE-Hook: "Removing fonts"
+echo ""
+
+rm -rf /usr/share/fonts/{droid, noto}
+
+echo ""

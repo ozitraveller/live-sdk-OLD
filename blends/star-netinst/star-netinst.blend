@@ -131,7 +131,7 @@ notice "executing $blend prebuild"
 	#~ chroot-script -d list_installed-packages || zerr
 	#~ mv -f $strapdir/list_installed-packages $R/log/
 
-	if ls strapdir/*.txt > /dev/null 2>&1
+	if ls $strapdir/*.txt > /dev/null 2>&1
 	then
 		notice "moving log file to log folder"
 		mv -f $strapdir/*.txt $R/log/
@@ -318,7 +318,7 @@ notice "Running blend_installer_update"
 	rm -rf ${workdir}/binary/install/gtk
 	rm -f ${workdir}/binary/install/vmlinuz
 	rm -f ${workdir}/binary/live/initrd.img
-	mv ${workdir}/binary/live/vmlinuz ${workdir}/binary/install
+	# mv ${workdir}/binary/live/vmlinuz ${workdir}/binary/install
 
 }
 

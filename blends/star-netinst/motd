@@ -1,0 +1,16 @@
+
+ ## Star REPLACEME ##
+
+Midnight Commander is install by default.
+Enter mc at the prompt.
+
+Recommended: Run the setup-user.sh in the home folder
+1. update sources.list, preferences, apt.conf
+2. update grub
+
+/etc/motd
+
+Star comes with ABSOLUTELY NO WARRANTY,
+to the extent permitted by applicable law.
+
+

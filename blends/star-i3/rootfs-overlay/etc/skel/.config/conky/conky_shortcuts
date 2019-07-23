@@ -22,36 +22,36 @@ conky.config = {
 
 conky.text = [[
 
-${color ffffff}exit$alignr ${color ffffff}mod+Shift+e
-${color ffffff}lock$alignr ${color ffffff}mod+Ctrl+l
+${color 458588}exit$alignr ${color d979921}mod+Shift+e
+${color 458588}lock$alignr ${color d979921}mod+Ctrl+l
 
-${color ffffff}dmenu$alignr ${color ffffff}mod+d
-${color ffffff}terminal$alignr ${color ffffff}mod+Enter
-${color ffffff}web browser$alignr ${color ffffff}mod+Ctrl+w
-${color ffffff}editor$alignr ${color ffffff}mod+Ctrl+e
-${color ffffff}file manager$alignr ${color ffffff}mod+Ctrl+f
+${color 458588}dmenu$alignr ${color d979921}mod+d
+${color 458588}terminal$alignr ${color d979921}mod+Enter
+${color 458588}web browser$alignr ${color d979921}mod+Ctrl+w
+${color 458588}editor$alignr ${color d979921}mod+Ctrl+e
+${color 458588}file manager$alignr ${color d979921}mod+Ctrl+f
 
-${color ffffff}usb mount$alignr ${color ffffff}mod+Ctrl+m
-${color ffffff}usb unmount$alignr ${color ffffff}mod+Ctrl+u
+${color 458588}usb mount$alignr ${color d979921}mod+Ctrl+m
+${color 458588}usb unmount$alignr ${color d979921}mod+Ctrl+u
 
-${color ffffff}restart$alignr ${color ffffff}mod+Shift+r
+${color 458588}restart$alignr ${color d979921}mod+Shift+r
 
-${color ffffff}kill focused$alignr ${color ffffff}mod+Shift+q
+${color 458588}kill focused$alignr ${color d979921}mod+Shift+q
 
-${color ffffff}switch to workspace 0-9$alignr ${color ffffff}mod+0-9
-${color ffffff}send to workspace 0-9$alignr ${color ffffff}mod+Shift+0-9
-${color ffffff}toggle floating$alignr ${color ffffff}mod+Shift+Space
-${color ffffff}tile vertically$alignr ${color ffffff}mod+v
-${color ffffff}tile horizontally$alignr ${color ffffff}mod+h
-${color ffffff}toggle split$alignr ${color ffffff}mod+e
+${color 458588}switch to workspace 0-9$alignr ${color d979921}mod+0-9
+${color 458588}send to workspace 0-9$alignr ${color d979921}mod+Shift+0-9
+${color 458588}toggle floating$alignr ${color d979921}mod+Shift+Space
+${color 458588}tile vertically$alignr ${color d979921}mod+v
+${color 458588}tile horizontally$alignr ${color d979921}mod+h
+${color 458588}toggle split$alignr ${color d979921}mod+e
 
-${color ffffff}resize mode$alignr ${color ffffff}mod+r
-${color ffffff}resize exit$alignr ${color ffffff}esc
-${goto 20}${color ffffff}width shrink$alignr ${color ffffff}l
-${goto 20}${color ffffff}width grow$alignr ${color ffffff}k
-${goto 20}${color ffffff}height shrink$alignr ${color ffffff}j
-${goto 20}${color ffffff}height grow$alignr ${color ffffff};
+${color 458588}resize mode$alignr ${color d979921}mod+r
+${color 458588}resize exit$alignr ${color d979921}esc
+${goto 20}${color 458588}width shrink$alignr ${color d979921}l
+${goto 20}${color 458588}width grow$alignr ${color d979921}k
+${goto 20}${color 458588}height shrink$alignr ${color d979921}j
+${goto 20}${color 458588}height grow$alignr ${color d979921};
 
-default mod=<Super>
+${color 98971a}default mod=<Super>
 
 ]]

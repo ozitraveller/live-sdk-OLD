@@ -125,37 +125,11 @@ extra_packages+=(
 	hwdata
 	policykit-1
 	policykit-1-gnome
-	rfkill
-	usbutils
-	cpufrequtils
 	tzdata
 	logrotate
-	intel-microcode
-	amd64-microcode
-	iucode-tool
-	firmware-amd-graphics
-	firmware-zd1211
-	firmware-linux 
-	firmware-netxen
-	firmware-ralink 
-	firmware-iwlwifi
-	firmware-intelwimax 
-	firmware-brcm80211
-	firmware-realtek
-	firmware-atheros
-	firmware-libertas
-	firmware-bnx2
-	firmware-b43-installer 
-	firmware-b43legacy-installer 
-	b43-fwcutter 
-	iw
-	wireless-tools
 	lsb-release
 	apt-transport-https
 	bash-completion
-	gdebi 
-	ncdu
-	pciutils
 
 )
 

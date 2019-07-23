@@ -1,0 +1,30 @@
+#!/bin/bash
+#Star User Set-up
+
+# set -x
+
+USER=$1
+
+#~ readonly USER=${USER}
+#~ readonly HOME=${HOME}
+#~ readonly GROUP=$(id -ng "$USER")
+
+if [ ! -d "/home/${USER}/.config/star" ]; then
+	mkdir /home/"${USER}"/.config/star
+fi
+
+if [ ! -f "/home/${USER}/.config/star/star-setup" ]; then
+
+    ln -s /usr/share/backgrounds /home/"${USER}"/images/wallpapers/shared
+
+	sleep 1
+	{
+		(sleep 6 && star-welcome --firstrun) &
+	}
+		
+	touch /home/"${USER}"/.config/star/star-setup
+    chown -R "${USER}":"${USER}" /home/"${USER}"
+    
+fi
+
+exit 0

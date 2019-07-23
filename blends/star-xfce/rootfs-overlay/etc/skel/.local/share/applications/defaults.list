@@ -1,0 +1,16 @@
+[Default Applications]
+image/jpeg=mirage.desktop
+image/bmp=mirage.desktop
+image/gif=mirage.desktop
+image/png=mirage.desktop
+image/tiff=mirage.desktop
+image/svg+xml=mirage.desktop
+text/html=mousepad.desktop
+text/plain=mousepad.desktop
+application/x-shellscript=mousepad.desktop
+application/javascript=mousepad.desktop
+application/xml=mousepad.desktop
+application/pdf=xpdf.desktop
+x-directory/gnome-default-handler=thunar.desktop
+inode/directory=thunar.desktop
+x-directory/normal=thunar.desktop

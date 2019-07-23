@@ -2,17 +2,16 @@
 
 # set -e
 
-# set star sources.list
+# messages here
+# /var/log/installer/syslog
+
+# set sources.list
 cp /usr/share/star/preferences /etc/apt/preferences
 cp /usr/share/star/apt.conf /etc/apt/apt.conf
 cp /usr/share/star/sources.list /etc/apt/sources.list
 
 # remove the live tools
 dpkg --purge live-tools
-
-# remove autologin after install
-# sed -i "s/autologin-user=starlive/# autologin-user=/g" /etc/lightdm/lightdm.conf
-# sed -i "s/autologin-user-timeout=0/# autologin-user-timeout=0/g" /etc/lightdm/lightdm.conf
 
 # update grub
 sed -i "s/echo Debian/echo Star/g" /etc/default/grub
@@ -23,6 +22,8 @@ echo "GRUB_BACKGROUND=\"/usr/share/images/desktop-base/star-grub-plain.png\"" >>
 update-grub
 
 # enable firewall
+ufw disable
 ufw default reject incoming
 ufw default allow outgoing
 ufw enable
+
