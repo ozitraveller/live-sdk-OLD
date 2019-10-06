@@ -7,14 +7,14 @@
       <Separator/>
       <Menu icon="folder.png" label="Settings">
 		  <Menu icon="folder.png" label="Jwm">
-			<Program label="Edit menu" confirm="false">leafpad ~/.config/jwm/menu</Program>
-			<Program label="Edit tray" confirm="false">leafpad ~/.config/jwm/tray</Program>
-			<Program label="Edit theme" confirm="false">leafpad ~/.config/jwm/theme-adwaita-dark</Program>
-			<Program label="Edit keys" confirm="false">leafpad ~/.config/jwm/keys</Program>
-			<Program label="Edit preferences" confirm="false">leafpad ~/.config/jwm/preferences</Program>
-			<Program label="Edit groups" confirm="false">leafpad ~/.config/jwm/groups</Program>
-			<Program label="Edit start" confirm="false">leafpad ~/.config/jwm/start</Program>
-			<Program label="Edit autostart" confirm="false">leafpad ~/.config/jwm/autostart</Program>
+			<Program label="Edit menu" confirm="false">editor ~/.config/jwm/menu</Program>
+			<Program label="Edit tray" confirm="false">editor ~/.config/jwm/tray</Program>
+			<Program label="Edit theme" confirm="false">editor ~/.config/jwm/theme-adwaita-dark</Program>
+			<Program label="Edit keys" confirm="false">editor ~/.config/jwm/keys</Program>
+			<Program label="Edit preferences" confirm="false">editor ~/.config/jwm/preferences</Program>
+			<Program label="Edit groups" confirm="false">editor ~/.config/jwm/groups</Program>
+			<Program label="Edit start" confirm="false">editor ~/.config/jwm/start</Program>
+			<Program label="Edit autostart" confirm="false">editor ~/.config/jwm/autostart</Program>
 			<Separator/>
 			<Program label="Restart" confirm="false">/usr/bin/jwm -restart</Program>
 			<Program label="Reload menu" confirm="false">/usr/bin/jwm -reload</Program>

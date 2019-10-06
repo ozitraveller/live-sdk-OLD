@@ -154,7 +154,7 @@
   exec --no-startup-id  /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 #  exec --no-startup-id xfce4-power-manager
   exec --no-startup-id $HOME/.config/conky/start_conky
-#   exec --no-startup-id sleep 6; star-welcome --firstrun
+  exec --no-startup-id sleep 6; x-terminal-emulator -t 'Star-Welcome' -e /usr/bin/star-welcome --firstrun
 #  exec_always --no-startup-id feh --bg-scale $HOME/images/wallpapers/shared/mt-cook-nz.jpg
 
 # Workspace-Related Bindings
@@ -221,7 +221,6 @@
   for_window [class="Arandr"] floating enable
   for_window [class="connman-ui-gtk"] floating enable border normal
   for_window [title="usbpmount"] floating enable border normal
-  for_window [title="usbpmount"] floating enable border normal
   for_window [title="usb-unmount.sh"] floating enable border normal
   for_window [title="star-logout"] floating enable border normal
   for_window [class="alsamixer"] floating enable border pixel 2
@@ -229,7 +228,7 @@
   for_window [class="GParted"] floating enable border normal
   
   # for_window [class="Nitrogen"] floating enable border normal
-  # for_window [title="Star-Welcome"] floating enable border normal
+  for_window [title="Star-Welcome"] floating enable border normal
   # for_window [class="mpv"] floating enable border normal
 
 # Widow Colours

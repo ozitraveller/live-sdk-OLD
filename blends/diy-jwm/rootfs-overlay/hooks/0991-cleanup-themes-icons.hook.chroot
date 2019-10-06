@@ -72,7 +72,8 @@ rm -rf /usr/share/slim/themes/{default,default-OLD,desktop-slim-theme,devuan-cur
 
 echo ""
 
-rm -f /usr/share/jwm/*
+## DIY only
+rm -rf /usr/share/jwm/{jwm-blue.svg, jwm-gray.svg, jwm-orange.svg, jwm.xbm}
 
 echo ""
 echo STAR-LIVE-Hook: "Removing fonts"

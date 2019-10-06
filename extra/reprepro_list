@@ -256,5 +256,5 @@ modules_list+=(
 	xfs
 	hyperv
 	nbd
-	#compress-modules-$abiname  ##kernel >= 4.18
+	compress-modules-$abiname  ##kernel >= 4.18
 )

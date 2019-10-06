@@ -1,0 +1,9 @@
+#!/bin/sh
+cp -p ~/.config/sakura/sakura.skel \
+   ~/.config/sakura/sakura.conf
+
+if test $# -gt 0; then
+   exec /usr/bin/sakura --colorset $1
+else
+   exec /usr/bin/sakura
+fi

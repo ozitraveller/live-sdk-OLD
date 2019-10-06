@@ -26,22 +26,22 @@ vm_inject_overrides() {
 	req=(strapdir)
 	ckreq || return 1
 
-	notice "injecting rootfs overrides"
-	cat <<EOF | sudo tee ${strapdir}/etc/rc.local >/dev/null
-#!/bin/sh
-# rc.local for base images
+	#~ notice "injecting rootfs overrides"
+	#~ cat <<EOF | sudo tee ${strapdir}/etc/rc.local >/dev/null
+#~ #!/bin/sh
+#~ # rc.local for base images
 
-[ -f /etc/ssh/ssh_host_rsa_key.pub ] || ssh-keygen -A
+#~ [ -f /etc/ssh/ssh_host_rsa_key.pub ] || ssh-keygen -A
 
-exit 0
-EOF
-	sudo chmod +x $strapdir/etc/rc.local
+#~ exit 0
+#~ EOF
+	#~ sudo chmod +x $strapdir/etc/rc.local
 
-	print "rootfs / rootfs rw 0 0" | sudo tee ${strapdir}/etc/fstab >/dev/null
+	#~ print "rootfs / rootfs rw 0 0" | sudo tee ${strapdir}/etc/fstab >/dev/null
 
-	sudo sed -i ${strapdir}/etc/ssh/sshd_config \
-		-e 's/#PermitRootLogin .*/PermitRootLogin yes/' \
-		-e 's/PermitRootLogin .*/PermitRootLogin yes/'|| zerr
+	#~ sudo sed -i ${strapdir}/etc/ssh/sshd_config \
+		#~ -e 's/#PermitRootLogin .*/PermitRootLogin yes/' \
+		#~ -e 's/PermitRootLogin .*/PermitRootLogin yes/'|| zerr
 }
 
 vm_setup_grub() {

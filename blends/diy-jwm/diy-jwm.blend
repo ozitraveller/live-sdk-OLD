@@ -22,7 +22,7 @@ blend_postinst() {
 	req=(strapdir blend)
 	ckreq || return 1
 
-	notice "executing $blend postinst"
+	notice "executing $blendname postinst $BLENDPATH"
 	
 	pushd "$strapdir"
 		mkdir ./hooks
@@ -125,7 +125,7 @@ notice "executing $blend prebuild"
 	#~ chroot-script -d list_installed-packages || zerr
 	#~ mv -f $strapdir/list_installed-packages $R/log/
 
-	if ls strapdir/*.txt > /dev/null 2>&1
+	if ls $strapdir/*.txt > /dev/null 2>&1
 	then
 		notice "moving log file to log folder"
 		mv -f $strapdir/*.txt $R/log/

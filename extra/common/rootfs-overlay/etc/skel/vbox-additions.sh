@@ -27,14 +27,19 @@ apt-get install linux-headers-amd64 linux-headers-4.9.0-9-amd64 build-essential
 sudo apt-get install dkms
 
 
+
+mkdir ~/host
 sudo su
 
 mkdir /mnt/dvd
+# insert guest-additions cd
 mount -t iso9660 -o ro /dev/dvd /mnt/dvd
 cd /mnt/dvd
 ./VBoxLinuxAdditions.run
+cd ../..
+umount /mnt/dvd
 
-mkdir host
+
 
 
 exit 0

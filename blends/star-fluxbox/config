@@ -195,7 +195,6 @@ extra_packages+=(
 	pciutils
 	task-english
 	fluxbox
-	tint2	
 	dunst
 	connman
 	connman-ui
