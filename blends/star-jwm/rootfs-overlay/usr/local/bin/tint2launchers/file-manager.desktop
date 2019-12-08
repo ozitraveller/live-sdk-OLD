@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Icon=/usr/local/bin/images/system-file-manager.png
+Name=File Manager
+GenericName=File Manager
+Categories=System;FileTools;FileManager;Utility;Core;GTK;
+Exec=x-file-manager %U
+StartupNotify=true
+Terminal=false
+MimeType=inode/directory;

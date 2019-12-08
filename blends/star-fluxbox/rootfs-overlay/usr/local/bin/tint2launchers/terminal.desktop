@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=01-Terminal
+GenericName=01-Terminal
+TryExec=x-terminal-emulator
+Exec=x-terminal-emulator
+Icon=/usr/local/bin/images/utilities-terminal.png
+Type=Application
+Startup=false
+Categories=GTK;System;TerminalEmulator;
+Keywords=console;command line;execute;
+

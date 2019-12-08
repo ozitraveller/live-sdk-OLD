@@ -162,6 +162,15 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 		firmware-linux-nonfree
 	)		
 
+		#~ insserv
+        #~ init_1.48+devuan2.0
+        #~ init-system-helpers
+		#~ tasksel
+		#~ tasksel-data
+		#~ task-print-server
+		#~ task-web-server
+		#~ task-ssh-server
+
 	for line in $di_pkgs; do
 		echo $line
 		pkg=`grep "^Filename: pool/" Packages | grep "/${line}_" | grep ".deb"`
@@ -320,41 +329,9 @@ di_debian_installer() {
 		fi
 	fi		
 
-# LOADLIN ++++++++++++++++++++++++++++++++++++++++++++
-
-	notice "Loadlin"
-
-	sudo mv ${workdir}/binary ${strapdir}
-		
-	notice "Setup loadlin and install.bat files"
-cat <<EOF | sudo tee ${strapdir}/unpack-loadlin >/dev/null
-#!/bin/sh
-mkdir binary/tools
-cd binary/tools 
-gunzip -c "/usr/lib/loadlin/loadlin.exe.gz" > loadlin.exe
-gunzip -c "/usr/share/doc/loadlin/manual.txt.gz" > loadlin.txt
-
-EOF
-
-	sudo chmod 777 ${strapdir}/unpack-loadlin
-	chroot-script -d unpack-loadlin || zerr
-	sudo rm -f ${strapdir}/unpack-loadlin
-
-
-	sudo mv ${strapdir}/binary ${workdir}	
-
-cat <<EOF | sudo tee ${workdir}/binary/install/install.bat >/dev/null
-\tools\loadlin.exe vmlinuz initrd=initrd.gz
-EOF
-
-	if [ -e ${workdir}/binary/install/gtk ]
-	then
-
-cat <<EOF | sudo tee ${workdir}/binary/install/gtk/install.bat >/dev/null
-\tools\loadlin.exe \install\vmlinuz initrd=initrd.gz vga=788
-EOF
-
-	fi
+	# di_Loadlin         || { zerr; wrapup }
+	notice "di_win32-loader"
+	di_win32-loader         || { zerr; wrapup }
 
 
 ## the preseed.cfg file:
@@ -393,4 +370,105 @@ EOF
 	sudo chmod -R 777 $workdir/binary	
 }
 
+di_win32-loader() {
 
+	fn di_win32-loader
+	req=(workdir os release arch strapdir url_pkg url_di abiname flavor suite)
+	ckreq || return 1
+	
+	notice "Setting up win32-loader ..."
+
+	sudo mv ${workdir}/binary ${strapdir}
+		
+	cp -r ${strapdir}/usr/share/win32/* ${strapdir}/binary
+	
+	mv ${strapdir}/binary/win32-loader.exe ${strapdir}/binary/setup.exe
+	mv ${strapdir}/binary/win32-loader/g2ldr* ${strapdir}/binary
+	rmdir ${strapdir}/binary/win32-loader > /dev/null 2>&1 || true
+
+cat > ${strapdir}/binary/autorun.inf << EOF
+[autorun]
+open=setup.exe
+icon=setup.exe,0
+label=Install Star GNU/Linux
+
+[Content]
+MusicFiles=false
+PictureFiles=false
+VideoFiles=false
+EOF
+
+
+cat > ${strapdir}/binary/win32-loader.ini << EOF
+[installer]
+kernel=linux
+arch=${arch}
+${arch}/linux=install/vmlinuz
+${arch}/initrd=install/initrd.gz
+EOF
+
+			if [ -e ${strapdir}/binary/install/gtk ]
+			then
+
+cat >> ${strapdir}/binary/win32-loader.ini << EOF
+${arch}/gtk/linux=install/vmlinuz
+${arch}/gtk/initrd=install/gtk/initrd.gz
+EOF
+
+			fi
+
+cat >> ${strapdir}/binary/win32-loader.ini << EOF
+
+[grub]
+g2ldr=g2ldr
+g2ldr.mbr=g2ldr.mbr
+EOF
+
+
+	sudo mv ${strapdir}/binary ${workdir}	
+
+}
+
+di_Loadlin() {
+
+	fn di_Loadlin
+	req=(workdir os release arch strapdir url_pkg url_di abiname flavor suite)
+	ckreq || return 1
+	
+
+# LOADLIN ++++++++++++++++++++++++++++++++++++++++++++
+
+	notice "Loadlin"
+
+	sudo mv ${workdir}/binary ${strapdir}
+		
+	notice "Setup loadlin and install.bat files"
+cat <<EOF | sudo tee ${strapdir}/unpack-loadlin >/dev/null
+#!/bin/sh
+mkdir binary/tools
+cd binary/tools 
+gunzip -c "/usr/lib/loadlin/loadlin.exe.gz" > loadlin.exe
+gunzip -c "/usr/share/doc/loadlin/manual.txt.gz" > loadlin.txt
+
+EOF
+
+	sudo chmod 777 ${strapdir}/unpack-loadlin
+	chroot-script -d unpack-loadlin || zerr
+	sudo rm -f ${strapdir}/unpack-loadlin
+
+
+	sudo mv ${strapdir}/binary ${workdir}	
+
+cat <<EOF | sudo tee ${workdir}/binary/install/install.bat >/dev/null
+\tools\loadlin.exe vmlinuz initrd=initrd.gz
+EOF
+
+	if [ -e ${workdir}/binary/install/gtk ]
+	then
+
+cat <<EOF | sudo tee ${workdir}/binary/install/gtk/install.bat >/dev/null
+\tools\loadlin.exe \install\vmlinuz initrd=initrd.gz vga=788
+EOF
+
+	fi	
+}

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html class="" lang="en">
+<head prefix="og: http://ogp.me/ns#">
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<meta content="object" property="og:type">
+<meta content="GitLab" property="og:site_name">
+<meta content="blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png · master · aitor_czr / live-sdk" property="og:title">
+<meta content="live-sdk is simple distro build system aimed at creating liveCDs." property="og:description">
+<meta content="https://git.devuan.org/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png" property="og:image">
+<meta content="64" property="og:image:width">
+<meta content="64" property="og:image:height">
+<meta content="https://git.devuan.org/aitor_czr/live-sdk/blob/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png" property="og:url">
+<meta content="summary" property="twitter:card">
+<meta content="blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png · master · aitor_czr / live-sdk" property="twitter:title">
+<meta content="live-sdk is simple distro build system aimed at creating liveCDs." property="twitter:description">
+<meta content="https://git.devuan.org/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png" property="twitter:image">
+
+<title>blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png · master · aitor_czr / live-sdk · GitLab</title>
+<meta content="live-sdk is simple distro build system aimed at creating liveCDs." name="description">
+<link rel="shortcut icon" type="image/png" href="/uploads/-/system/appearance/favicon/1/gdo-icon.png" id="favicon" data-original-href="/uploads/-/system/appearance/favicon/1/gdo-icon.png" />
+<link rel="stylesheet" media="all" href="/assets/application-5e11f017cc719f3e7c77f1024cdea9381ee9b21f47fe391ef5d29a7f3c94ce4a.css" />
+<link rel="stylesheet" media="print" href="/assets/print-c8ff536271f8974b8a9a5f75c0ca25d2b8c1dceb4cff3c01d1603862a0bdcbfc.css" />
+
+
+<script>
+//<![CDATA[
+window.gon={};gon.api_version="v4";gon.default_avatar_url="https://git.devuan.org/assets/no_avatar-849f9c04a3a0d0cea2424ae97b27447dc64a7dbfae83c036c45b403392f0e8ba.png";gon.max_file_size=10;gon.asset_host=null;gon.webpack_public_path="/assets/webpack/";gon.relative_url_root="";gon.shortcuts_path="/help/shortcuts";gon.user_color_scheme="white";gon.gitlab_url="https://git.devuan.org";gon.revision="837a61b";gon.gitlab_logo="/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png";gon.sprite_icons="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg";gon.sprite_file_icons="/assets/file_icons-7262fc6897e02f1ceaf8de43dc33afa5e4f9a2067f4f68ef77dcc87946575e9e.svg";gon.emoji_sprites_css_path="/assets/emoji_sprites-289eccffb1183c188b630297431be837765d9ff4aed6130cf738586fb307c170.css";gon.test_env=false;gon.suggested_label_colors=["#0033CC","#428BCA","#44AD8E","#A8D695","#5CB85C","#69D100","#004E00","#34495E","#7F8C8D","#A295D6","#5843AD","#8E44AD","#FFECDB","#AD4363","#D10069","#CC0033","#FF0000","#D9534F","#D1D100","#F0AD4E","#AD8D43"];
+//]]>
+</script>
+
+
+<script src="/assets/webpack/runtime.5866806a.bundle.js" defer="defer"></script>
+<script src="/assets/webpack/main.0a67d143.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons~pages.projects~pages.projects.activity~pages.projects.artifacts.browse~pages.projects.artifa~1485fd35.3b81e7e7.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/commons~pages.groups.milestones.edit~pages.groups.milestones.new~pages.projects.blame.show~pages.pro~e382f304.7b1737ae.chunk.js" defer="defer"></script>
+<script src="/assets/webpack/pages.projects.blob.show.df2ae132.chunk.js" defer="defer"></script>
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="ZOt5xkRmVC3RtMCKrusZYN8n9JM934h5h5QDZwRaGjrGu0zkAPfK/8swocmlLZwYABXa5br9LaN6QCZ84Abq7g==" />
+<meta content="origin-when-cross-origin" name="referrer">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+<meta content="#474D57" name="theme-color">
+<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-iphone-5a9cee0e8a51212e70b90c87c12f382c428870c0ff67d1eb034d884b78d2dae7.png" />
+<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-ipad-a6eec6aeb9da138e507593b464fdac213047e49d3093fc30e90d9a995df83ba3.png" sizes="76x76" />
+<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-iphone-retina-72e2aadf86513a56e050e7f0f2355deaa19cc17ed97bbe5147847f2748e5a3e3.png" sizes="120x120" />
+<link rel="apple-touch-icon" type="image/x-icon" href="/assets/touch-icon-ipad-retina-8ebe416f5313483d9c1bc772b5bbe03ecad52a54eba443e5215a22caed2a16a2.png" sizes="152x152" />
+<link color="rgb(226, 67, 41)" href="/assets/logo-d36b5212042cebc89b96df4bf6ac24e43db316143e89926c0db839ff694d2de4.svg" rel="mask-icon">
+<meta content="/assets/msapplication-tile-1196ec67452f618d39cdd85e2e3a542f76574c071051ae7effbfde01710eb17d.png" name="msapplication-TileImage">
+<meta content="#30353E" name="msapplication-TileColor">
+
+
+
+</head>
+
+<body class="ui-indigo " data-find-file="/aitor_czr/live-sdk/find_file/master" data-group="" data-page="projects:blob:show" data-project="live-sdk">
+
+
+<header class="navbar navbar-gitlab qa-navbar navbar-expand-sm">
+<a class="sr-only gl-accessibility" href="#content-body" tabindex="1">Skip to content</a>
+<div class="container-fluid">
+<div class="header-content">
+<div class="title-container">
+<h1 class="title">
+<a title="Dashboard" id="logo" href="/"><img data-src="/uploads/-/system/appearance/header_logo/1/gdo-icon.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</a></h1>
+<ul class="list-unstyled navbar-sub-nav">
+<li class="home"><a title="Projects" class="dashboard-shortcuts-projects" href="/explore">Projects
+</a></li><li class=""><a title="Groups" class="dashboard-shortcuts-groups" href="/explore/groups">Groups
+</a></li><li class=""><a title="Snippets" class="dashboard-shortcuts-snippets" href="/explore/snippets">Snippets
+</a></li><li>
+<a title="About GitLab CE" href="/help">Help</a>
+</li>
+</ul>
+
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li class="nav-item d-none d-sm-none d-md-block m-auto">
+<div class="search search-form">
+<form class="form-inline" action="/search" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" /><div class="search-input-container">
+<div class="search-input-wrap">
+<div class="dropdown" data-url="/search/autocomplete">
+<input type="search" name="search" id="search" placeholder="Search or jump to…" class="search-input dropdown-menu-toggle no-outline js-search-dashboard-options" spellcheck="false" tabindex="1" autocomplete="off" data-issues-path="/dashboard/issues" data-mr-path="/dashboard/merge_requests" aria-label="Search or jump to…" />
+<button class="hidden js-dropdown-search-toggle" data-toggle="dropdown" type="button"></button>
+<div class="dropdown-menu dropdown-select">
+<div class="dropdown-content"><ul>
+<li class="dropdown-menu-empty-item">
+<a>
+Loading...
+</a>
+</li>
+</ul>
+</div><div class="dropdown-loading"><i aria-hidden="true" data-hidden="true" class="fa fa-spinner fa-spin"></i></div>
+</div>
+<svg class="s16 search-icon"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#search"></use></svg>
+<svg class="s16 clear-icon js-clear-input"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#close"></use></svg>
+</div>
+</div>
+</div>
+<input type="hidden" name="group_id" id="group_id" class="js-search-group-options" />
+<input type="hidden" name="project_id" id="search_project_id" value="1116" class="js-search-project-options" data-project-path="live-sdk" data-name="live-sdk" data-issues-path="/aitor_czr/live-sdk/issues" data-mr-path="/aitor_czr/live-sdk/merge_requests" data-issues-disabled="false" />
+<input type="hidden" name="search_code" id="search_code" value="true" />
+<input type="hidden" name="repository_ref" id="repository_ref" value="master" />
+
+<div class="search-autocomplete-opts hide" data-autocomplete-path="/search/autocomplete" data-autocomplete-project-id="1116" data-autocomplete-project-ref="master"></div>
+</form></div>
+
+</li>
+<li class="nav-item d-inline-block d-sm-none d-md-none">
+<a title="Search" aria-label="Search" data-toggle="tooltip" data-placement="bottom" data-container="body" href="/search?project_id=1116"><svg class="s16"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#search"></use></svg>
+</a></li>
+<li class="nav-item">
+<div>
+<a class="btn btn-sign-in" href="/users/sign_in?redirect_to_referer=yes">Sign in / Register</a>
+</div>
+</li>
+</ul>
+</div>
+<button class="navbar-toggler d-block d-sm-none" type="button">
+<span class="sr-only">Toggle navigation</span>
+<svg class="s12 more-icon js-navbar-toggle-right"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#ellipsis_h"></use></svg>
+<svg class="s12 close-icon js-navbar-toggle-left"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#close"></use></svg>
+</button>
+</div>
+</div>
+</header>
+
+<div class="layout-page page-with-contextual-sidebar">
+<div class="nav-sidebar">
+<div class="nav-sidebar-inner-scroll">
+<div class="context-header">
+<a title="live-sdk" href="/aitor_czr/live-sdk"><div class="avatar-container s40 project-avatar">
+<div class="avatar s40 avatar-tile identicon bg4">L</div>
+</div>
+<div class="sidebar-context-title">
+live-sdk
+</div>
+</a></div>
+<ul class="sidebar-top-level-items">
+<li class="home"><a class="shortcuts-project" href="/aitor_czr/live-sdk"><div class="nav-icon-container">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#home"></use></svg>
+</div>
+<span class="nav-item-name">
+Project
+</span>
+</a><ul class="sidebar-sub-level-items">
+<li class="fly-out-top-item"><a href="/aitor_czr/live-sdk"><strong class="fly-out-top-item-name">
+Project
+</strong>
+</a></li><li class="divider fly-out-top-item"></li>
+<li class=""><a title="Project details" class="shortcuts-project" href="/aitor_czr/live-sdk"><span>Details</span>
+</a></li><li class=""><a title="Activity" class="shortcuts-project-activity" href="/aitor_czr/live-sdk/activity"><span>Activity</span>
+</a></li>
+<li class=""><a title="Cycle Analytics" class="shortcuts-project-cycle-analytics" href="/aitor_czr/live-sdk/cycle_analytics"><span>Cycle Analytics</span>
+</a></li></ul>
+</li><li class="active"><a class="shortcuts-tree" href="/aitor_czr/live-sdk/tree/master"><div class="nav-icon-container">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#doc-text"></use></svg>
+</div>
+<span class="nav-item-name">
+Repository
+</span>
+</a><ul class="sidebar-sub-level-items">
+<li class="fly-out-top-item active"><a href="/aitor_czr/live-sdk/tree/master"><strong class="fly-out-top-item-name">
+Repository
+</strong>
+</a></li><li class="divider fly-out-top-item"></li>
+<li class="active"><a href="/aitor_czr/live-sdk/tree/master">Files
+</a></li><li class=""><a href="/aitor_czr/live-sdk/commits/master">Commits
+</a></li><li class=""><a href="/aitor_czr/live-sdk/branches">Branches
+</a></li><li class=""><a href="/aitor_czr/live-sdk/tags">Tags
+</a></li><li class=""><a href="/aitor_czr/live-sdk/graphs/master">Contributors
+</a></li><li class=""><a href="/aitor_czr/live-sdk/network/master">Graph
+</a></li><li class=""><a href="/aitor_czr/live-sdk/compare?from=master&amp;to=master">Compare
+</a></li><li class=""><a href="/aitor_czr/live-sdk/graphs/master/charts">Charts
+</a></li>
+</ul>
+</li><li class=""><a class="shortcuts-issues" href="/aitor_czr/live-sdk/issues"><div class="nav-icon-container">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#issues"></use></svg>
+</div>
+<span class="nav-item-name">
+Issues
+</span>
+<span class="badge badge-pill count issue_counter">
+0
+</span>
+</a><ul class="sidebar-sub-level-items">
+<li class="fly-out-top-item"><a href="/aitor_czr/live-sdk/issues"><strong class="fly-out-top-item-name">
+Issues
+</strong>
+<span class="badge badge-pill count issue_counter fly-out-badge">
+0
+</span>
+</a></li><li class="divider fly-out-top-item"></li>
+<li class=""><a title="Issues" href="/aitor_czr/live-sdk/issues"><span>
+List
+</span>
+</a></li><li class=""><a title="Board" href="/aitor_czr/live-sdk/boards"><span>
+Board
+</span>
+</a></li><li class=""><a title="Labels" href="/aitor_czr/live-sdk/labels"><span>
+Labels
+</span>
+</a></li>
+<li class=""><a title="Milestones" class="qa-milestones-link" href="/aitor_czr/live-sdk/milestones"><span>
+Milestones
+</span>
+</a></li></ul>
+</li><li class=""><a class="shortcuts-merge_requests" href="/aitor_czr/live-sdk/merge_requests"><div class="nav-icon-container">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#git-merge"></use></svg>
+</div>
+<span class="nav-item-name">
+Merge Requests
+</span>
+<span class="badge badge-pill count merge_counter js-merge-counter">
+0
+</span>
+</a><ul class="sidebar-sub-level-items is-fly-out-only">
+<li class="fly-out-top-item"><a href="/aitor_czr/live-sdk/merge_requests"><strong class="fly-out-top-item-name">
+Merge Requests
+</strong>
+<span class="badge badge-pill count merge_counter js-merge-counter fly-out-badge">
+0
+</span>
+</a></li></ul>
+</li><li class=""><a class="shortcuts-pipelines qa-link-pipelines" href="/aitor_czr/live-sdk/pipelines"><div class="nav-icon-container">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#rocket"></use></svg>
+</div>
+<span class="nav-item-name">
+CI / CD
+</span>
+</a><ul class="sidebar-sub-level-items">
+<li class="fly-out-top-item"><a href="/aitor_czr/live-sdk/pipelines"><strong class="fly-out-top-item-name">
+CI / CD
+</strong>
+</a></li><li class="divider fly-out-top-item"></li>
+<li class=""><a title="Pipelines" class="shortcuts-pipelines" href="/aitor_czr/live-sdk/pipelines"><span>
+Pipelines
+</span>
+</a></li><li class=""><a title="Jobs" class="shortcuts-builds" href="/aitor_czr/live-sdk/-/jobs"><span>
+Jobs
+</span>
+</a></li><li class=""><a title="Schedules" class="shortcuts-builds" href="/aitor_czr/live-sdk/pipeline_schedules"><span>
+Schedules
+</span>
+</a></li><li class=""><a title="Charts" class="shortcuts-pipelines-charts" href="/aitor_czr/live-sdk/pipelines/charts"><span>
+Charts
+</span>
+</a></li></ul>
+</li><li class=""><a class="shortcuts-wiki" href="/aitor_czr/live-sdk/wikis/home"><div class="nav-icon-container">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#book"></use></svg>
+</div>
+<span class="nav-item-name">
+Wiki
+</span>
+</a><ul class="sidebar-sub-level-items is-fly-out-only">
+<li class="fly-out-top-item"><a href="/aitor_czr/live-sdk/wikis/home"><strong class="fly-out-top-item-name">
+Wiki
+</strong>
+</a></li></ul>
+</li><li class=""><a title="Members" class="shortcuts-tree" href="/aitor_czr/live-sdk/settings/members"><div class="nav-icon-container">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#users"></use></svg>
+</div>
+<span class="nav-item-name">
+Members
+</span>
+</a><ul class="sidebar-sub-level-items is-fly-out-only">
+<li class="fly-out-top-item"><a href="/aitor_czr/live-sdk/project_members"><strong class="fly-out-top-item-name">
+Members
+</strong>
+</a></li></ul>
+</li><a class="toggle-sidebar-button js-toggle-sidebar" role="button" title="Toggle sidebar" type="button">
+<svg class="icon-angle-double-left"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#angle-double-left"></use></svg>
+<svg class="icon-angle-double-right"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#angle-double-right"></use></svg>
+<span class="collapse-text">Collapse sidebar</span>
+</a>
+<button name="button" type="button" class="close-nav-button"><svg class="s16"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#close"></use></svg>
+<span class="collapse-text">Close sidebar</span>
+</button>
+<li class="hidden">
+<a title="Activity" class="shortcuts-project-activity" href="/aitor_czr/live-sdk/activity"><span>
+Activity
+</span>
+</a></li>
+<li class="hidden">
+<a title="Network" class="shortcuts-network" href="/aitor_czr/live-sdk/network/master">Graph
+</a></li>
+<li class="hidden">
+<a title="Charts" class="shortcuts-repository-charts" href="/aitor_czr/live-sdk/graphs/master/charts">Charts
+</a></li>
+<li class="hidden">
+<a class="shortcuts-new-issue" href="/aitor_czr/live-sdk/issues/new">Create a new issue
+</a></li>
+<li class="hidden">
+<a title="Jobs" class="shortcuts-builds" href="/aitor_czr/live-sdk/-/jobs">Jobs
+</a></li>
+<li class="hidden">
+<a title="Commits" class="shortcuts-commits" href="/aitor_czr/live-sdk/commits/master">Commits
+</a></li>
+<li class="hidden">
+<a title="Issue Boards" class="shortcuts-issue-boards" href="/aitor_czr/live-sdk/boards">Issue Boards</a>
+</li>
+</ul>
+</div>
+</div>
+
+<div class="content-wrapper">
+
+<div class="mobile-overlay"></div>
+<div class="alert-wrapper">
+
+
+
+
+
+<nav class="breadcrumbs container-fluid container-limited" role="navigation">
+<div class="breadcrumbs-container">
+<button name="button" type="button" class="toggle-mobile-nav"><span class="sr-only">Open sidebar</span>
+<i aria-hidden="true" data-hidden="true" class="fa fa-bars"></i>
+</button><div class="breadcrumbs-links js-title-container">
+<ul class="list-unstyled breadcrumbs-list js-breadcrumbs-list">
+<li><a href="/aitor_czr">aitor_czr</a><svg class="s8 breadcrumbs-list-angle"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#angle-right"></use></svg></li> <li><a href="/aitor_czr/live-sdk"><span class="breadcrumb-item-text js-breadcrumb-item-text">live-sdk</span></a><svg class="s8 breadcrumbs-list-angle"><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#angle-right"></use></svg></li>
+
+<li>
+<h2 class="breadcrumbs-sub-title"><a href="/aitor_czr/live-sdk/blob/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png">Repository</a></h2>
+</li>
+</ul>
+</div>
+
+</div>
+</nav>
+
+<div class="flash-container flash-container-page">
+</div>
+
+</div>
+<div class=" ">
+<div class="content" id="content-body">
+<div class="js-signature-container" data-signatures-path="/aitor_czr/live-sdk/commits/30e578830ec605a2c7de4ea1b2b88fe4898daa56/signatures"></div>
+<div class="container-fluid container-limited">
+
+<div class="tree-holder" id="tree-holder">
+<div class="nav-block">
+<div class="tree-ref-container">
+<div class="tree-ref-holder">
+<form class="project-refs-form" action="/aitor_czr/live-sdk/refs/switch" accept-charset="UTF-8" method="get"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="destination" id="destination" value="blob" />
+<input type="hidden" name="path" id="path" value="blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png" />
+<div class="dropdown">
+<button class="dropdown-menu-toggle js-project-refs-dropdown qa-branches-select" type="button" data-toggle="dropdown" data-selected="master" data-ref="master" data-refs-url="/aitor_czr/live-sdk/refs?sort=updated_desc" data-field-name="ref" data-submit-form-on-click="true" data-visit="true"><span class="dropdown-toggle-text ">master</span><i aria-hidden="true" data-hidden="true" class="fa fa-chevron-down"></i></button>
+<div class="dropdown-menu dropdown-menu-paging dropdown-menu-selectable git-revision-dropdown qa-branches-dropdown">
+<div class="dropdown-page-one">
+<div class="dropdown-title"><span>Switch branch/tag</span><button class="dropdown-title-button dropdown-menu-close" aria-label="Close" type="button"><i aria-hidden="true" data-hidden="true" class="fa fa-times dropdown-menu-close-icon"></i></button></div>
+<div class="dropdown-input"><input type="search" id="" class="dropdown-input-field" placeholder="Search branches and tags" autocomplete="off" /><i aria-hidden="true" data-hidden="true" class="fa fa-search dropdown-input-search"></i><i role="button" aria-hidden="true" data-hidden="true" class="fa fa-times dropdown-input-clear js-dropdown-input-clear"></i></div>
+<div class="dropdown-content"></div>
+<div class="dropdown-loading"><i aria-hidden="true" data-hidden="true" class="fa fa-spinner fa-spin"></i></div>
+</div>
+</div>
+</div>
+</form>
+</div>
+<ul class="breadcrumb repo-breadcrumb">
+<li class="breadcrumb-item">
+<a href="/aitor_czr/live-sdk/tree/master">live-sdk
+</a></li>
+<li class="breadcrumb-item">
+<a href="/aitor_czr/live-sdk/tree/master/blends/gnuinos-openbox/rootfs-overlay/usr/share">..</a>
+</li>
+<li class="breadcrumb-item">
+<a href="/aitor_czr/live-sdk/tree/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps">pixmaps</a>
+</li>
+<li class="breadcrumb-item">
+<a href="/aitor_czr/live-sdk/blob/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png"><strong>usb-32-green.png</strong>
+</a></li>
+</ul>
+</div>
+<div class="tree-controls">
+<a class="btn shortcuts-find-file" rel="nofollow" href="/aitor_czr/live-sdk/find_file/master"><i aria-hidden="true" data-hidden="true" class="fa fa-search"></i>
+<span>Find file</span>
+</a>
+<div class="btn-group" role="group"><a class="btn" href="/aitor_czr/live-sdk/commits/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png">History</a><a class="btn js-data-file-blob-permalink-url" href="/aitor_czr/live-sdk/blob/433c157925ca7a1f34ebe74b756b9e2ab016c3ac/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png">Permalink</a></div>
+</div>
+</div>
+
+<div class="info-well d-none d-sm-block">
+<div class="well-segment">
+<ul class="blob-commit-info">
+<li class="commit flex-row js-toggle-container" id="commit-30e57883">
+<div class="avatar-cell d-none d-sm-block">
+<a href="/aitor_czr"><img alt="aitor_czr&#39;s avatar" src="/uploads/-/system/user/avatar/501/foto.png?width=36" class="avatar s36 d-none d-sm-inline" title="aitor_czr" /></a>
+</div>
+<div class="commit-detail flex-list">
+<div class="commit-content qa-commit-content">
+<a class="commit-row-message item-title" href="/aitor_czr/live-sdk/commit/30e578830ec605a2c7de4ea1b2b88fe4898daa56">First blend of gnuinos using amprolla.</a>
+<span class="commit-row-message d-block d-sm-none">
+&middot;
+30e57883
+</span>
+<div class="committer">
+<a class="commit-author-link" href="/aitor_czr">aitor_czr</a> authored <time class="js-timeago" title="Apr 21, 2018 10:56pm" datetime="2018-04-21T22:56:39Z" data-toggle="tooltip" data-placement="bottom" data-container="body">Apr 21, 2018</time>
+</div>
+</div>
+<div class="commit-actions flex-row d-none d-sm-flex">
+
+<div class="js-commit-pipeline-status" data-endpoint="/aitor_czr/live-sdk/commit/30e578830ec605a2c7de4ea1b2b88fe4898daa56/pipelines?ref=master"></div>
+<div class="commit-sha-group">
+<div class="label label-monospace">
+30e57883
+</div>
+<button class="btn btn btn-default" data-toggle="tooltip" data-placement="bottom" data-container="body" data-title="Copy commit SHA to clipboard" data-class="btn btn-default" data-clipboard-text="30e578830ec605a2c7de4ea1b2b88fe4898daa56" type="button" title="Copy commit SHA to clipboard" aria-label="Copy commit SHA to clipboard"><svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#duplicate"></use></svg></button>
+
+</div>
+</div>
+</div>
+</li>
+
+</ul>
+</div>
+
+
+</div>
+<div class="blob-content-holder" id="blob-content-holder">
+<article class="file-holder">
+<div class="js-file-title file-title-flex-parent">
+<div class="file-header-content">
+<i aria-hidden="true" data-hidden="true" class="fa fa-file-image-o fa-fw"></i>
+<strong class="file-title-name">
+usb-32-green.png
+</strong>
+<button class="btn btn-clipboard btn-transparent prepend-left-5" data-toggle="tooltip" data-placement="bottom" data-container="body" data-class="btn-clipboard btn-transparent prepend-left-5" data-title="Copy file path to clipboard" data-clipboard-text="{&quot;text&quot;:&quot;blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png&quot;,&quot;gfm&quot;:&quot;`blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png`&quot;}" type="button" title="Copy file path to clipboard" aria-label="Copy file path to clipboard"><svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#duplicate"></use></svg></button>
+<small>
+272 Bytes
+</small>
+</div>
+
+<div class="file-actions">
+
+<div class="btn-group" role="group"><a download="blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png" class="btn btn-sm has-tooltip" target="_blank" rel="noopener noreferrer" title="Download" data-container="body" href="/aitor_czr/live-sdk/raw/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png?inline=false"><svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#download"></use></svg></a></div>
+<div class="btn-group" role="group"></div>
+</div>
+</div>
+
+
+
+<div class="blob-viewer hidden" data-type="simple">
+<div class="file-content blob_file blob-no-preview">
+<div class="center render-error">
+<a href="/aitor_czr/live-sdk/raw/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png"><h1 class="light">
+<svg><use xlink:href="/assets/icons-d23cd916bb585cd0797512298022ad487818b74e89464b6738f695aa33107e94.svg#download"></use></svg>
+</h1>
+<h4>
+Download (272 Bytes)
+</h4>
+</a></div>
+</div>
+
+</div>
+
+<div class="blob-viewer" data-rich-type="image" data-type="rich">
+<div class="file-content image_file">
+<img alt="usb-32-green.png" data-src="https://git.devuan.org/aitor_czr/live-sdk/raw/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
+</div>
+
+</div>
+
+
+</article>
+</div>
+
+<div class="modal" id="modal-upload-blob">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h3 class="page-title">Replace usb-32-green.png</h3>
+<button aria-label="Close" class="close" data-dismiss="modal" type="button">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<form class="js-quick-submit js-upload-blob-form" data-method="put" action="/aitor_czr/live-sdk/update/master/blends/gnuinos-openbox/rootfs-overlay/usr/share/pixmaps/usb-32-green.png" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="_method" value="put" /><input type="hidden" name="authenticity_token" value="7pl4hL5dGq/EluHk4c/QHTH4jOCMd0pYZSBrsmV0BfpMyU2m+syEfd4SgKfqCVVl7sqilgtV74KY9E6pgSj1Lg==" /><div class="dropzone">
+<div class="dropzone-previews blob-upload-dropzone-previews">
+<p class="dz-message light">
+Attach a file by drag &amp; drop or <a class="markdown-selector" href="#">click to upload</a>
+</p>
+</div>
+</div>
+<br>
+<div class="dropzone-alerts alert alert-danger data" style="display:none"></div>
+<div class="form-group row commit_message-group">
+<label class="col-form-label col-sm-2" for="commit_message-83a9b7e6b26831afa03e43ff4a78e6d6">Commit message
+</label><div class="col-sm-10">
+<div class="commit-message-container">
+<div class="max-width-marker"></div>
+<textarea name="commit_message" id="commit_message-83a9b7e6b26831afa03e43ff4a78e6d6" class="form-control js-commit-message" placeholder="Replace usb-32-green.png" required="required" rows="3">
+Replace usb-32-green.png</textarea>
+</div>
+</div>
+</div>
+
+<input type="hidden" name="branch_name" id="branch_name" />
+<input type="hidden" name="create_merge_request" id="create_merge_request" value="1" />
+<input type="hidden" name="original_branch" id="original_branch" value="master" class="js-original-branch" />
+
+<div class="form-actions">
+<button name="button" type="button" class="btn btn-success btn-upload-file" id="submit-all"><i aria-hidden="true" data-hidden="true" class="fa fa-spin fa-spinner js-loading-icon hidden"></i>
+Replace file
+</button><a class="btn btn-cancel" data-dismiss="modal" href="#">Cancel</a>
+<div class="inline prepend-left-10">
+A new branch will be created in your fork and a new merge request will be started.
+</div>
+
+</div>
+</form></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+</body>
+</html>
+

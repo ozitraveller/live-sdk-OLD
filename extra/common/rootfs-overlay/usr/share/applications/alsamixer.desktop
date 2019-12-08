@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Alsamixer
+GenericName=System Mixer
+Comment=An audio mixer
+Exec=alsamixer
+TryExec=alsamixer
+# Icon=pnmixer
+Terminal=true
+Type=Application
+Categories=AudioVideo;

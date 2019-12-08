@@ -9,4 +9,5 @@ echo ""
 
 # update-alternatives --install /usr/bin/editor editor /usr/bin/geany 99
 update-alternatives --install /usr/bin/editor editor /usr/bin/mousepad 99
-# update-alternatives --install /usr/bin/editor editor /usr/bin/xfw 99
+# update-alternatives --install /usr/bin/editor editor /usr/bin/medit 99
+

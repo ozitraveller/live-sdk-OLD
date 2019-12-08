@@ -1,0 +1,30 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL PMRP (Poor Man's Radio Player) by hakerdefo
+  -------------------------------
+  By default, Star does not come with PMRP 
+  Would you like to install PMRP now? If you choose to do 
+  this, the following packages will be installed:
+
+      mpg123
+	  
+  Note: additional packages listed as dependencies will also be installed.
+  
+  Usage :
+	Open terminal, run pmrp, select a station according to your mood & 
+	don't forget to turn up the volume.
+  
+  https://github.com/hakerdefo/pmrp"
+
+if prompt "  Would you like to install PMRP?"; then
+	sudo apt-get install -y mpg123
+	
+	wget -Nc https://github.com/hakerdefo/pmrp/archive/master.zip && unzip -q master.zip 
+	sudo cp ~/pmrp-master/pmrp /usr/local/bin/
+	sudo chmod 755 /usr/local/bin/pmrp
+	rm -rf ~/pmrp-master ~/master.zip
+fi
+

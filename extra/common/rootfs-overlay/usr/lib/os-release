@@ -1,6 +1,5 @@
-PRETTY_NAME="Star GNU/Linux 1 (kirk)"
+PRETTY_NAME="Star GNU/Linux kirk"
 NAME="Star GNU/Linux"
-VERSION_ID="1"
-VERSION="1 (kirk)"
 ID=star
+ID_LIKE=devuan
 HOME_URL="https://sourceforge.net/projects/linnix/"

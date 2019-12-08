@@ -43,7 +43,7 @@ hsetroot -solid "#000000" &
 sleep 1
 {
 #	compton --config ~/.compton.conf &
-#	(sleep 3 && fbpanel) &
+	(sleep 2s && tint2) &
 	(sleep 3 && connman-ui-gtk --tray) &
 	# (sleep 2 && cmst -m) &
 	# (sleep 3 && wicd-gtk --tray) &

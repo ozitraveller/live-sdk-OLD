@@ -118,7 +118,7 @@ load() {
 	
 	case $choice in
 		1) release="ascii"
-		   version="2.0.0"	
+		   version="2.1.1"	
 		   ;;
 		2) release="jessie"
 		   version="1.0.0"	

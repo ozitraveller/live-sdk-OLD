@@ -56,6 +56,36 @@
 					<action name="Restart"/>
 				</item>
 			</menu>
+			<menu id="tint2Config" label="tint2">
+				<item label="Edit config file">
+					<action name="Execute">
+						<command>
+							editor ~/.config/tint2/tint2rc
+						</command>
+					</action>
+				</item>		
+				<item label="tint2conf">
+					<action name="Execute">
+						<command>
+							/usr/bin/tint2conf
+						</command>
+					</action>
+				</item>						
+				<item label="Restart tint2">
+					<action name="Execute">
+						<command>
+							/usr/local/bin/apprestart "tint2"
+						</command>
+					</action>
+				</item>			
+			</menu>	
+			<item label="Restart conky">
+				<action name="Execute">
+					<command>
+						/usr/local/bin/apprestart "conky"
+					</command>
+				</action>
+			</item>	
 			<item label="ARandR Screen Layout Editor">
 				<action name="Execute">
 					<command>
@@ -190,6 +220,21 @@
 			</item>
 		</menu>
 		<menu id="system" label="System">
+			<item label="Mount removable media">
+				<action name="Execute">
+					<command>
+						/usr/local/bin/usbpmount.sh
+					</command>
+				</action>
+			</item>
+			<item label="Unmount removable media">
+				<action name="Execute">
+					<command>
+						/usr/local/bin/usb-unmount.sh
+					</command>
+				</action>
+			</item>
+			
 			<item label="Alternatives Configurator">
 				<action name="Execute">
 					<command>
@@ -197,6 +242,7 @@
 					</command>
 				</action>
 			</item>
+<!--
 			<item label="LxTask Manager">
 				<action name="Execute">
 					<command>
@@ -211,6 +257,7 @@
 					</command>
 				</action>
 			</item>
+-->
 			<item label="Disk Manager">
 				<action name="Execute">
 					<command>

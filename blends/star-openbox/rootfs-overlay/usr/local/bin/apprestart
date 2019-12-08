@@ -1,0 +1,11 @@
+#!/bin/bash
+# ----------
+# Simple script to restart an app
+
+if [ "$(pidof $1)" ]; then
+     killall $1 && sleep 1s && $1 &
+     exit 0
+else
+     $1 &
+     exit 0
+fi

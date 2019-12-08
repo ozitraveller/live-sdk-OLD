@@ -6,11 +6,11 @@
    <Tray  x="0" y="+1" height="30" autohide="off" valign="top">
 
       <TrayButton icon="/usr/share/jwm/star-white.svg">root:1</TrayButton>
-      <TrayButton icon="/usr/share/icons/Grey-Maia/places/22/user-desktop.svg">showdesktop</TrayButton>
-      <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/utilities-terminal.png">exec:x-terminal-emulator</TrayButton>
-      <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/system-file-manager.svg">exec:x-file-manager</TrayButton>
-      <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/mpv.svg">exec:x-media-player</TrayButton>
-      <TrayButton icon="/usr/share/icons/Grey-Maia/apps/22/web-browser.png">exec:x-www-browser</TrayButton>
+      <TrayButton icon="/usr/local/bin/images/user-desktop.svg">showdesktop</TrayButton>
+      <TrayButton icon="/usr/local/bin/images/utilities-terminal.png">exec:x-terminal-emulator</TrayButton>
+      <TrayButton icon="/usr/local/bin/images/system-file-manager.png">exec:x-file-manager</TrayButton>
+      <TrayButton icon="/usr/local/bin/images/mpv.svg">exec:x-media-player</TrayButton>
+      <TrayButton icon="/usr/local/bin/images/web-browser.png">exec:x-www-browser</TrayButton>
 
       <TaskList maxwidth="130" border="false"/>
 

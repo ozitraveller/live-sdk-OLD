@@ -1,0 +1,29 @@
+clear
+
+# echo "  -----------------------------[ screen $STEP of $STEPS ]----------------------------
+echo "
+
+  INSTALL PMYTD (Poor Man's Youtube Downloader) by hakerdefo
+  -------------------------------
+  By default, Star does not come with PMYTD 
+  Would you like to install PMYTD now? If you choose to do 
+  this, the following packages will be installed:
+
+      ffmpeg
+	  
+  Note: additional packages listed as dependencies will also be installed.
+  
+  Usage :
+	Open terminal, run pmytd, feed it a video link, enjoy.
+  
+  https://github.com/hakerdefo/pmytd"
+
+if prompt "  Would you like to install PMYTD?"; then
+	sudo apt-get install -y ffmpeg
+	
+	wget -Nc https://github.com/hakerdefo/pmytd/archive/master.zip && unzip -q master.zip 
+	sudo cp ~/pmytd-master/pmytd /usr/local/bin/
+	sudo chmod 755 /usr/local/bin/pmytd
+	rm -rf ~/pmytd-master ~/master.zip
+fi
+

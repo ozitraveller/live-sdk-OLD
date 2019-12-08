@@ -17,6 +17,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this source code. If not, see <http://www.gnu.org/licenses/>.
 
+	#~ choose-init	
+	#~ task-print-server
+	#~ task-web-server
+	#~ task-ssh-server
+	#~ tasksel
+	#~ tasksel-data
+
 udebs_list+=(
 
 	libgcrypt20-udeb
@@ -220,6 +227,7 @@ udebs_list+=(
 	espeak-data-udeb
 	libfakekey0-udeb
 	libffi6-udeb
+	choose-init
 )
 
 modules_list+=(

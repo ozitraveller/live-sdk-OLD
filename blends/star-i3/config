@@ -86,7 +86,8 @@ base_packages+=(
 	fakeroot
 	gawk
 	hwinfo
-	loadlin
+#	loadlin
+	win32-loader
 
 )
 
@@ -302,7 +303,8 @@ purge_packages_final+=(
 	krb5-locales
 	laptop-detect
 	less
-	loadlin
+#	loadlin
+	win32-loader
 	lxde-settings-daemon
 	lynx
 	lynx-common

@@ -10,6 +10,12 @@
 	[exec] (Web browser) {x-www-browser} <>
 [separator]	
       [submenu] (Settings) {}
+         [submenu] (tint2) {}
+            [exec] (Edit config file) {editor ~/.config/tint2/tint2rc}
+            [exec] (tint2conf) {/usr/bin/tint2conf}
+            [exec] (Restart tint2) {/usr/local/bin/apprestart "tint2"} <>
+         [end]
+         [exec] (Restart conky) {/usr/local/bin/apprestart "conky"} <>
          [exec] (ARandR Screen Layout Editor) {/usr/bin/arandr}
          [exec] (Appearance) {/usr/bin/lxappearance} <>
       [end]
@@ -43,9 +49,11 @@
          [exec] (Pdf Viewer) {/usr/bin/xpdf}
       [end]
       [submenu] (System) {}
+      	 [exec] (Mount removable media) {/usr/local/bin/usbpmount.sh} <>
+      	 [exec] (Unmount removable media) {/usr/local/bin/usb-unmount.sh} <>      
       	 [exec] (Alternatives Configurator) {su-to-root -X -c /usr/bin/galternatives} <>
-		 [exec] (LxTask Manager) {/usr/bin/lxtask} <>
-         [exec] (Bootup Manager) {su-to-root -X -c /usr/bin/bum}
+#		 [exec] (LxTask Manager) {/usr/bin/lxtask} <>
+#         [exec] (Bootup Manager) {su-to-root -X -c /usr/bin/bum}
          [exec] (Disk Manager) {su-to-root -X -c /usr/sbin/disk-manager}
          [exec] (Gdebi Package Installer) {su-to-root -X -c /usr/bin/gdebi-gtk} <>
          [exec] (Gparted) {su-to-root -X -c /usr/sbin/gparted}

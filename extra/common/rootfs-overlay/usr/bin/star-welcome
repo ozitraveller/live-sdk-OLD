@@ -144,13 +144,14 @@ fi
 
 # Run through steps
 # STEPS_BASIC=('apt-update' 'apt-dist-upgrade' 'office-print' 'media-graphics' 'install-java-packages' 'install-gigolo-gvfs' 'install-gimp' 'install-libreoffice' 'devel')
-STEPS_MAIN=('set-root-password' 'apt-update' 'apt-dist-upgrade' 'laptop' 'office-print' 'media-graphics' 'other' 'devel' 'quit')
+STEPS_MAIN=('set-root-password' 'apt-update' 'apt-dist-upgrade' 'laptop' 'office-print' 'media-graphics' 'cli-apps' 'browser' 'other' 'devel' 'quit')
 STEPS_OFFICE_PRINT=('install-libreoffice' 'install-printer-packages' 'back')
-STEPS_MEDIA_GRAPHICS=('install-pulseaudio' 'install-gimp' 'back')
-# STEPS_OTHER=('install-java-packages' 'install-gigolo-gvfs' 'back')
+STEPS_MEDIA_GRAPHICS=('install-gimp' 'back')
+STEPS_OTHER=('install-java-packages' 'install-gigolo-gvfs' 'back')
 STEPS_BROWSER=('install-firefox' 'install-chromium' 'install-chrome' 'back')
 STEPS_OTHER=('install-java-packages' 'back')
 STEPS_DEVEL=('devel-install-version-control-tools' 'devel-install-ssh-server' 'devel-install-lamp-stack' 'devel-install-packaging-tools' 'back')
+STEPS_CLI_APPS=('install-pmrp' 'install-pmytd' 'back')
 
 # . "$LIBDIR/intro"
 connection-test
@@ -188,13 +189,13 @@ do
 				break
 			;;
 
-           "browser")
-				submenu "other" STEPS_BROWSER
+			"browser")
+				submenu "Browser" STEPS_BROWSER
 				break
-            ;;
+			;;
             
 			"other")
-				submenu "other" STEPS_OTHER
+				submenu "Other" STEPS_OTHER
 				break
 			;;
 
@@ -203,6 +204,11 @@ do
 				break
 			;;
 
+			"cli-apps")
+				submenu "Cli-Apps" STEPS_CLI_APPS
+				break
+			;;
+			
 			"quit")
 				#. "$LIBDIR/fini"
 				printf "\033c"

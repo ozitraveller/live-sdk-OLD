@@ -59,7 +59,8 @@ border_color = #888888 20
 # Panel
 panel_monitor = all
 panel_position = top center horizontal
-panel_items = TSC
+panel_items = LTSC
+# Launchers Taskbar Systemtray Battery Clock
 panel_size = 100% 30
 panel_margin = 0 -1
 panel_padding = 0 0
@@ -119,12 +120,13 @@ launcher_background_id = 0
 launcher_icon_size = 24
 # Specify icon theme names with launcher_icon_theme. 
 # if you have an XSETTINGS manager running (like xfsettingsd), tint2 will follow your current theme.
-launcher_icon_theme = Grey-Maia
+# launcher_icon_theme = Grey-Maia
+launcher_apps_dir = /usr/local/bin/tint2launchers/
 # Each launcher_item_app must be a full path to a .desktop file
-launcher_item_app = /usr/share/applications/lxterminal.desktop
-launcher_item_app = /usr/share/applications/spacefm.desktop
-launcher_item_app = /usr/share/applications/mpv.desktop
-launcher_item_app = /usr/share/applications/epiphany.desktop
+# launcher_item_app = /usr/local/bin/tint2launchers/terminal.desktop
+# launcher_item_app = /usr/local/bin/tint2launchers/file-manager.desktop
+# launcher_item_app = /usr/local/bin/tint2launchers/media-player.desktop
+# launcher_item_app = /usr/local/bin/tint2launchers/web-browser.desktop
 
 # System Tray
 systray = 1
@@ -170,5 +172,9 @@ bat2_font = Liberation Mono 8
 battery_font_color = #b5b5b5 100
 battery_padding = 2 0
 battery_background_id = 0
+
+# AC Power
+# ac_connected_cmd = notify-send "AC Power Connected"
+# ac_disconnected_cmd = notify-send "AC Power Disconnected"
 
 # End of config

@@ -207,7 +207,7 @@ EOF
 
 blend_cleanup() {
 	fn blend_cleanup
-	req=(strapdir blend blendname os arch release purge_packages_final )
+	req=(strapdir blend blendname os version arch release purge_packages_final )
 	ckreq || return 1
 notice "Running blend_cleanup"
 
@@ -274,14 +274,11 @@ EOF
 	# \cp causes OVERWRITE
 	\cp -rfav $R/blends/$blendname/extra/apt-files/apt/* $strapdir/etc/apt/
 
-	_VERSION='2.0.2'
-	# _SOURCE='DIY'	
-
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/hostname
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/issue.net
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/motd
-	sed -i -e 's/REPLACEME/'"${_VERSION}"'/g' $strapdir/etc/os-release
+	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/hostname
+	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/issue
+	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/issue.net
+	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/motd
+	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/os-release
 }
 
 blend_installer_updateXX () {

@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 # config for star-netinstblend
 
+# telnet rsync, smartmontools, ddrescue, lm-sensors, testdisk/photorec, testdisk , memtest86+,  tar/gzip traceroute
+
+
+
+
 core_packages+=(
 	
 	grub-pc
@@ -48,7 +53,6 @@ base_packages+=(
 	apt-utils
 	aptitude
 	nss-updatedb
-	sudo
 	parted
 	console-setup
 	console-data
@@ -90,7 +94,8 @@ base_packages+=(
 	fakeroot
 	gawk
 	hwinfo
-	loadlin
+#	loadlin
+	win32-loader
 	
 )
 
@@ -220,7 +225,8 @@ purge_packages_final+=(
 	krb5-locales
 	laptop-detect
 	less
-	loadlin
+#	loadlin
+	win32-loader
 	lxde-settings-daemon
 	lynx
 	lynx-common

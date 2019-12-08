@@ -1,15 +1,8 @@
-[app] (name=gmrun)
-  [Position]	(WINCENTER)	{0 0}
-  [Layer]	{2}
-[end]
-[app] (name=xfce4-terminal) (class=Xfce4-terminal) (role=xfce4-terminal-dropdown)
-  [Position]	(TOPCENTER)	{0 0}
-  [Deco]	{0x5e0}
-  [Layer]	{2}
-  [Alpha]	{255}
-[end]
-[app] (name=xfce4-terminal) (class=Xfce4-terminal)
-  [Dimensions]	{80% 89%}
+# xprop | grep -i 'class'
+# Launch the app first, run the command above, then when the cursor turns to '+' touch the app
+
+[app] (name=x-file-manager) (class=x-file-manager)
+  [Dimensions]	{60% 69%}
   [Position]	(CENTER)	{0 0}
   [Deco]	{0x66f}
   [Minimized]	{no}
@@ -18,19 +11,14 @@
   [Layer]	{8}
   [Alpha]	{255}
 [end]
-[app] (name=thunar) (class=Thunar)
-  [Dimensions]	{80% 89%}
-  [Position]	(CENTER)	{0 0}
-  [Deco]	{0x66f}
-  [Minimized]	{no}
-  [Maximized]	{no}
-  [Fullscreen]	{no}
+[app] (name=x-terminal-emulator) (class=x-terminal-emulator)
+  [Dimensions]	{60% 69%}
+  [Position]	(UPPERLEFT)	{8% 15%}
   [Layer]	{8}
-  [Alpha]	{255}
 [end]
-[app] (name=xpdf) (class=Xpdf)
-  [Dimensions]	{80% 89%}
-  [Position]	(CENTER)	{0 0}
+[app] (name=win) (class=Xpdf)
+  [Dimensions]	{60% 69%}
+  [Position]	(CENTER)	{20 20}
   [Deco]	{0x66f}
   [Minimized]	{no}
   [Maximized]	{no}

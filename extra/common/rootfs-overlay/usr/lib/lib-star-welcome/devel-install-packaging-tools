@@ -12,10 +12,7 @@ echo "
       build-essential debhelper cdbs dh-make diffutils patch gnupg
       fakeroot lintian devscripts pbuilder dpatch dput quilt
 
-  Note: additional packages listed as dependencies may also be installed.
-  
-  Devuan packaging (Using d1h (a.k.a. 'Devuan packaging made easier'))
-	   https://dev1galaxy.org/viewtopic.php?id=549 "
+  Note: additional packages listed as dependencies may also be installed. "
 
 if prompt "  Whould you like to install packaging tools?"; then
 	sudo apt-get install -y build-essential debhelper cdbs dh-make diffutils patch gnupg fakeroot lintian devscripts pbuilder dpatch dput quilt
