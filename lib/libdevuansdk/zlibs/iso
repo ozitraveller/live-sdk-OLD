@@ -148,7 +148,7 @@ iso_squash_strap() {
 
 iso_xorriso_build() {
 	fn iso_xorriso_build
-	req=(workdir image_name)
+	req=(workdir image_name release_name)
 	ckreq || return 1
 
 	notice "building iso..."
@@ -163,7 +163,8 @@ iso_xorriso_build() {
 	label=${blend##*-}
 	label=${label%%.*}
 	release_label=$release
-	image_name="${blend_distribution}-${version}-${release_label}_${date_stamp}-${label}_${earch}"
+	# image_name="${blend_distribution}-${version}-${release_label}_${date_stamp}-${label}_${earch}"
+	image_name="${blend_distribution}-${version}-${release_lname}_${date_stamp}-${label}_${earch}"
 	echo "image_name: "${image_name}
 
 	[[ -n "$mkefi" ]] && {
@@ -201,7 +202,7 @@ iso_xorriso_build() {
 
 iso_genisoimage_build() {
 	fn iso_xorriso_build
-	req=(workdir earch blendlib version release)
+	req=(workdir earch blendlib version release release_name)
 	ckreq || return 1
 
 	notice "building iso..."
@@ -216,7 +217,8 @@ iso_genisoimage_build() {
 	label=${blend##*-}
 	label=${label%%.*}
 	release_label=$release
-	image_name="${blend_distribution}-${version}-${release_label}_${date_stamp}-${label}_${earch}"
+	# image_name="${blend_distribution}-${version}-${release_label}_${date_stamp}-${label}_${earch}"
+	image_name="${blend_distribution}-${version}-${release_name}_${date_stamp}-${label}_${earch}"
 	
 	isohybrid="$R"/extra/syslinux/isohdpfx.bin
 

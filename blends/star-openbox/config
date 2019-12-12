@@ -197,6 +197,8 @@ extra_packages+=(
 	pciutils
 	task-english
 	openbox
+	obconf
+	obmenu
 	tint2
 	dunst
 	connman

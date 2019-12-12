@@ -30,6 +30,7 @@ source $R/lib/zuper/zuper
 vars+=(livesdk_version)
 vars+=(R workdir strapdir)
 vars+=(os oslib blendlib)
+vars+=(release_name)
 # vars+=(username userpass default_shell)
 vars+=(MAKEOPTS)
 
@@ -44,6 +45,7 @@ source $R/config
 
 ## conclude zuper initialization
 source $R/lib/zuper/zuper.init
+
 
 load() {
 	fn load "$@"
@@ -118,13 +120,16 @@ load() {
 	
 	case $choice in
 		1) release="ascii"
-		   version="2.1.1"	
+		   version="2.1.1"
+		   release_name="kirk"
 		   ;;
 		2) release="jessie"
-		   version="1.0.0"	
+		   version="1.0.0"
+		   release_name=""	
 		   ;;
 		3) release="beowulf"
 		   version="3.0.0"	
+		   release_name="spock"
 		   ;;
 		*) error "invalid release specified"; zerr;;
 	esac
