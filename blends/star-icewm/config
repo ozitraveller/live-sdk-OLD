@@ -172,7 +172,7 @@ extra_packages+=(
 	dmz-cursor-theme
 	gtk2-engines-murrine 
 	gtk2-engines-pixbuf
-	bum 
+#	bum 
 	hdparm 
 	disk-manager 
 	ufw 

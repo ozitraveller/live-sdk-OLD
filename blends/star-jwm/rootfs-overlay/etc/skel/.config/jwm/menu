@@ -59,7 +59,6 @@
 		  <Program label="Unmount removable media" confirm="false">/usr/local/bin/usb-unmount.sh</Program>			  
 		  <Program label="Alternatives Configurator" confirm="false">su-to-root -X -c /usr/bin/galternatives</Program>
 		  <Program label="Htop Task Manager" confirm="false">x-terminal-emulator -t 'htop task manager' -e htop</Program>
-          <Program label="Bootup-Manager" confirm="false">su-to-root -X -c /usr/bin/bum</Program>
           <Program label="Disk Manager" confirm="false">su-to-root -X -c /usr/sbin/disk-manager</Program>
           <Program label="Gdebi Package Installer" confirm="false">su-to-root -X -c /usr/bin/gdebi-gtk</Program>
           <Program label="Gparted" confirm="false">su-to-root -X -c /usr/sbin/gparted</Program>

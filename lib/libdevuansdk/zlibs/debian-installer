@@ -277,12 +277,20 @@ di_debian_installer() {
 	gunzip initrd.gz
 	cd tmp1
 	cpio -id < ../initrd
-	if [[ $blendname == *"star"* ]]; then
-		gtkrc="$R/extra/d-i/gtkrc"
-		logo="$R/extra/d-i/logo_installer_darkpurpy.png"
-	else
+	#~ if [ -f $R/blends/$blendname/d-i ]; then
+		#~ gtkrc="$R/blends/$blendname/d-i/gtkrc"
+		#~ logo="$R/blends/$blendname/d-i/logo_installer_darkpurpy.png"
+	#~ else
+		#~ gtkrc="$R/extra/d-i/gtkrc"
+		#~ logo="$R/extra/d-i/logo_installer_darkpurpy.png"
+	#~ fi
+	
+	if [[ $blendname == *"diy"* ]]; then
 		gtkrc="$R/blends/$blendname/d-i/gtkrc"
 		logo="$R/blends/$blendname/d-i/logo_installer_darkpurpy.png"
+	else
+		gtkrc="$R/extra/d-i/gtkrc"
+		logo="$R/extra/d-i/logo_installer_darkpurpy.png"
 	fi
 	[[ -f $gtkrc ]] && cp -av $gtkrc $workdir/d-i/tmp/tmp1/usr/share/themes/Clearlooks/gtk-2.0/
 	[[ -f $logo  ]] && cp -av $logo  $workdir/d-i/tmp/tmp1/usr/share/graphics/
@@ -386,11 +394,17 @@ di_win32-loader() {
 	mv ${strapdir}/binary/win32-loader/g2ldr* ${strapdir}/binary
 	rmdir ${strapdir}/binary/win32-loader > /dev/null 2>&1 || true
 
+
+	blendname2="$(echo "$blendname" | sed 's/.*/\u&/')"
+	len1=`expr index "$blendname2" -`
+	len2=$((len1-1))
+	var="$(echo "${blendname2}" | cut -c1-$len2)"
+
 cat > ${strapdir}/binary/autorun.inf << EOF
 [autorun]
 open=setup.exe
 icon=setup.exe,0
-label=Install Star GNU/Linux
+label=Install ${var} GNU/Linux
 
 [Content]
 MusicFiles=false

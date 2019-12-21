@@ -149,7 +149,8 @@ STEPS_OFFICE_PRINT=('install-libreoffice' 'install-printer-packages' 'back')
 STEPS_MEDIA_GRAPHICS=('install-gimp' 'back')
 STEPS_OTHER=('install-java-packages' 'install-gigolo-gvfs' 'back')
 STEPS_BROWSER=('install-firefox' 'install-chromium' 'install-chrome' 'back')
-STEPS_OTHER=('install-java-packages' 'back')
+# STEPS_OTHER=('install-java-packages' 'back')
+STEPS_LAPTOP=('install-laptop' 'back')
 STEPS_DEVEL=('devel-install-version-control-tools' 'devel-install-ssh-server' 'devel-install-lamp-stack' 'devel-install-packaging-tools' 'back')
 STEPS_CLI_APPS=('install-pmrp' 'install-pmytd' 'back')
 
@@ -175,10 +176,10 @@ do
 			;;
 		
 			"laptop")
-				submenu "Laptop" STEPS_OFFICE_PRINT
+				submenu "Laptop" STEPS_LAPTOP
 				break
 			;;
-					
+			
 			"office-print")
 				submenu "Office-Print" STEPS_OFFICE_PRINT
 				break

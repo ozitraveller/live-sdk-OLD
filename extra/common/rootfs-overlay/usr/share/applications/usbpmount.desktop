@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=USBpmount
+Comment= Mount removable media.
+Exec=/usr/local/bin/usbpmount.sh
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/usb-32-green.png
+Categories=GNOME;GTK;System;

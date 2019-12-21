@@ -94,15 +94,32 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
 fi
 
 
-media_mounts=$(grep "/media/" /proc/mounts | awk '{ print $2 }')
-selection=$($DIALOG --list --center --title="$TITLE" --width=400 --height=200 --separator="" --column="" \
-	--text="Select a volume to unmount. (One only.)\n\n" $media_mounts \
-	--${BUTTON0}="OK"${BUTTON0NUM} --${BUTTON1}="Exit"${BUTTON1NUM})
-
-	if [[ $? = 1 ]] ; then
+select_vol () {
+	
+	media_mounts=$(grep "/media/" /proc/mounts | awk '{ print $2 }')
+	
+	if [ -n "$media_mounts" ] ; then
+		selection=$($DIALOG --list --center --title="$TITLE" --width=400 --height=200 --separator="" --column="" \
+			--text="Select a volume to unmount. (One at a time.)\n\n" $media_mounts \
+			--${BUTTON0}="OK"${BUTTON0NUM} --${BUTTON1}="Cancel"${BUTTON1NUM})
+	
+			if [[ $? = 1 ]] ; then
+				exit 0
+			fi
+		unmount_vol
+	else
+		"$DIALOG" --info --title="$TITLE" --width=250 --text="Nothing mounted under /media." "$OKBUTTON"
 		exit 0
+		
 	fi
+}
 
-pumount "$selection" || { warning_message="pumount error" ; warning_dialog ; }
+unmount_vol () {
+	
+	pumount "$selection" || { warning_message="pumount error" ; warning_dialog ; }
+	select_vol
 
-exit 0
+}
+
+select_vol
+

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Restart conky
+# Comment= Mount removable media.
+Exec=/usr/local/bin/apprestart "conky"
+Terminal=false
+Type=Application
+# Icon=/usr/share/pixmaps/usb-32-green.png
+Categories=GNOME;GTK;System;

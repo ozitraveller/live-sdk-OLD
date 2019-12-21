@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=USB-unmount
+Comment= Unmount removable media.
+Exec=/usr/local/bin/usb-unmount.sh
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/usb-32-red.png
+Categories=GNOME;GTK;System;
