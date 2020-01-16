@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 di_disk_info() {
-	fn iso_write_info
+	fn di_write_info
 	req=(strapdir workdir blendlib version release earch)
 	ckreq || return 1
 	
@@ -30,6 +30,42 @@ live-installer" > "$workdir"/binary/.disk/udeb_include
 	echo "main" > "$workdir"/binary/.disk/base_components
 }
 
+#~ di_debmirror () {
+
+	#~ fn di_debmirror
+	#~ req=(workdir arch release linux_path url_pkg root)
+	#~ ckreq || return 1
+	
+	#~ rm -rf $workdir/repo-$release
+	
+#~ echo "di_debmirror ****"
+#~ echo " "
+#~ echo "linux_path: "$linux_path
+#~ echo "${linux_path%/*}:"${linux_path%/*}
+#~ echo "url_pkg: "$url_pkg
+#~ echo "url: "$url
+#~ echo "dist: "$release
+#~ echo "arch: "$arch
+#~ echo " "
+#~ echo "di_debmirror ****"	
+
+	#~ debmirror -h $url \
+		#~ --dist=$release \
+		#~ --root=$root \
+		#~ --arch=$arch \
+		#~ --section=main/debian-installer \
+		#~ --nosource \
+		#~ --progress \
+		#~ --ignore-release-gpg \
+		#~ --method http \
+		#~ --diff=none \
+		#~ $workdir/repo-$release
+	
+	#~ ## Dirty, but needed on beowulf
+	#~ mv $workdir/repo-$release/$linux_path $workdir/repo_tmp
+	#~ mv $workdir/repo_tmp $workdir/repo-$release/${linux_path%/*}/linux		
+#~ }
+
 di_debmirror () {
 
 	fn blend_debmirror
@@ -57,7 +93,7 @@ di_debmirror () {
 
 di_localudebs () {
 
-	fn blend_localudebs
+	fn di_localudebs
 	req=(workdir release arch flavor)
 	ckreq || return 1
 
@@ -117,6 +153,8 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 	mkdir -p $workdir/debs
 	
 	pushd $workdir/debs
+	
+	
 	rm -f Packages	
 	wget $url_pkg/dists/$release/main/binary-$arch/Packages.gz
 	gzip -d Packages.gz
@@ -160,6 +198,7 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 		libpng12-0
 		dmsetup
 		firmware-linux-nonfree
+		
 	)		
 
 		#~ insserv
@@ -174,6 +213,7 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 	for line in $di_pkgs; do
 		echo $line
 		pkg=`grep "^Filename: pool/" Packages | grep "/${line}_" | grep ".deb"`
+		echo $pkg
 		wget $url_pkg/${pkg#*" "}
  	done
 	

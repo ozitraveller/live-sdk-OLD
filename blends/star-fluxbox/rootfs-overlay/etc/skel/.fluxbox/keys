@@ -70,6 +70,9 @@ Mod4 m :Exec x-media-player
 # terminal
 Mod4 t :Exec x-terminal-emulator
 
+# alsamixer
+Mod4 t :Exec x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer
+
 # editor
 Mod4 e :Exec editor
 

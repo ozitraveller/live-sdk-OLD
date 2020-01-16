@@ -47,6 +47,8 @@ if [ ! -f "/home/${USER}/.config/star/star-setup" ]; then
 			#~ mv /home/"${USER}"/.config/openbox/menu.bak /home/"${USER}"/.config/openbox/menu.xml
 		#~ fi		
 	#~ fi
+	
+	xdg-mime default pcmanfm.desktop inode/directory
 		
 	touch /home/"${USER}"/.config/star/star-setup
     chown -R "${USER}":"${USER}" /home/"${USER}"

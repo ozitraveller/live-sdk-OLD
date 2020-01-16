@@ -147,6 +147,7 @@
 			</item>
 		</menu>
 		<menu id="graphics" label="Graphics">
+<!--
 		    <item label="Mirage">
 				<action name="Execute">
 					<command>
@@ -154,6 +155,7 @@
 					</command>
 				</action>
 			</item>
+-->
 			<menu id="graphicsScreenshots" label="Take Screenshot">
 				<item label="Now">
 					<action name="Execute">
@@ -202,6 +204,7 @@
 					</command>
 				</action>
 			</item>
+<!--
 			<item label="Audio Mixer">
 				<action name="Execute">
 					<command>
@@ -209,7 +212,9 @@
 					</command>
 				</action>
 			</item>
+-->
 		</menu>
+<!--
 		<menu id="office" label="Office">
 		   	<item label="Pdf Viewer">
 				<action name="Execute">
@@ -219,6 +224,7 @@
 				</action>
 			</item>
 		</menu>
+-->
 		<menu id="system" label="System">
 			<item label="Mount removable media">
 				<action name="Execute">
@@ -265,6 +271,7 @@
 					</command>
 				</action>
 			</item>
+<!--
 			<item label="Gdebi Package Installer">
 				<action name="Execute">
 					<command>
@@ -272,6 +279,7 @@
 					</command>
 				</action>
 			</item>
+-->
 		    <item label="Gparted">
 				<action name="Execute">
 					<command>

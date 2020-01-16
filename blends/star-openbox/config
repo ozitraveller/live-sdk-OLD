@@ -292,12 +292,12 @@ purge_packages_final+=(
 	gnustep-base-runtime
 	gsfonts
 	gsfonts-x11
-	gstreamer1.0-x:amd64
-	gtk2-engines:amd64
-	guile-2.0-libs:amd64
+	gstreamer1.0-x
+	gtk2-engines
+	guile-2.0-libs
 	hunspell-en-us
 	hwinfo
-	i965-va-driver:amd64
+	i965-va-driver
 	iamerican
 	ibritish
 	ienglish-common
@@ -315,8 +315,8 @@ purge_packages_final+=(
 	mailutils-common
 	manpages
 	manpages-dev
-	mesa-va-drivers:amd64
-	mesa-vdpau-drivers:amd64
+	mesa-va-drivers
+	mesa-vdpau-drivers
 	mlocate
 	murrine-themes
 	mysql-common
@@ -329,7 +329,7 @@ openssh-server
 openssh-sftp-server
 	os-prober
 	p11-kit
-	p11-kit-modules:amd64
+	p11-kit-modules
 	p7zip
 	p7zip-full
 	patchutils
@@ -379,9 +379,9 @@ openssh-sftp-server
 	unrar-free
 	usbmuxd
 	util-linux-locales
-	va-driver-all:amd64
+	va-driver-all
 	vbetool
-	vdpau-driver-all:amd64
+	vdpau-driver-all
 	wamerican
 	wdiff
 	whois

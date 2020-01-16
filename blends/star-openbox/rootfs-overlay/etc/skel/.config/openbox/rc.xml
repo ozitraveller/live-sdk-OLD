@@ -334,6 +334,7 @@
       </action>
     </keybind>
     
+<!--
     <keybind key="A-F2">
       <action name="Execute">
         <startupnotify>
@@ -343,6 +344,7 @@
         <command>gmrun</command>
       </action>
     </keybind>
+-->
     <keybind key="W-d">
       <action name="Execute">
         <startupnotify>
@@ -352,11 +354,20 @@
         <command>~/.config/dmenu/dmenu-bind.sh</command>
       </action>
     </keybind>
+    <keybind key="W-a">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>alsamixer</name>
+        </startupnotify>
+        <command>x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer</command>
+      </action>
+    </keybind>       
     <keybind key="W-f">
       <action name="Execute">
         <startupnotify>
           <enabled>true</enabled>
-          <name>thunar</name>
+          <name>file-manager</name>
         </startupnotify>
         <command>x-file-manager</command>
       </action>

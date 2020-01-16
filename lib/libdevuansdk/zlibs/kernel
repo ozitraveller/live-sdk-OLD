@@ -19,21 +19,41 @@
 
 ## all windows users are suckers
 
+#~ build_kernel_${arch}() {
+	#~ fn build_kernel_${arch}
+	#~ req=(strapdir arch abiname flavor)
+	#~ ckreq || return 1
+
+	#~ local kernel="linux-image-${abiname}-${flavor}"
+
+	#~ notice "installing stock kernel for $arch"
+
+	#~ cat <<EOF | sudo tee ${strapdir}/install-linux
+#~ #!/bin/sh
+#~ apt-get update
+#~ apt-get --yes --force-yes install ${kernel}
+#~ ##apt-get --yes --force-yes autoremove
+#~ apt-get clean
+#~ EOF
+	#~ chroot-script -d install-linux || zerr
+#~ }
+
 build_kernel_${arch}() {
 	fn build_kernel_${arch}
-	req=(strapdir arch abiname flavor)
+	req=(strapdir arch)
 	ckreq || return 1
 
-	local kernel="linux-image-${abiname}-${flavor}"
+	local kernel_base="linux-image"
+	case "$arch" in
+		amd64) local kernel="${kernel_base}-amd64";;
+		i386)  local kernel="${kernel_base}-686";;
+	esac
 
 	notice "installing stock kernel for $arch"
 
 	cat <<EOF | sudo tee ${strapdir}/install-linux
 #!/bin/sh
-apt-get update
 apt-get --yes --force-yes install ${kernel}
-##apt-get --yes --force-yes autoremove
-apt-get clean
 EOF
 	chroot-script -d install-linux || zerr
 }

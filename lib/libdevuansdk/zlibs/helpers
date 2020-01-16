@@ -289,8 +289,8 @@ install-custdebs() {
 	ckreq || return 1
 
 	mkdir -p $strapdir/tmp/debs
-	find $custom_deb_packages -type f -name "*_${arch}.deb" -exec cp {} $strapdir/tmp/debs \;
-	find $custom_deb_packages -type f -name "*_all.deb"     -exec cp {} $strapdir/tmp/debs \;
+	#~ find $custom_deb_packages -type f -name "*_${arch}.deb" -exec cp {} $strapdir/tmp/debs \;
+	#~ find $custom_deb_packages -type f -name "*_all.deb"     -exec cp {} $strapdir/tmp/debs \;
 
 	cat <<EOF | sudo tee ${strapdir}/install-debs >/dev/null
 #!/bin/sh

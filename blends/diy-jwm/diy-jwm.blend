@@ -130,6 +130,10 @@ notice "executing $blend prebuild"
 		notice "moving log file to log folder"
 		mv -f $strapdir/*.txt $R/log/
 	fi
+	
+	rm -f $strapdir/etc/os-release
+	
+	ln $strapdir/usr/lib/os-release $strapdir/etc/os-release
 
 }
 
@@ -278,7 +282,7 @@ EOF
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/issue
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/issue.net
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/motd
-	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/os-release
+	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/usr/lib/os-release
 }
 
 blend_installer_updateXX () {

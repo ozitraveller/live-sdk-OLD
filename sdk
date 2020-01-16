@@ -31,6 +31,7 @@ vars+=(livesdk_version)
 vars+=(R workdir strapdir)
 vars+=(os oslib blendlib)
 vars+=(release_name)
+# vars+=(linux_path)
 # vars+=(username userpass default_shell)
 vars+=(MAKEOPTS)
 
@@ -212,7 +213,7 @@ load() {
 				;;
 		*) error "invalid arch specified"; zerr;;
 	esac
-	
+
 	filename=${line%/*}
 	linux_path=${filename#*:}
 	len=$((${#linux_path} - 1))

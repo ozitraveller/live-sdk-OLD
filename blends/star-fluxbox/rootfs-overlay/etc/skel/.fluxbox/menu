@@ -30,7 +30,7 @@
          [exec] (Xterm) {/usr/bin/xterm} <>		 		 		 
       [end]
       [submenu] (Graphics) {}
-         [exec] (Mirage) {mirage} <>
+#         [exec] (Mirage) {mirage} <>
          [submenu] (Take Screenshot) {}
 			[exec] (Now) {scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'} <>
 			[exec] (In 5 Seconds...) {scrot -d 5 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'} <>
@@ -43,11 +43,11 @@
       [end]
       [submenu] (Multimedia) {}
          [exec] (Mpv) {x-media-player}
-         [exec] (Audio Mixer) {x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer}
+#         [exec] (Audio Mixer) {x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer}
       [end]
-      [submenu] (Office) {}
-         [exec] (Pdf Viewer) {/usr/bin/xpdf}
-      [end]
+#       [submenu] (Office) {}
+#          [exec] (Pdf Viewer) {/usr/bin/xpdf}
+#       [end]
       [submenu] (System) {}
       	 [exec] (Mount removable media) {/usr/local/bin/usbpmount.sh} <>
       	 [exec] (Unmount removable media) {/usr/local/bin/usb-unmount.sh} <>      
@@ -55,7 +55,7 @@
 #		 [exec] (LxTask Manager) {/usr/bin/lxtask} <>
 #         [exec] (Bootup Manager) {su-to-root -X -c /usr/bin/bum}
          [exec] (Disk Manager) {su-to-root -X -c /usr/sbin/disk-manager}
-         [exec] (Gdebi Package Installer) {su-to-root -X -c /usr/bin/gdebi-gtk} <>
+#         [exec] (Gdebi Package Installer) {su-to-root -X -c /usr/bin/gdebi-gtk} <>
          [exec] (Gparted) {su-to-root -X -c /usr/sbin/gparted}
          [exec] (Root Terminal) {su-to-root -X -c x-terminal-emulator} <>
          [exec] (Root File Manager) {su-to-root -X -c x-file-manager} <>

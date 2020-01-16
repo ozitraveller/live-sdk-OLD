@@ -83,6 +83,7 @@ rm -f vmlinuz.old
 rm -f initrd.img.old
 rm -f /etc/ssh/ssh_host_*
 rm -f /etc/fstab
+/usr/share/applications/exo-mail-reader.desktop
 # chmod +x /etc/init.d/live-sessions
 # update-rc.d live-sessions defaults
 # chmod +x /usr/bin/preseed-hack
