@@ -218,8 +218,8 @@ notice "Running blend_cleanup"
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 
-rm -f exec_hooks
-rm -f exec_hooks.log
+#r m -f exec_hooks
+# rm -f exec_hooks.log
 rm -rf /hooks
 
 # Option 1

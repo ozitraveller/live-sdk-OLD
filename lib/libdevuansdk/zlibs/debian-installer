@@ -201,15 +201,6 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 		
 	)		
 
-		#~ insserv
-        #~ init_1.48+devuan2.0
-        #~ init-system-helpers
-		#~ tasksel
-		#~ tasksel-data
-		#~ task-print-server
-		#~ task-web-server
-		#~ task-ssh-server
-
 	for line in $di_pkgs; do
 		echo $line
 		pkg=`grep "^Filename: pool/" Packages | grep "/${line}_" | grep ".deb"`

@@ -53,7 +53,7 @@ build_iso_dist() {
 	notice "building complete iso image"
 
 	bootstrap_complete_base     || { zerr; wrapup }
-	bootstrap_thirdstage        || { zerr; wrapup }
+#	bootstrap_thirdstage        || { zerr; wrapup }
 	build_kernel_${arch}        || { zerr; wrapup }
 	iso_prepare_strap           || { zerr; wrapup }
 	install-custdebs            || { zerr; wrapup }

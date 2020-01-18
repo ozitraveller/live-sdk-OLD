@@ -17,30 +17,49 @@
 # You should have received a copy of the GNU General Public License
 # along with this source code. If not, see <http://www.gnu.org/licenses/>.
 
+vars+=(bootstrap_tgz_stage3 bootstrap_tgz_stage4 TAR_STAGE4)
 arrs+=(base_packages_option core_packages_option extra_packages_option)
 arrs+=(purge_packages_option)
 arrs+=(core_packages base_packages extra_packages purge_packages)
 
 bootstrap_complete_base() {
 	fn bootstrap_complete_base "$@"
-	req=(workdir strapdir os arch release)
+	req=(arch)
 	ckreq || return 1
-	
-	notice "bootstrapping $os $arch base"
 
-	mkdir -p $strapdir
+	notice "bootstrapping $os $arch base"
 
 	export LANG=C
 	export LC_ALL=C
 	export DEBIAN_FRONTEND=noninteractive
+
+	bootstrap_tgz_stage3="$R/tmp/bootstrap-${os}-${arch}-stage3.tgz"
+	bootstrap_tgz_stage4="$R/tmp/bootstrap-${os}-${arch}-stage4.tgz"
+
+	if [[ -n "$TAR_STAGE4" && -f "$bootstrap_tgz_stage4" ]]; then
+		notice "using the existing stage4 bootstrap tarball found in $R/tmp"
+		bootstrap_tar_unpack "$bootstrap_tgz_stage4" "$strapdir" || {
+			die "failed to extract tarball"
+			zerr
+		}
+		return
+	elif [[ -f "$bootstrap_tgz_stage3" ]]; then
+		notice "using the existing stage3 bootstrap tarball found in $R/tmp"
+		bootstrap_tar_unpack "$bootstrap_tgz_stage3" "$strapdir" || {
+			die "failed to extract tarball"
+			zerr
+		}
+		return
+	fi
 
 	notice "running debootstrap stage 1"
 
 	sudo DEBOOTSTRAP_DIR="$LIBPATH/extra/debootstrap" "$LIBPATH/extra/debootstrap/debootstrap" \
 		--keyring="$LIBPATH/extra/devuan-keyring/keyrings/devuan-archive-keyring.gpg" \
 		--foreign \
-		--include "gnupg2" \
 		--arch $arch $release $strapdir $mirror || zerr
+
+	[[ $arch =~ "^arm.." ]] && { qemu_install_user || zerr }
 
 	sudo mkdir -p $strapdir/tmp
 	sudo chmod 1777 $strapdir/tmp
@@ -49,6 +68,8 @@ bootstrap_complete_base() {
 	notice "running debootstrap stage 2"
 	sudo chroot $strapdir \
 		/debootstrap/debootstrap --second-stage || zerr
+
+	blend_bootstrap_setup || zerr
 
 	## write all system configuration
 	notice "writing system configuration"
@@ -60,29 +81,44 @@ bootstrap_complete_base() {
 	conf_print_resolvconf  | sudo tee $strapdir/etc/resolv.conf          >/dev/null
 	conf_print_sourceslist | sudo tee $strapdir/etc/apt/sources.list     >/dev/null
 	#conf_print_locales     | sudo tee $strapdir/etc/profile.d/locales.sh >/dev/null
+
+	## write third-stage for chroot
+	bootstrap_config_thirdstage | sudo tee $strapdir/thirdstage >/dev/null
+
+	## chroot into it and configure further
+	## debootstrap stage 3
+	notice "running debootstrap stage 3"
+
+
+	chroot-script -d thirdstage || zerr
+
+	[[ $APT_CACHE = 1 ]] && {
+		notice "adding apt cache gpg pubkey"
+		cat <<EOF | sudo tee ${strapdir}/addcachepubkey >/dev/null
+#!/bin/sh
+gpgkey="$(gpg --export -a $aptcachegpg)"
+printf "%s" "\$gpgkey" | apt-key add -
+EOF
+		chroot-script addcachepubkey || zerr
+	}
+
+	if [[ -n "$TAR_STAGE4" ]]; then
+		bootstrap_tar_pack   "$bootstrap_tgz_stage3"             || zerr
+		bootstrap_tar_unpack "$bootstrap_tgz_stage4" "$strapdir" || zerr
+	else
+		bootstrap_tar_pack   "$bootstrap_tgz_stage3"             || zerr
+		bootstrap_tar_unpack "$bootstrap_tgz_stage3" "$strapdir" || zerr
+	fi
 }
 
-bootstrap_thirdstage() {
-	fn bootstrap_thirdstage
-	req=(R os strapdir arch release core_packages base_packages extra_packages)
+bootstrap_config_thirdstage() {
+	fn bootstrap_config_thirdstage
+	req=(core_packages base_packages)
 	ckreq || return 1
-	
-	#~ find $R/extra/gnupg-keys -type f -name "*.asc" -exec cp {} $strapdir/home \;
-	
-	#This is a dirty temporary solution until my next amprolla compiling of packages.gnuinos.org
-	#~ custom_deb_packages=$R/extra/missing-pkgs/$release	
-	#~ install-custdebs || { zerr; wrapup }
-	#~ custom_deb_packages=$blendlib/custom-pkgs/$release
 
-	cat << EOF | sudo tee $strapdir/thirdstage >/dev/null
+	cat << EOF
 #!/bin/sh
-
-# apt-key add /home/*.asc
 apt-get update
-rm -f /tmp/*.deb
-rm -f /home/*.deb
-# rm -f /home/*.asc
-
 debconf-set-selections /debconf.set
 
 echo "${rootcredentials}" | chpasswd
@@ -91,37 +127,11 @@ sed -i -e 's/KERNEL\!=\"eth\*|/KERNEL\!=\"/' \
 rm -f /etc/udev/rules.d/70-persistent-net.rules
 export DEBIAN_FRONTEND=noninteractive
 
-# Option 1
-#~ # -----------
-#~ for _PACKAGE in ${core_packages}
-#~ do
-	#~ apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
-#~ done
-
-#~ # -----------
-#~ for _PACKAGE in ${base_packages}
-#~ do
-	#~ apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
-#~ done
-
-#~ # -----------
-#~ for _PACKAGE in ${extra_packages}
-#~ do
-	#~ apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
-#~ done
-
-#~ # -----------
-#~ for _PACKAGE in ${purge_packages}
-#~ do
-	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
-#~ done
-
-# Option 2
-apt-get --yes --force-yes --fix-missing install ${core_packages}
-apt-get --yes --force-yes --fix-missing install ${base_packages}
-apt-get --yes --force-yes --fix-missing install ${extra_packages}
-# [[ ${#purge_packages[*]} != 0 ]] && apt-get --yes --force-yes purge ${purge_packages}
+apt-get --yes --force-yes install ${core_packages_option} ${core_packages}
+apt-get --yes --force-yes install ${base_packages_option} ${base_packages}
+apt-get --yes --force-yes purge  ${purge_packages_option} ${purge_packages}
 apt-get --yes --force-yes autoremove
+
 apt-get clean
 
 sed -e 's/# en_US.UTF-8/en_US.UTF-8/' -i /etc/locale.gen
@@ -132,20 +142,91 @@ rm -f /etc/ssh/ssh_host_*
 rm -f /root/.bash_history
 #echo "1" > .keep
 EOF
-	
-	chroot-script -d thirdstage    || { zerr; wrapup }
 }
 
-bootstrap_backup() {
-	fn bootstrap_thirdstage
-	req=(R os strapdir arch release squashfs_backups)
+bootstrap_tar_pack() {
+	fn bootstrap_tar_pack
+	req=(bootstrap_tgz)
+	bootstrap_tgz="$1"
 	ckreq || return 1
+
+	local _dest="$(dirname $bootstrap_tgz)"
+
+	if [[ -f "$bootstrap_tgz" ]]; then
+		notice "tarball found already in $_dest"
+	else
+		notice "Creating boostrap tarball in $bootstrap_tgz"
+		silly
+
+		pushd ${strapdir}
+		mkdir -p ${_dest}
+		silly
+		sudo tar czfp $bootstrap_tgz \
+			--exclude={./boot,./dev,./sys,./proc} .
+		popd
+	fi
 }
 
-bootstrap_restore() {
-	fn bootstrap_thirdstage
-	req=(R os strapdir arch release squashfs_backups)
+bootstrap_tar_unpack() {
+	fn bootstrap_tar_unpack $@
+	local bootstrap_tgz="$1"
+	req=(strapdir bootstrap_tgz)
 	ckreq || return 1
+
+	[[ -n "$TAR_STAGE4" ]] && {
+		[[ -f "$bootstrap_tgz" ]] || bootstrap_tgz="$bootstrap_tgz_stage3"
+	}
+	sudo rm -rf "${strapdir}"/*
+	silly
+	sudo tar xfp $bootstrap_tgz -C ${strapdir}
+	sudo mkdir -p ${strapdir}/{boot,dev,sys,proc}
+
+	conf_print_sourceslist | sudo tee $strapdir/etc/apt/sources.list >/dev/null
+
+	cat <<EOF | sudo tee ${strapdir}/postunpack >/dev/null
+#!/bin/sh
+apt-get update
+
+## check if all our extra_packages exist
+allpkgs="\$(apt-cache search '.' | cut -d' ' -f1)"
+for i in ${extra_packages} ; do
+	printf "%s" "\$allpkgs" | grep -q "^\$i$" || {
+		case "\$i" in
+			--*) continue ;;
+			*)   missing="\$missing \$i" ;;
+		esac
+	}
+done
+
+[ -n "\$missing" ] && {
+	printf "\033[1;31m[!!] some extra packages don't exist\033[0m\n"
+	printf "%s\n" "\$missing"
+	exit 1
 }
-	
-	
+
+apt-get --yes --force-yes upgrade
+apt-get --yes --force-yes install ${extra_packages_option} ${extra_packages}
+apt-get --yes --force-yes autoremove
+
+apt-get clean
+EOF
+
+	chroot-script -d postunpack || zerr
+
+	for i in $inittab; do
+		grep -q "^$i" $strapdir/etc/inittab && continue
+		print "$i" | sudo tee -a $strapdir/etc/inittab >/dev/null
+	done || true
+
+	for i in $custmodules; do
+		grep -q "^$i" $strapdir/etc/modules && continue
+		print "$i" | sudo tee -a $strapdir/etc/modules >/dev/null
+	done || true
+
+	[[ -n "$TAR_STAGE4" ]] && bootstrap_tar_pack "$bootstrap_tgz_stage4" || true
+}
+
+blend_bootstrap_setup() {
+	fn blend_bootstrap_setup "noop"
+	return 0
+}
