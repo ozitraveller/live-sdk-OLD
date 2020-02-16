@@ -135,6 +135,7 @@ extra_packages+=(
 	lsb-release
 	apt-transport-https
 	bash-completion
+	haveged	
 
 )
 

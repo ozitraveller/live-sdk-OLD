@@ -212,6 +212,7 @@ extra_packages+=(
 	mpv
 	xarchiver
 	libnotify-bin
+	haveged
 
 )
 

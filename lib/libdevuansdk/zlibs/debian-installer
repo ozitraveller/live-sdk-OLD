@@ -162,7 +162,7 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 		libpng12-0
 		dmsetup
 		firmware-linux-nonfree
-		haveged
+
 	)		
 
 	for line in $di_pkgs; do

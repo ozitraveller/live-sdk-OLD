@@ -229,6 +229,7 @@ extra_packages+=(
 	gtk3-engines-xfce
 	mirage
 	# libexo-1-0
+	haveged	
 
 )
 
