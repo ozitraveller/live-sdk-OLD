@@ -86,7 +86,8 @@ base_packages+=(
 	fakeroot
 	gawk
 	hwinfo
-	loadlin
+# 	loadlin
+	win32-loader
 
 )
 
@@ -171,7 +172,8 @@ extra_packages+=(
 	dmz-cursor-theme
 	gtk2-engines-murrine 
 	gtk2-engines-pixbuf
-#	bum 
+	# bum
+	# lxtask
 	hdparm 
 	disk-manager 
 	ufw 
@@ -311,7 +313,8 @@ purge_packages_final+=(
 	krb5-locales
 	laptop-detect
 	less
-	loadlin
+#	loadlin
+	win32-loader
 	lxde-settings-daemon
 	lynx
 	lynx-common

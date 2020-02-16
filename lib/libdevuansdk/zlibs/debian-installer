@@ -30,42 +30,6 @@ live-installer" > "$workdir"/binary/.disk/udeb_include
 	echo "main" > "$workdir"/binary/.disk/base_components
 }
 
-#~ di_debmirror () {
-
-	#~ fn di_debmirror
-	#~ req=(workdir arch release linux_path url_pkg root)
-	#~ ckreq || return 1
-	
-	#~ rm -rf $workdir/repo-$release
-	
-#~ echo "di_debmirror ****"
-#~ echo " "
-#~ echo "linux_path: "$linux_path
-#~ echo "${linux_path%/*}:"${linux_path%/*}
-#~ echo "url_pkg: "$url_pkg
-#~ echo "url: "$url
-#~ echo "dist: "$release
-#~ echo "arch: "$arch
-#~ echo " "
-#~ echo "di_debmirror ****"	
-
-	#~ debmirror -h $url \
-		#~ --dist=$release \
-		#~ --root=$root \
-		#~ --arch=$arch \
-		#~ --section=main/debian-installer \
-		#~ --nosource \
-		#~ --progress \
-		#~ --ignore-release-gpg \
-		#~ --method http \
-		#~ --diff=none \
-		#~ $workdir/repo-$release
-	
-	#~ ## Dirty, but needed on beowulf
-	#~ mv $workdir/repo-$release/$linux_path $workdir/repo_tmp
-	#~ mv $workdir/repo_tmp $workdir/repo-$release/${linux_path%/*}/linux		
-#~ }
-
 di_debmirror () {
 
 	fn blend_debmirror
@@ -198,7 +162,7 @@ UDebIndices: Packages Release . .gz " > $workdir/binary/conf/distributions
 		libpng12-0
 		dmsetup
 		firmware-linux-nonfree
-		
+		haveged
 	)		
 
 	for line in $di_pkgs; do

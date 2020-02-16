@@ -104,8 +104,9 @@ getfield() {
 		sed -e 's:^"\(.*\)"$:\1:g'
 }
 
+# 	fn add-user $* | sudo tee $strapdir/thirdstage >/dev/null
 add-user() {
-	fn add-user $* | sudo tee $strapdir/thirdstage >/dev/null
+	fn add-user $*
 	local user="$1"
 	local pass="$2"
 	req=(strapdir user pass)
@@ -135,10 +136,15 @@ devprocsys() {
 		sudo mount -o bind /dev/pts $werdo/dev/pts && act "mounted devpts" && \
 		return 0
 	elif [[ $watdo = umount ]]; then
-		sudo umount -l $werdo/dev/pts  && act "umounted devpts" && sleep 1
-		sudo umount -l $werdo/dev      && act "umounted dev"    && sleep 1
-		sudo umount -l $werdo/proc     && act "umounted proc"   && sleep 1
-		sudo umount -l $werdo/sys      && act "umounted sys"    && sleep 1
+		sudo umount $werdo/dev/pts  && act "umounted devpts" && sleep 1
+		sudo umount $werdo/dev      && act "umounted dev"    && sleep 1
+		sudo umount $werdo/proc     && act "umounted proc"   && sleep 1
+		sudo umount $werdo/sys      && act "umounted sys"    && sleep 1
+		
+		# sudo umount -l $werdo/dev/pts  && act "umounted devpts" && sleep 1
+		# sudo umount -l $werdo/dev      && act "umounted dev"    && sleep 1
+		# sudo umount -l $werdo/proc     && act "umounted proc"   && sleep 1
+		# sudo umount -l $werdo/sys      && act "umounted sys"    && sleep 1
 		return 0
 	fi
 	return 1
@@ -149,7 +155,8 @@ wrapup() {
 	fn wrapup
 	req=(strapdir)
 	ckreq || {
-		die "something is very wrong" | sudo tee $strapdir/thirdstage >/dev/null
+		# die "something is very wrong" | sudo tee $strapdir/thirdstage >/dev/null
+		die "something is very wrong"
 		die "cleanup yourself, sorry"
 		exit 1
 	}
@@ -205,7 +212,9 @@ qemu_install_user() {
 			sudo cp -a "$arm64_qemu_bin" "$strapdir/usr/bin"
 			;;
 	esac
-} | sudo tee $strapdir/thirdstage >/dev/null
+} 
+
+# | sudo tee $strapdir/thirdstage >/dev/null
 
 dpkgdivert() {
 	fn dpkgdivert "$@"
@@ -213,6 +222,8 @@ dpkgdivert() {
 	local watdo="$1"
 	local werdo="$2"
 	ckreq || return 1
+
+	notice "dpkgdivert: watdo-$watdo werdo-$werdo"
 
 	if [[ $watdo = on ]]; then
 		cat <<EOF | sudo tee ${werdo}/dpkgdivert >/dev/null
@@ -232,8 +243,11 @@ rm -f /usr/sbin/invoke-rc.d
 dpkg-divert --remove --rename /usr/sbin/invoke-rc.d
 EOF
 	fi
-	
-	chroot-script dpkgdivert  || { zerr; wrapup }
+
+cat ${werdo}/dpkgdivert
+
+	# chroot-script dpkgdivert  || { zerr; wrapup }
+	chroot-script dpkgdivert || zerr
 }
 
 enableserv() {
@@ -260,28 +274,28 @@ disableserv() {
 	cat <<EOF | sudo tee -a ${strapdir}/disserv >/dev/null
 #!/bin/sh
 update-rc.d ${service} disable
-EOF | sudo tee $strapdir/thirdstage >/dev/null
-
-	notice "disabling $service service"
-	chroot-script disserv  || { zerr; wrapup }
-}
-
-prepare_strap() {
-	fn prepare_strap
-	req=(strapdir)
-	ckreq || return 1
-
-	notice "preparing strapdir for livecd"
-
-	cat <<EOF | sudo tee ${strapdir}/isoprep >/dev/null
-#!/bin/sh
-apt-get update
-apt-get --yes --force-yes install dialog live-boot live-boot-initramfs-tools live-tools live-config live-config-sysvinit
-##apt-get --yes --force-yes autoremove
 EOF
 
-	chroot-script -d isoprep  || { zerr; wrapup }
+	notice "disabling $service service"
+	chroot-script disserv  # || { zerr; wrapup }
 }
+
+#~ prepare_strap() {
+	#~ fn prepare_strap
+	#~ req=(strapdir)
+	#~ ckreq || return 1
+
+	#~ notice "preparing strapdir for livecd"
+
+	#~ cat <<EOF | sudo tee ${strapdir}/isoprep >/dev/null
+#~ #!/bin/sh
+#~ apt-get update
+#~ apt-get --yes --force-yes install dialog live-boot live-boot-initramfs-tools live-tools live-config live-config-sysvinit
+#~ ##apt-get --yes --force-yes autoremove
+#~ EOF
+
+	#~ chroot-script -d isoprep  || { zerr; wrapup }
+#~ }
 
 install-custdebs() {
 	fn install-custdebs
@@ -311,6 +325,8 @@ chroot-script() {
 
 	mkdir -p "$R/log"
 
+#notice "chroot-script(x$1): $strapdir/$script"
+
 	case "x$1" in
 		x-d)
 			local script="$2"
@@ -322,8 +338,8 @@ chroot-script() {
 			sudo sed -i "$strapdir/$script" \
 				-e 's@#!/bin/sh@#!/bin/sh\'$'\nset -x ; exec 2>/'$script'.log ; export DEBIAN_FRONTEND=noninteractive@'
 
-			notice "chrooting to execute $script..."
-			sudo chmod +x  "$strapdir/$script"    || zerr
+			# notice "(x-d) chrooting to execute $script...$strapdir/$script"
+			sudo chmod +x  "$strapdir/$script" || zerr
 			sudo chroot "$strapdir" "/$script" || zerr
 			sudo mv -f "$strapdir/${script}.log" "$R/log/"
 
@@ -331,7 +347,7 @@ chroot-script() {
 			dpkgdivert off "$strapdir"    || zerr
 			devprocsys umount "$strapdir" || zerr
 			;;
-		*)
+		*)	
 			local script="$1"
 			[[ "$APT_CACHE" = 1 ]] && { aptcache on "$strapdir/mnt"  || zerr }
 
@@ -339,8 +355,8 @@ chroot-script() {
 			sudo sed -i "$strapdir/$script" \
 				-e 's@#!/bin/sh@#!/bin/sh\'$'\nset -x ; exec 2>/'$script'.log@'
 
-			notice "chrooting to execute $script..."
-			sudo chmod +x  "$strapdir/$script"    || zerr
+			# notice "(*) chrooting to execute $script...$strapdir/$script"
+			sudo chmod +x  "$strapdir/$script" || zerr
 			sudo chroot "$strapdir" "/$script" || zerr
 			sudo mv -f "$strapdir/${script}.log" "$R/log/"
 
@@ -349,6 +365,7 @@ chroot-script() {
 	esac
 
 	sudo rm -f $strapdir/$script
+	
 }
 
 install_fake_package() {
@@ -385,7 +402,8 @@ equivs-build ${pkgname}_${pkgver}.control \
 cd /tmp
 rm -rf ${pkgname}
 EOF
-	chroot-script install-fake-package  || { zerr; wrapup }
+	# chroot-script install-fake-package  || { zerr; wrapup }
+	chroot-script install-fake-package || zerr
 }
 
 blend_preinst() {
@@ -412,16 +430,16 @@ blend_post_efi() {
 	return 0
 }
 
-syslinux() {
-	fn blend_syslinux
-	req=(strapdir pkgname pkgver section)
-	local pkgname="$1"
-	local pkgver="$2"
-	local section="$3"
-	ckreq || return 1	
+#~ syslinux() {
+	#~ fn blend_syslinux
+	#~ req=(strapdir pkgname pkgver section)
+	#~ local pkgname="$1"
+	#~ local pkgver="$2"
+	#~ local section="$3"
+	#~ ckreq || return 1	
 	
 	
-}
+#~ }
 
 silly() {
 	fn silly "$@"

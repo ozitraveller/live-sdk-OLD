@@ -25,6 +25,7 @@ blend_postinst() {
 	notice "executing $blend postinst"
 	
 	pushd "$strapdir"
+		mkdir ./hooks
 		# sudo rsync -avx --no-o --no-g $R/extra/common/rootfs-overlay/* . || zerr
 		sudo rsync -avx --no-o --no-g "$BLENDPATH"/rootfs-overlay/* . || zerr
 	popd
@@ -283,10 +284,41 @@ EOF
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/issue
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/issue.net
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/motd
-	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/usr/lib/os-release
-
-	rm -f $strapdir/etc/os-release
+	#sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/usr/lib/os-release
+	
 	ln -sf $strapdir/usr/lib/os-release $strapdir/etc/os-release
+}
+
+blend_installer_updateXX () {
+	fn blend_installer_update
+	req=(workdir release strapdir)
+	ckreq || return 1
+notice "Running blend_installer_update"
+
+	# the preseed.cfg file:
+	notice "copying isolinux overlay - preseed.cfg"
+	if [ -f ${workdir}/binary/install/*.cfg ]; then
+		rm -f ${workdir}/binary/install/*.cfg
+	fi
+
+	notice "move binary - sudo mv ${workdir}/binary ${strapdir}"
+	mv ${workdir}/binary ${strapdir}
+	mv ${strapdir}/includes.installer ${strapdir}/binary
+
+	cp -rfav $R/blends/$blendname/extra/installer-files/preseed.cfg ${strapdir}/binary/install/
+	cp -rfav ${strapdir}/binary/install/cdrom/initrd.gz ${strapdir}/binary/install/
+
+	mv ${strapdir}/binary ${workdir}
+
+	rm -rf ${workdir}/binary/includes.installer
+	rm -rf ${workdir}/binary/unpacked-initrd
+	rm -rf ${workdir}/binary/install/cdrom
+	
+	rm -rf ${workdir}/binary/install/gtk
+	rm -f ${workdir}/binary/install/vmlinuz
+	rm -f ${workdir}/binary/live/initrd.img
+	# mv ${workdir}/binary/live/vmlinuz ${workdir}/binary/install
+
 }
 
 blend_write_isolinux_cfg() {
@@ -321,5 +353,119 @@ blend_post_efi() {
 
 notice "executing $blend post_efi"	
 
+}
+
+# create /boot and /efi for uefi.
+# uefi code borrowed and adapted from David Hare, who borrowed and adapted it 
+# from similar scripts by Colin Watson and Patrick J. Volkerding.
+iso_make_efiX() {
+	fn iso_make_efiX
+	req=(workdir efi_work blend blendname)
+	ckreq || return 1
+	set -x
+	notice "creating efi boot files"
+	
+#	uefi_opt="-eltorito-alt-boot -e boot/grub/efiboot.img -isohybrid-gpt-basdat -no-emul-boot"
+	
+	tempdir="$(mktemp -d /tmp/work_temp.XXXX)"
+
+	# for initial grub.cfg
+	mkdir -p "$tempdir"/boot/grub
+
+
+	cat >"$tempdir"/boot/grub/grub.cfg <<EOF
+search --file --set=root /isolinux/isolinux.cfg
+set prefix=(\$root)/boot/grub
+source \$prefix/x86_64-efi/grub.cfg
+EOF
+
+
+	if ! [ -d "$efi_work" ] ; then
+		mkdir "$efi_work"
+	fi
+
+	pushd "$efi_work"
+
+	# start with empty directories.
+
+	if [ -d "boot" ] ; then
+		rm -rf boot
+	fi
+	
+	if [ -d "efi" ] ; then
+		rm -rf efi
+	fi
+
+	mkdir -p boot/grub/x86_64-efi
+	mkdir -p efi/boot
+
+	# copy splash
+	cp ${isolinux_overlay}splash.png boot/grub/splash.png
+	
+	# second grub.cfg file
+	for i in $(ls /usr/lib/grub/x86_64-efi|grep part_|grep \.mod|sed 's/.mod//'); do echo "insmod $i" >> boot/grub/x86_64-efi/grub.cfg; done
+	# Additional modules so we don't boot in blind mode. I don't know which ones are really needed.
+	for i in efi_gop efi_uga ieee1275_fb vbe vga video_bochs video_cirrus jpeg png gfxterm ; do echo "insmod $i" >> boot/grub/x86_64-efi/grub.cfg ; done
+
+	echo "source /boot/grub/grub.cfg" >> boot/grub/x86_64-efi/grub.cfg
+	
+	pushd "$tempdir"
+	
+		# make a tarred "memdisk" to embed in the grub image
+		tar -cvf memdisk boot
+		
+		# make the grub image
+		grub-mkimage -O "x86_64-efi" -m "memdisk" -o "bootx64.efi" -p '(memdisk)/boot/grub' search iso9660 configfile normal memdisk tar cat part_msdos part_gpt fat ext2 ntfs ntfscomp hfsplus chain boot linux
+		
+	popd
+	
+	# copy the grub image to efi/boot (to go later in the device's root)
+	cp "$tempdir"/bootx64.efi efi/boot
+	
+	#######################
+	
+	## Do the boot image "boot/grub/efiboot.img"
+	
+	dd if=/dev/zero of=boot/grub/efiboot.img bs=1K count=1440
+	/sbin/mkdosfs -F 12 boot/grub/efiboot.img
+	
+	sudo mkdir img-mnt
+	
+	sudo mount -o loop boot/grub/efiboot.img img-mnt
+	
+	sudo mkdir -p img-mnt/efi/boot
+	
+	sudo cp "$tempdir"/bootx64.efi img-mnt/efi/boot/
+	
+	#######################
+	
+	# copy modules and font
+	cp /usr/lib/grub/x86_64-efi/* boot/grub/x86_64-efi/
+	
+	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
+	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
+	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
+#	cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
+	
+	# doesn't need to be root-owned
+#	sudo chown -R 1000:1000 $(pwd) 2>/dev/null
+	
+	# Cleanup efi temps
+	sudo umount img-mnt
+	sudo rmdir img-mnt
+	rm -rf "$tempdir"
+
+	popd
+
+
+	# Copy efi files to iso
+	pushd $workdir
+	sudo rsync -avx "$efi_work"/boot binary/
+	sudo rsync -avx "$efi_work"/efi  binary/
+	popd
+	
+	# Do the main grub.cfg (which gets loaded last):
+	cp -rfav /$R/extra/common/binary-overlay/boot/grub ${workdir}/binary/boot/
+	
 }
 

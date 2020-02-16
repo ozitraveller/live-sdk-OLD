@@ -23,7 +23,7 @@
 			<Program label="Restart" confirm="false">/usr/bin/jwm -restart</Program>
 			<Program label="Reload menu" confirm="false">/usr/bin/jwm -reload</Program>
 		  </Menu>
-		  <Program label="Restart tint2" confirm="false">/usr/local/bin/apprestart "tint2"</Program>
+		  <Program label="Restart conky" confirm="false">/usr/local/bin/apprestart "conky"</Program>
           <Program label="Display Settings" confirm="false">/usr/bin/arandr</Program>
           <Program label="Appearance" confirm="false">/usr/bin/lxappearance</Program>
       </Menu>

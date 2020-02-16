@@ -19,7 +19,7 @@
 			<Program label="Restart" confirm="false">/usr/bin/jwm -restart</Program>
 			<Program label="Reload menu" confirm="false">/usr/bin/jwm -reload</Program>
 		  </Menu>
-		  <Program label="Restart tint2" confirm="false">/usr/local/bin/apprestart "tint2"</Program>
+		  <Program label="Restart conky" confirm="false">/usr/local/bin/apprestart "conky"</Program>
           <Program label="Display Settings" confirm="false">/usr/bin/arandr</Program>
           <Program label="Appearance" confirm="false">/usr/bin/lxappearance</Program>
       </Menu>
@@ -36,7 +36,7 @@
 		  <Program label="Xterm">/usr/bin/xterm</Program>
       </Menu>
       <Menu icon="folder.png" label="Graphics">
-          <Program label="Mirage" confirm="false">/usr/bin/mirage</Program>
+        <!--  <Program label="Mirage" confirm="false">/usr/bin/mirage</Program> -->
 		  <Menu icon="folder.png" label="Take Screenshot">
 			  <Program label="Now" confirm="false">scrot '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'</Program>
 			  <Program label="In 5 Seconds..." confirm="false">scrot -d 5 '%Y-%m-%d--%s_$wx$h_scrot.png' -e 'mv $f ~/images/ &amp; mirage ~/images/$f'</Program>
@@ -49,18 +49,18 @@
       </Menu>
       <Menu icon="folder.png" label="Multimedia">
           <Program label="Mpv" confirm="false">x-media-player</Program>
-		  <Program label="Audio Mixer" confirm="false">x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer</Program>
+<!--		  <Program label="Audio Mixer" confirm="false">x-terminal-emulator -t 'Audio Mixer' -e /usr/bin/alsamixer</Program> -->
       </Menu>
-      <Menu icon="folder.png" label="Office">
+<!--      <Menu icon="folder.png" label="Office">
           <Program label="Pdf Viewer" confirm="false">/usr/bin/xpdf</Program>
-      </Menu>
+      </Menu> -->
       <Menu icon="folder.png" label="System">
 		  <Program label="Mount removable media" confirm="false">/usr/local/bin/usbpmount.sh</Program>
 		  <Program label="Unmount removable media" confirm="false">/usr/local/bin/usb-unmount.sh</Program>			  
 		  <Program label="Alternatives Configurator" confirm="false">su-to-root -X -c /usr/bin/galternatives</Program>
-		  <Program label="Htop Task Manager" confirm="false">x-terminal-emulator -t 'htop task manager' -e htop</Program>
+<!--		  <Program label="Htop Task Manager" confirm="false">x-terminal-emulator -t 'htop task manager' -e htop</Program> -->
           <Program label="Disk Manager" confirm="false">su-to-root -X -c /usr/sbin/disk-manager</Program>
-          <Program label="Gdebi Package Installer" confirm="false">su-to-root -X -c /usr/bin/gdebi-gtk</Program>
+<!--          <Program label="Gdebi Package Installer" confirm="false">su-to-root -X -c /usr/bin/gdebi-gtk</Program> -->
           <Program label="Gparted" confirm="false">su-to-root -X -c /usr/sbin/gparted</Program>
           <Program label="Root Terminal" confirm="false">su-to-root -X -c x-terminal-emulator</Program>
           <Program label="Root File Manager" confirm="false">su-to-root -X -c x-file-manager</Program>

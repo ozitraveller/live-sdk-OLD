@@ -19,13 +19,12 @@ blend_preinst() {
 
 blend_postinst() {
 	fn blend_postinst
-	req=(strapdir blend)
+	req=(strapdir)
 	ckreq || return 1
 
 	notice "executing $blendname postinst $BLENDPATH"
 	
 	pushd "$strapdir"
-		mkdir ./hooks
 		sudo rsync -avx --no-o --no-g "$BLENDPATH"/rootfs-overlay/* . || zerr
 	popd
 	
@@ -37,8 +36,9 @@ blend_postinst() {
 
 blend_finalize() {
 	fn blend_finalize
-	req=(R strapdir blend os)
+	req=(strapdir)
 	ckreq || return 1
+	
 notice "Running blend_finalize"
 
 # remove fstab for iso. Probably, this should be in iso_prepare_strap
@@ -55,17 +55,12 @@ fe02::1          ip6-allrouters" > $strapdir/etc/hosts
 	cat <<EOF | sudo tee ${strapdir}/finalize >/dev/null
 #!/bin/sh
 
-# export DEBIAN_FRONTEND=noninteractive
-
 yes | find /home/ -type f -name "*.deb" -exec dpkg --force-depends -i {} \+
 yes | apt-get -f install
 
-# chmod -R 755 /usr/bin/lock-screen
-# chmod -R 755 /usr/bin/compositor
 chmod +x /usr/local/bin/usbpmount.sh
 chmod +x /usr/local/bin/usb-unmount.sh
 chmod +x /usr/bin/preseed-hack
-# rm -f /usr/bin/preseed-hack
 rm -f /etc/apt/sources.list~
 rm -f /etc/apt/trusted.gpg~
 rm -f /home/*.deb
@@ -78,12 +73,6 @@ rm -f vmlinuz.old
 rm -f initrd.img.old
 rm -f /etc/ssh/ssh_host_*
 rm -f /etc/fstab
-# chmod +x /etc/init.d/live-sessions
-# update-rc.d live-sessions defaults
-# chmod +x /usr/bin/preseed-hack
-
-
-# export DEBIAN_FRONTEND=noninteractive
 
 # ----------- extra_packages
 for _PACKAGE in ${extra_packages}
@@ -91,9 +80,6 @@ do
 	# echo "\${_PACKAGE}"
 	apt-get --yes --force-yes --fix-missing install "\${_PACKAGE}"
 done
-
-# apt-get --yes --force-yes --fix-missing install ${extra_packages}
-# apt-get --yes --force-yes autoremove
 
 apt-get clean
 rm -f /var/lib/apt/lists/*_dists_*
@@ -115,25 +101,11 @@ notice "executing $blend prebuild"
 	blend_cleanup 				|| zerr
 	blend_write_isolinux_cfg	|| zerr
 
-	#~ cat <<EOF | sudo tee ${strapdir}/list_installed-packages >/dev/null
-#~ #!/bin/sh
-
-#~ dpkg-query -W -f '\${binary:Package}\n' > ./installed-packages.txt
-
-#~ EOF
-
-	#~ chroot-script -d list_installed-packages || zerr
-	#~ mv -f $strapdir/list_installed-packages $R/log/
-
 	if ls $strapdir/*.txt > /dev/null 2>&1
 	then
 		notice "moving log file to log folder"
 		mv -f $strapdir/*.txt $R/log/
 	fi
-	
-	rm -f $strapdir/etc/os-release
-	
-	ln $strapdir/usr/lib/os-release $strapdir/etc/os-release
 
 }
 
@@ -141,25 +113,18 @@ blend_exec_hooks() {
 	fn blend_exec_hooks
 	req=(strapdir blend os arch release extra_packages)
 	ckreq || return 1
-notice "Running blend_exec_hooks"
+
+notice "Running blend_exec_hooks: '${strapdir}'"
 
 notice "Copying system hooks"
-	# /usr/share/live/build/hooks/normal/
-	# ls -al $R/extra/hooks/normal
 	cp -rf $R/extra/hooks/normal/* ${strapdir}/hooks
-	# ls -al ${strapdir}/hooks
+
+	ls -al ${strapdir}/hooks
 
 	cat <<EOF | sudo tee ${strapdir}/exec_hooks >/dev/null
 #!/bin/sh
 
-# link /usr/share/live/build/hooks/live
-# link /usr/share/live/build/hooks/normal
-
-#~ echo "strapdir : \${strapdir}/hooks"
-## Processing distribution hooks
-
 cd /hooks
-#~ ls -al
 
 ## Processing local hooks
 if ls ./*.chroot > /dev/null 2>&1
@@ -181,29 +146,6 @@ then
 	done
 fi
 
-#~ if ls ./*.binary > /dev/null 2>&1
-#~ then
-	#~ for HOOK in ./*.binary
-	#~ do
-		#~ if [ ! -e ./"\${HOOK}" ]
-		#~ then
-			#~ continue
-		#~ fi
-
-		#~ if [ ! -x ./"\${HOOK}" ]
-		#~ then
-			#~ echo "chmod  hook : \${HOOK}"
-			#~ chmod +x ./"\${HOOK}"
-		#~ fi
-
-		#~ # Executing hook
-		#~ cd ../..
-		#~ eval bootstrap/hooks/"\${HOOK}" # || { Echo_error "\${HOOK} failed (exit non-zero). You should check for errors."; exit 1 ;}
-		#~ cd "${OLDPWD}"
-		#~ rm -f ./"\${HOOK}"
-	#~ done
-#~ fi
-
 EOF
 
 	chroot-script -d exec_hooks || zerr
@@ -213,57 +155,17 @@ blend_cleanup() {
 	fn blend_cleanup
 	req=(strapdir blend blendname os version arch release purge_packages_final )
 	ckreq || return 1
+
 notice "Running blend_cleanup"
 
 	cat <<EOF | sudo tee ${strapdir}/scrubclean >/dev/null
 #!/bin/sh
 
-#r m -f exec_hooks
+# rm -f exec_hooks
 # rm -f exec_hooks.log
 rm -rf /hooks
 
-# Option 1
-# ignore comments & blank lines
-#~ grep -Ev '^*#|^$|^lib*' ./to-be-removed-packages.txt > ./remove-packages.txt
-
-#~ while read line; do
-	#~ apt-get --yes --force-yes purge \${line}
-	#~ echo "\${line}" >> ./removed-packages.txt
-#~ done < ./remove-packages.txt
-
-# Option 2
-#~ apt-get --yes --force-yes purge \$(cat ./remove-packages.txt)
-
-# Option 3
 apt-get --yes --force-yes purge ${purge_packages_final}
-
-# Option 4
-#~ for _PACKAGE in ${purge_packages_final}
-#~ do
-	#~ apt-get --yes --force-yes purge "\${_PACKAGE}"
-#~ done
-
-# Option 5
-#~ apt-get --yes --force-yes purge \
-	#~ bluez \
-	#~ ethtool \
-	#~ build-essential \
-	#~ fakeroot \
-	#~ reportbug \
-	#~ cowbuilder \
-	#~ cowdancer \
-	#~ eatmydata \
-	#~ git-core \
-	#~ laptop-detect \
-	#~ p7zip-full \
-	#~ git-buildpackage \
-	#~ quilt \
-	#~ pristine-tar \
-	#~ mlocate \
-	#~ screen \
-	#~ tmux \
-	#~ lynx \
-	#~ loadlin
 
 apt-get --yes --force-yes autoremove
 apt-get clean
@@ -283,92 +185,9 @@ EOF
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/issue.net
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/etc/motd
 	sed -i -e 's/REPLACEME/'"${version}"'/g' $strapdir/usr/lib/os-release
-}
 
-blend_installer_updateXX () {
-	fn blend_installer_updateXX
-	req=(workdir release strapdir)
-	ckreq || return 1
-notice "Running blend_installer_update"
-
-		
-	local TARGET_INITRD
-	local INCLUDE_PATH
-	local INITRD_GI
-	TARGET_INITRD="install/gtk/initrd.gz"
-	INCLUDE_PATH="d-i"
-	REPACK_TMPDIR="unpacked-initrd"
-	INITRD_GI="gtk/initrd.gz"
-
-cat <<EOF | sudo tee ${strapdir}/Repack_Initrd >/dev/null
-#!/bin/sh
-
-# set -x
-
-cd binary
-
-#~ if [ -d ${INCLUDE_PATH} ]
-#~ then
-	#~ INCLUDE_PATH=$(readlink -f ${INCLUDE_PATH})
-#~ fi
-	
-# cpio does not have an "extract to directory", so we must change directory
-mkdir -p ${REPACK_TMPDIR}
-
-cd ${REPACK_TMPDIR}
-gzip -d < ../${TARGET_INITRD} | cpio -i --make-directories --no-absolute-filenames
-
-# New way, include target directory content in the initrd
-REPACK_TMPDIR_ABS="${REPACK_TMPDIR}"
-
-cd ../"${INCLUDE_PATH}"
-cp -rav ./* ../${REPACK_TMPDIR}
-
-find -print0 | cpio -pumd0 --no-preserve-owner "${REPACK_TMPDIR_ABS}/"
-cd ../${REPACK_TMPDIR}
-
-find -print0 | cpio -H newc -o0 | gzip -9 > ../${TARGET_INITRD}
-	
-EOF
-
-	notice "Installer gtk update - Repack_initrd"
-
-	# the preseed.cfg file:
-	notice "delete default - preseed.cfg"
-	if [ -f ${workdir}/binary/install/*.cfg ]; then
-		rm -f ${workdir}/binary/install/*.cfg
-	fi
-
-	notice "move binary - sudo mv ${workdir}/binary ${strapdir}"
-	mv ${workdir}/binary ${strapdir}
-	mv ${strapdir}/d-i ${strapdir}/binary
-			
-	if [ -d ${strapdir}/binary/d-i ] && [ -n "$(ls -A ${strapdir}/binary/d-i)" ]
-	then
-notice "=------1------="
-		if [ -e ${strapdir}/binary/install/gtk ]
-		then
-notice "=------2------="
-
-			if ls $R/extra/d-i/*.cfg > /dev/null 2>&1
-			then
-				cp -rfav $R/extra/d-i/*.cfg ${strapdir}/binary/install/
-			fi
-			cp -rfav $R/blends/$blendname/d-i/preseed.cfg ${strapdir}/binary/install/
-			cp -rfav ${strapdir}/binary/install/cdrom/initrd.gz ${strapdir}/binary/install/
-
-			notice "Repack_initrd - ${INITRD_GI}" "/d-i"
-			chroot-script Repack_Initrd || zerr
-			
-		fi
-	fi
-
-	mv ${strapdir}/binary ${workdir}
-
-	rm -rf ${workdir}/binary/d-i
-	rm -rf ${workdir}/binary/unpacked-initrd
-	rm -rf ${workdir}/binary/install/cdrom
-
+	rm -f $strapdir/etc/os-release
+	ln -sf $strapdir/usr/lib/os-release $strapdir/etc/os-release
 }
 
 blend_write_isolinux_cfg() {
@@ -403,128 +222,4 @@ blend_post_efi() {
 
 notice "executing $blend post_efi"	
 
-}
-
-# create /boot and /efi for uefi.
-# uefi code borrowed and adapted from David Hare, who borrowed and adapted it 
-# from similar scripts by Colin Watson and Patrick J. Volkerding.
-iso_make_efiX() {
-	fn iso_make_efiX
-	req=(workdir efi_work blend blendname)
-	ckreq || return 1
-	set -x
-	notice "creating efi boot files"
-	
-#	uefi_opt="-eltorito-alt-boot -e boot/grub/efiboot.img -isohybrid-gpt-basdat -no-emul-boot"
-	
-	tempdir="$(mktemp -d /tmp/work_temp.XXXX)"
-
-	# for initial grub.cfg
-	mkdir -p "$tempdir"/boot/grub
-
-
-	cat >"$tempdir"/boot/grub/grub.cfg <<EOF
-search --file --set=root /isolinux/isolinux.cfg
-set prefix=(\$root)/boot/grub
-source \$prefix/x86_64-efi/grub.cfg
-EOF
-
-
-	if ! [ -d "$efi_work" ] ; then
-		mkdir "$efi_work"
-	fi
-
-	pushd "$efi_work"
-
-	# start with empty directories.
-
-	if [ -d "boot" ] ; then
-		rm -rf boot
-	fi
-	
-	if [ -d "efi" ] ; then
-		rm -rf efi
-	fi
-
-	mkdir -p boot/grub/x86_64-efi
-	mkdir -p efi/boot
-
-	# copy splash
-	### ?? cp ${isolinux_overlay}splash.png boot/grub/splash.png
-	
-	# second grub.cfg file
-	for i in $(ls /usr/lib/grub/x86_64-efi|grep part_|grep \.mod|sed 's/.mod//'); do echo "insmod $i" >> boot/grub/x86_64-efi/grub.cfg; done
-	# Additional modules so we don't boot in blind mode. I don't know which ones are really needed.
-	for i in efi_gop efi_uga ieee1275_fb vbe vga video_bochs video_cirrus jpeg png gfxterm ; do echo "insmod $i" >> boot/grub/x86_64-efi/grub.cfg ; done
-
-	echo "source /boot/grub/grub.cfg" >> boot/grub/x86_64-efi/grub.cfg
-	
-	pushd "$tempdir"
-	
-		# make a tarred "memdisk" to embed in the grub image
-		tar -cvf memdisk boot
-		
-		# make the grub image
-		grub-mkimage -O "x86_64-efi" -m "memdisk" -o "bootx64.efi" -p '(memdisk)/boot/grub' search iso9660 configfile normal memdisk tar cat part_msdos part_gpt fat ext2 ntfs ntfscomp hfsplus chain boot linux
-		
-	popd
-	
-	# copy the grub image to efi/boot (to go later in the device's root)
-	cp "$tempdir"/bootx64.efi efi/boot
-	
-	#######################
-	
-	## Do the boot image "boot/grub/efiboot.img"
-	
-	dd if=/dev/zero of=boot/grub/efiboot.img bs=1K count=1440
-	/sbin/mkdosfs -F 12 boot/grub/efiboot.img
-	
-	sudo mkdir img-mnt
-	
-	sudo mount -o loop boot/grub/efiboot.img img-mnt
-	
-	sudo mkdir -p img-mnt/efi/boot
-	
-	sudo cp "$tempdir"/bootx64.efi img-mnt/efi/boot/
-	
-	#######################
-	
-	# copy modules and font
-	cp /usr/lib/grub/x86_64-efi/* boot/grub/x86_64-efi/
-
-	# Delete some modules
-	#~ list=$R/extra/banmods
-	#~ for line in $(cat $list); do
-		#~ rm -f ${workdir}/binary/boot/grub/x86_64-ef/${line}.mod
-	#~ done	
-	
-	while read line; do
-		rm -f ${workdir}/binary/boot/grub/x86_64-efi/${line}.mod
-	done < $R/extra/banmods	
-	
-	# if this doesn't work try another font from the same place (grub's default, unicode.pf2, is much larger)
-	# Either of these will work, and they look the same to me. Unicode seems to work with qemu. -fsr
-	cp /usr/share/grub/ascii.pf2 boot/grub/font.pf2
-	# cp /usr/share/grub/unicode.pf2 boot/grub/font.pf2
-	
-	# doesn't need to be root-owned
-#	sudo chown -R 1000:1000 $(pwd) 2>/dev/null
-	
-	# Cleanup efi temps
-	sudo umount img-mnt
-	sudo rmdir img-mnt
-	rm -rf "$tempdir"
-
-	popd
-
-
-	# Copy efi files to iso
-	pushd $workdir
-	sudo rsync -avx "$efi_work"/boot binary/
-	sudo rsync -avx "$efi_work"/efi  binary/
-	popd
-	
-	# Do the main grub.cfg (which gets loaded last):
-	cp -rfav /$R/blends/$blendname/binary-overlay/boot/grub ${workdir}/binary/boot/
-	
 }
