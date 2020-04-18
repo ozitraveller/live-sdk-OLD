@@ -164,7 +164,7 @@ iso_xorriso_build() {
 	label=${label%%.*}
 	release_label=$release
 	# image_name="${blend_distribution}-${version}-${release_label}_${date_stamp}-${label}_${earch}"
-	image_name="${blend_distribution}-${version}-${release_lname}_${date_stamp}-${label}_${earch}"
+	image_name="${blend_distribution}-${version}-${release_name}_${date_stamp}-${label}_${earch}"
 	echo "image_name: "${image_name}
 
 	[[ -n "$mkefi" ]] && {

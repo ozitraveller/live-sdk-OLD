@@ -65,10 +65,11 @@ load() {
 		root="/merged"	
 		case $choice in
 			1)  os="devuan"
-				url="deb.devuan.org"
+				# url="deb.devuan.org"
+				url="pkgmaster.devuan.org"
 				url_pkg=$url$root
 				url_di=$url_pkg
-				mirror="http://$url_pkg"	
+				mirror="https://$url_pkg"	
 				;;
 			2) 	os="gnuinos"
 				url="packages.gnuinos.org"
